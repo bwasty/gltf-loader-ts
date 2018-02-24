@@ -1,0 +1,35 @@
+{
+    "name": "gltf-loader-ts",
+    "version": "0.0.1",
+    "license": "MIT",
+    "description": "Engine-agnostic glTF 2.0 loader in TypeScript",
+    "author": "",
+    "homepage": "https://github.com/bwasty/gltf-loader-ts",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/bwasty/gltf-loader-ts.git"
+    },
+    "devDependencies": {
+        "ts-loader": "3.5.0",
+        "tslint": "5.9.1",
+        "typedoc": "0.10.0",
+        "webpack": "3.11.0"
+    },
+    "dependencies": {
+        "typescript": "^2.7.2"
+    },
+    "peerDependencies": {},
+    "scripts": {
+        "build": "webpack",
+        "build-watch": "webpack --watch",
+        "build-all": "webpack --config webpack.config.dist.js",
+        "build-lib": "webpack --config webpack.config.lib.js",
+        "check": "tslint --project tsconfig.json --force --format stylish --config tslint.json",
+        "doc": "typedoc --hideGenerator --readme README.md --target ES6 --module commonjs --mode file --out dist/doc/ source/"
+    },
+    "keywords": [
+        "glTF", "gltf",
+        "WebGL", "webgl",
+        "3d"
+    ]
+}
