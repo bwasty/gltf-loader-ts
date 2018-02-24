@@ -10,6 +10,7 @@
         "url": "https://github.com/bwasty/gltf-loader-ts.git"
     },
     "devDependencies": {
+        "gltf-typescript-generator": "0.0.3",
         "ts-loader": "3.5.0",
         "tslint": "5.9.1",
         "typedoc": "0.10.0",
@@ -25,11 +26,14 @@
         "build-all": "webpack --config webpack.config.dist.js",
         "build-lib": "webpack --config webpack.config.lib.js",
         "check": "tslint --project tsconfig.json --force --format stylish --config tslint.json",
-        "doc": "typedoc --hideGenerator --readme README.md --target ES6 --module commonjs --mode file --out dist/doc/ source/"
+        "doc": "typedoc --hideGenerator --readme README.md --target ES6 --module commonjs --mode file --out dist/doc/ source/",
+        "generate-interface": "gltf-typescript-generator source/gltf.d.ts https://raw.githubusercontent.com/KhronosGroup/glTF/master/specification/2.0/schema/glTF.schema.json"
     },
     "keywords": [
-        "glTF", "gltf",
-        "WebGL", "webgl",
+        "glTF",
+        "gltf",
+        "WebGL",
+        "webgl",
         "3d"
     ]
 }
