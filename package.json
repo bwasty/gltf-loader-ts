@@ -23,7 +23,8 @@
         "ts-node": "^5.0.0",
         "tslint": "5.9.1",
         "typedoc": "0.10.0",
-        "webpack": "3.11.0"
+        "webpack": "3.11.0",
+        "xhr2": "^0.1.4"
     },
     "dependencies": {
         "typescript": "^2.7.2"
