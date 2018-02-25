@@ -53,7 +53,7 @@ export class GltfParser {
         //     onLoad( scene, scenes, cameras, animations, asset );
 
         // }).catch(onError);
-        onLoad(json)
+        onLoad(json);
     }
 
     /**

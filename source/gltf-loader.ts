@@ -98,13 +98,13 @@ export class GltfLoader {
 
         parser.parse((scene: any, scenes: any, cameras: any, animations: any, asset: any) => {
             console.timeEnd('GLTFLoader');
-            const glTF = {
-                scene,
-                scenes,
-                cameras,
-                animations,
-                asset,
-            };
+            // const glTF = {
+            //     scene,
+            //     scenes,
+            //     cameras,
+            //     animations,
+            //     asset,
+            // };
 
             // TODO!!!: quick hack
             onLoad(scene);
