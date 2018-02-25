@@ -13,8 +13,8 @@ export class GltfLoader {
     manager: LoadingManager;
     path: string;
     crossOrigin: boolean;
-    constructor(manager: LoadingManager) {
-        this.manager = manager;
+    constructor(manager?: LoadingManager) {
+        this.manager = manager || new LoadingManager();
     }
     load(url: string,
         onLoad: (gltf: GlTf) => void,
@@ -98,15 +98,17 @@ export class GltfLoader {
 
         parser.parse((scene: any, scenes: any, cameras: any, animations: any, asset: any) => {
             console.timeEnd('GLTFLoader');
-            const glTF = {
-                scene,
-                scenes,
-                cameras,
-                animations,
-                asset,
-            };
+            // const glTF = {
+            //     scene,
+            //     scenes,
+            //     cameras,
+            //     animations,
+            //     asset,
+            // };
 
-            onLoad(glTF);
+            // TODO!!!: quick hack
+            onLoad(scene);
+            // onLoad(glTF);
         }, onError);
     }
 }

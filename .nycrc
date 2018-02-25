@@ -1,0 +1,24 @@
+{
+    "check-coverage": false,
+    "include": [
+        "source/**/*.ts"
+    ],
+    "exclude": [
+    ],
+    "extension": [
+        ".ts"
+    ],
+    "require": [
+        "ts-node/register"
+    ],
+    "reporter": [
+        "text",
+        "cobertura",
+        "lcov"
+    ],
+    "report-dir": "dist/test-results",
+    "sourceMap": true,
+    "instrument": true,
+    "cache": true,
+    "all": false
+}
