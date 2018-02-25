@@ -1,7 +1,7 @@
 // Adapted from THREE.LoadingManager
 // https://raw.githubusercontent.com/mrdoob/three.js/master/src/loaders/LoadingManager.js
 
-type OnStartOnProgressCallback = ((url: string, itemsLoaded: number, itemsTotal: number) => void) | undefined;
+export type OnStartOnProgressCallback = ((url: string, itemsLoaded: number, itemsTotal: number) => void) | undefined;
 
 export class LoadingManager {
     private isLoading = false;

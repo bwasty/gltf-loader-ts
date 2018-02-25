@@ -37,21 +37,23 @@ export class GltfParser {
         // Mark the special nodes/meshes in json for efficient parse
         this.markDefs();
 
+        // TODO!!!: load scene/animation/camera functions don't exist...
         // Fire the callback on complete
-        this.getMultiDependencies( [
-            'scene',
-            'animation',
-            'camera',
-        ]).then((dependencies: any) => {
-            const scenes = dependencies.scenes || [];
-            const scene = scenes[ json.scene || 0 ];
-            const animations = dependencies.animations || [];
-            const asset = json.asset;
-            const cameras = dependencies.cameras || [];
+        // this.getMultiDependencies( [
+        //     'scene',
+        //     'animation',
+        //     'camera',
+        // ]).then((dependencies: any) => {
+        //     const scenes = dependencies.scenes || [];
+        //     const scene = scenes[ json.scene || 0 ];
+        //     const animations = dependencies.animations || [];
+        //     const asset = json.asset;
+        //     const cameras = dependencies.cameras || [];
 
-            onLoad( scene, scenes, cameras, animations, asset );
+        //     onLoad( scene, scenes, cameras, animations, asset );
 
-        }).catch(onError);
+        // }).catch(onError);
+        onLoad(json)
     }
 
     /**
@@ -351,7 +353,7 @@ export class GltfParser {
 }
 
 // tslint:disable-next-line:max-classes-per-file
-class GLTFRegistry {
+export class GLTFRegistry {
     objects: { [k: string]: any } = {};
     get(key: any) {
         return this.objects[key];
