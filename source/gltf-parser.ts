@@ -1,4 +1,5 @@
 import { FileLoader } from './fileloader';
+import { GlTf } from './gltf';
 import { EXTENSIONS } from './gltf-loader';
 
 export class GltfParser {
@@ -28,7 +29,7 @@ export class GltfParser {
         this.fileLoader.setResponseType('arraybuffer');
     }
 
-    parse(onLoad: any, onError: any) {
+    async parse(): Promise<GlTf> {
         const json = this.json;
 
         // Clear the loader cache
@@ -53,7 +54,7 @@ export class GltfParser {
         //     onLoad( scene, scenes, cameras, animations, asset );
 
         // }).catch(onError);
-        onLoad(json);
+        return json;
     }
 
     /**
@@ -164,7 +165,7 @@ export class GltfParser {
      */
     loadBuffer(bufferIndex: number): Promise<ArrayBuffer> {
         const bufferDef = this.json.buffers[ bufferIndex ];
-        const loader = this.fileLoader;
+        // const loader = this.fileLoader;
 
         if (bufferDef.type && bufferDef.type !== 'arraybuffer') {
             throw new Error(bufferDef.type + ' buffer type is not supported.');
@@ -175,11 +176,12 @@ export class GltfParser {
             return Promise.resolve(this.extensions[EXTENSIONS.KHR_BINARY_GLTF].body);
         }
 
-        const options = this.options;
+        // const options = this.options;
         return new Promise((resolve, reject) => {
-            loader.load(resolveURL(bufferDef.uri, options.path), resolve, undefined, () => {
-                reject(new Error('Failed to load buffer "' + bufferDef.uri + '".'));
-            });
+            // TODO!!: async...
+            // loader.load(resolveURL(bufferDef.uri, options.path), resolve, undefined, () => {
+            //     reject(new Error('Failed to load buffer "' + bufferDef.uri + '".'));
+            // });
         });
     }
 

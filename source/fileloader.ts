@@ -3,6 +3,9 @@
 
 import { LoadingManager } from './loadingmanager';
 
+type ProgressCallback = (xhr: XMLHttpRequest) => void;
+type XMLHttpRequestResponse = any;
+
 export class FileLoader {
     manager: LoadingManager;
     path: string | undefined;
@@ -13,76 +16,75 @@ export class FileLoader {
     constructor(manager: LoadingManager) {
         this.manager = manager;
     }
-    load(url: string, onLoad: any, onProgress?: any, onError?: any): XMLHttpRequest { // TODO!: any..
+    load(url: string, onProgress?: ProgressCallback): Promise<XMLHttpRequestResponse> {
         if (this.path !== undefined) { url = this.path + url; }
         url = this.manager.resolveURL(url);
-        // TODO? caching
-        // TODO? check if request is duplicate -> multiple reference to same file in gltf?
 
-        // TODO!!: Check for data: URI (-> Safari can not handle Data URIs through XMLHttpRequest so process manually)
+        return new Promise((resolve, reject) => {
+            // TODO? caching
+            // TODO? check if request is duplicate -> multiple reference to same file in gltf?
 
-        // TODO?: Initialise array for duplicate requests
+            // TODO!!: Check for data: URI
+            // (-> Safari can not handle Data URIs through XMLHttpRequest so process manually)
 
-        // NOTE: Not using `fetch` because it doesn't support progress reporting
-        const request = new XMLHttpRequest();
-        request.open('GET', url, true);
+            // TODO?: Initialise array for duplicate requests
 
-        const self = this;
-        request.addEventListener('load', function(event) {
-            const response = this.response;
+            // NOTE: Not using `fetch` because it doesn't support progress reporting
+            const xhr = new XMLHttpRequest();
+            xhr.open('GET', url, true);
+            const self = this;
+            xhr.onload = function(event: ProgressEvent) {
+                const response = this.response;
 
-            if (this.status === 200 && onLoad) {
-                if (onLoad) {
-                    onLoad(response);
+                if (this.status === 200) {
+                    resolve(response);
+                    self.manager.itemEnd(url);
+                } else if (this.status === 0) {
+                    // Some browsers return HTTP Status 0 when using non-http protocol
+                    // e.g. 'file://' or 'data://'. Handle as success.
+                    console.warn('FileLoader: HTTP Status 0 received.');
+                    resolve(response);
+                    self.manager.itemEnd(url);
+                } else {
+                    reject({
+                        status: this.status,
+                        statusText: xhr.statusText,
+                    });
+
+                    self.manager.itemEnd(url);
+                    self.manager.itemError(url);
                 }
-                self.manager.itemEnd(url);
-            } else if (this.status === 0) {
-                // Some browsers return HTTP Status 0 when using non-http protocol
-                // e.g. 'file://' or 'data://'. Handle as success.
-                console.warn('FileLoader: HTTP Status 0 received.');
-                if (onLoad) {
-                    onLoad(response);
-                }
-                self.manager.itemEnd(url);
-            } else {
-                if (onError) {
-                    onError(event);
-                }
+            };
 
+            xhr.onprogress = (xhr: any) => {
+                if (onProgress) {
+                    onProgress(xhr);
+                }
+            };
+
+            xhr.onerror = function(event: ErrorEvent) {
+                reject({
+                    status: this.status,
+                    statusText: xhr.statusText,
+                });
                 self.manager.itemEnd(url);
                 self.manager.itemError(url);
+            };
+
+            if (this.responseType) { xhr.responseType = this.responseType; }
+            if (this.withCredentials) { xhr.withCredentials = this.withCredentials; }
+            if (this.mimeType && xhr.overrideMimeType) {
+                xhr.overrideMimeType(this.mimeType !== undefined ? this.mimeType : 'text/plain');
             }
-        }, false );
 
-        request.addEventListener('progress', (event) => {
-            if (onProgress) {
-                onProgress(event);
+            for (const header in this.requestHeaders) {
+                xhr.setRequestHeader(header, this.requestHeaders[header]);
             }
-        }, false );
 
-        request.addEventListener('error', (event) => {
-            if (onError) {
-                onError(event);
-            }
-            this.manager.itemEnd(url);
-            this.manager.itemError(url);
-        }, false );
-
-        if (this.responseType) { request.responseType = this.responseType; }
-        if (this.withCredentials) { request.withCredentials = this.withCredentials; }
-        if (this.mimeType && request.overrideMimeType) {
-            request.overrideMimeType(this.mimeType !== undefined ? this.mimeType : 'text/plain');
-        }
-
-        for (const header in this.requestHeaders) {
-            request.setRequestHeader(header, this.requestHeaders[header]);
-        }
-
-        // tslint:disable-next-line:no-null-keyword
-        request.send(null);
-
-        this.manager.itemStart(url);
-        return request;
+            // tslint:disable-next-line:no-null-keyword
+            xhr.send(null);
+            this.manager.itemStart(url);
+        });
     }
 
     setPath(value: string) {
