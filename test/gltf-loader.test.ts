@@ -13,7 +13,7 @@ const SAMPLE_MODELS_BASE = 'https://raw.githubusercontent.com/KhronosGroup/glTF-
 // -> https://mochajs.org/#arrow-functions
 // tslint:disable:only-arrow-functions
 
-describe('gltf-operate', function() {
+describe('gltf-loader', function() {
     it('should load normal gltf files', function(done) {
         const loader = new GltfLoader();
         loader.load(

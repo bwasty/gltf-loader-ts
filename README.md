@@ -5,4 +5,4 @@
 
 Engine-agnostic glTF 2.0 loader in TypeScript.
 
-_EARLY PROTOTPYE - NOTHING TO SEE YET_
+_EARLY PROTOTYPE - NOTHING TO SEE YET_
