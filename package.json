@@ -38,6 +38,7 @@
         "build-lib": "webpack --config webpack.config.lib.js",
         "check": "tslint --project tsconfig.json --force --format stylish --config tslint.json",
         "test": "nyc mocha",
+        "test-watch": "mocha --watch",
         "coverage": "nyc report --reporter=text-lcov | coveralls",
         "doc": "typedoc --hideGenerator --readme README.md --target ES6 --module commonjs --mode file --out dist/doc/ source/",
         "generate-interface": "gltf-typescript-generator source/gltf.d.ts https://raw.githubusercontent.com/KhronosGroup/glTF/master/specification/2.0/schema/glTF.schema.json"

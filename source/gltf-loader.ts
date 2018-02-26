@@ -18,8 +18,8 @@ export class GltfLoader {
     }
     load(url: string,
         onLoad: (gltf: GlTf) => void,
-        onProgress: (xhr: XMLHttpRequest) => void,
-        onError: (error: any) => void) { // TODO!: error type?
+        onProgress?: (xhr: XMLHttpRequest) => void,
+        onError?: (error: any) => void) { // TODO!: error type?
 
         const path = this.path !== undefined ? this.path : LoaderUtils.extractUrlBase(url);
         const loader = new FileLoader(this.manager);
