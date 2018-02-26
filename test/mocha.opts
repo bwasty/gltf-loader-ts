@@ -7,4 +7,5 @@
 --reporter mocha-multi-reporters
 --reporter-options configFile=test/mocha-reporter-options.json
 --watch-extensions ts
+--timeout 5000
 test/**/*.test.ts

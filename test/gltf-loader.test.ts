@@ -22,6 +22,7 @@ describe('gltf-loader', function() {
             (gltf) => {
                 expect(gltf.asset.version).to.equal('2.0');
                 expect(gltf.buffers[0].uri).to.equal('Box0.bin');
+                // TODO!!: test loading + accessor...
                 expect(gltf.materials[0].name).to.equal('Red');
                 done();
             },
@@ -38,6 +39,7 @@ describe('gltf-loader', function() {
             (gltf) => {
                 expect(gltf.asset.version).to.equal('2.0');
                 expect(gltf.buffers[0].byteLength).to.equal(648);
+                // TODO!!: test accessor...
                 expect(gltf.materials[0].name).to.equal('Red');
                 done();
             },
@@ -53,6 +55,7 @@ describe('gltf-loader', function() {
             // onLoad
             (gltf) => {
                 expect(gltf.buffers[0].uri).to.match(/^data:application\/octet-stream;base64,AAA/);
+                // TODO!!: test accessor...
                 done();
             },
             undefined, // onProgress
@@ -61,12 +64,37 @@ describe('gltf-loader', function() {
     });
 
     ///
-    it('should report progress via onProgress', () => {
-        // TODO!!
+    it('should report progress via onProgress', function(done) {
+        let onProgressCalled = false;
+        const loader = new GltfLoader();
+        loader.load(
+            SAMPLE_MODELS_BASE + '2CylinderEngine/glTF-Binary/2CylinderEngine.glb',
+            // onLoad
+            (gltf) => {
+                done(!onProgressCalled);
+            },
+            (xhr: any) => { // onProgress
+                expect(xhr.loaded / xhr.total).to.be.within(0, 1);
+                onProgressCalled = true;
+            },
+            done, // onError
+        );
     });
 
-    it('should report errors via the onError callback', () => {
-        // TODO!!
+    it('should report errors via the onError callback', function(done) {
+        const loader = new GltfLoader();
+        loader.load(
+            SAMPLE_MODELS_BASE + 'this/should/404',
+            // onLoad
+            (gltf) => {
+                done('this should fail');
+            },
+            undefined, // onProgress,
+            (error) => {
+                expect(error.target.status).to.equal(404);
+                done();
+            },
+        );
     });
 });
 
