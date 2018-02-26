@@ -16,25 +16,13 @@ export class GltfLoader {
     constructor(manager?: LoadingManager) {
         this.manager = manager || new LoadingManager();
     }
-    load(url: string,
-        onLoad: (gltf: GlTf) => void,
-        onProgress?: (xhr: XMLHttpRequest) => void,
-        onError?: (error: any) => void) { // TODO!: error type?
 
+    async load(url: string, onProgress?: (xhr: XMLHttpRequest) => void): Promise<GlTf> {
         const path = this.path !== undefined ? this.path : LoaderUtils.extractUrlBase(url);
         const loader = new FileLoader(this.manager);
         loader.setResponseType('arraybuffer');
-        loader.load(url, (data: Response) => {
-            try {
-                this.parse(data, path, onLoad, onError);
-            } catch (e) {
-                if (onError) {
-                    onError(e);
-                } else {
-                    throw e;
-                }
-            }
-        }, onProgress, onError);
+        const data = await loader.load(url, onProgress);
+        return await this.parse(data, path);
     }
 
     setCrossOrigin(value: boolean) {
@@ -47,7 +35,7 @@ export class GltfLoader {
         return this;
     }
 
-    parse(data: any, path: string, onLoad: any, onError: any) { // TODO!: any?
+    async parse(data: any, path: any): Promise<GlTf> {
         let content: any;
         const extensions: {[k: string]: any} = {};
 
@@ -56,12 +44,7 @@ export class GltfLoader {
         } else {
             const magic = LoaderUtils.decodeText(new Uint8Array(data, 0, 4));
             if (magic === BINARY_EXTENSION_HEADER_MAGIC) {
-                try {
-                    extensions[EXTENSIONS.KHR_BINARY_GLTF] = new GLTFBinaryExtension(data);
-                } catch (error) {
-                    if (onError) { onError(error); }
-                    return;
-                }
+                extensions[EXTENSIONS.KHR_BINARY_GLTF] = new GLTFBinaryExtension(data);
                 content = extensions[EXTENSIONS.KHR_BINARY_GLTF].content;
             } else {
                 content = LoaderUtils.decodeText(new Uint8Array(data));
@@ -69,10 +52,9 @@ export class GltfLoader {
         }
 
         const json = JSON.parse(content);
+
         if (json.asset === undefined || json.asset.version[ 0 ] < 2) {
-            if (onError) {
-                onError(new Error('Unsupported asset. glTF versions >=2.0 are supported.')); }
-            return;
+            throw new Error('Unsupported asset. glTF versions >=2.0 are supported.');
         }
 
         // TODO!: extensions (lights, specular glossiness)
@@ -96,20 +78,9 @@ export class GltfLoader {
             manager: this.manager,
         });
 
-        parser.parse((scene: any, scenes: any, cameras: any, animations: any, asset: any) => {
-            console.timeEnd('GLTFLoader');
-            // const glTF = {
-            //     scene,
-            //     scenes,
-            //     cameras,
-            //     animations,
-            //     asset,
-            // };
-
-            // TODO!!!: quick hack
-            onLoad(scene);
-            // onLoad(glTF);
-        }, onError);
+        const gltf = await parser.parse();
+        console.timeEnd('GLTFLoader');
+        return gltf;
     }
 }
 
