@@ -25,8 +25,9 @@ export class GltfParser {
         // this.textureLoader = new THREE.TextureLoader( this.options.manager);
         // this.textureLoader.setCrossOrigin( this.options.crossOrigin );
 
+        // TODO!: allow changing loader options(headers etc.)?
         this.fileLoader = new FileLoader(this.options.manager);
-        this.fileLoader.setResponseType('arraybuffer');
+        this.fileLoader.responseType = 'arraybuffer';
     }
 
     async parse(): Promise<GlTf> {

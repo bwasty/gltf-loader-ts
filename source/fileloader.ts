@@ -87,26 +87,6 @@ export class FileLoader {
         });
     }
 
-    setPath(value: string) {
-        this.path = value;
-        return this;
-    }
-
-    setResponseType(value: XMLHttpRequestResponseType) {
-        this.responseType = value;
-        return this;
-    }
-
-    setWithCredentials(value: boolean) {
-        this.withCredentials = value;
-        return this;
-    }
-
-    setMimeType(value: string) {
-        this.mimeType = value;
-        return this;
-    }
-
     setRequestHeader(key: string, value: string) {
         this.requestHeaders[key] = value;
         return this;

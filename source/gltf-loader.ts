@@ -19,8 +19,9 @@ export class GltfLoader {
 
     async load(url: string, onProgress?: (xhr: XMLHttpRequest) => void): Promise<GlTf> {
         const path = this.path !== undefined ? this.path : LoaderUtils.extractUrlBase(url);
+        // TODO!: allow changing loader options(headers etc.)?
         const loader = new FileLoader(this.manager);
-        loader.setResponseType('arraybuffer');
+        loader.responseType = 'arraybuffer';
         const data = await loader.load(url, onProgress);
         return await this.parse(data, path);
     }
