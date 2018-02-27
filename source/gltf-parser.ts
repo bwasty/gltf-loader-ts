@@ -5,7 +5,7 @@ import { EXTENSIONS } from './gltf-loader';
 export class GltfParser {
     json: any;
     extensions: any;
-    options: any;
+    options: any; // TODO!!!: type the options...
     cache: GLTFRegistry;
     primitiveCache: Array<any>;
     fileLoader: FileLoader;

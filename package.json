@@ -42,7 +42,7 @@
         "test-watch": "mocha --watch",
         "coveralls": "nyc report --reporter=text-lcov | coveralls",
         "codecov": "codecov",
-        "doc": "typedoc --hideGenerator --readme README.md --target ES6 --module commonjs --mode file --out dist/doc/ source/",
+        "doc": "typedoc --hideGenerator --readme README.md --target ES6 --module commonjs --includeDeclarations --excludeExternals --mode file --out dist/doc/ source/",
         "generate-interface": "gltf-typescript-generator source/gltf.d.ts https://raw.githubusercontent.com/KhronosGroup/glTF/master/specification/2.0/schema/glTF.schema.json"
     },
     "keywords": [
