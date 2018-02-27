@@ -97,7 +97,7 @@ class ImageData {
      * file when it's accessed for the first time and `fetchAll` has not been used.
      */
     async get(index: GlTfId): Promise<HTMLImageElement> {
-        // TODO!!!: implement
+        // TODO!!: implement
         return new Image();
     }
 

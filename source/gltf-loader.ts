@@ -5,7 +5,6 @@
 import { Asset } from './asset';
 import { FileLoader } from './fileloader';
 import { BINARY_EXTENSION_HEADER_MAGIC, GLTFBinaryExtension } from './glb-decoder';
-import { GltfParser } from './gltf-parser';
 import { LoaderUtils } from './loaderutils';
 import { LoadingManager } from './loadingmanager';
 
@@ -70,18 +69,12 @@ export class GltfLoader {
         //     }
         // }
 
-        // tslint:disable:no-console
-        console.time('GLTFLoader');
-
-        const parser = new GltfParser(json, extensions, {
-            path: path || this.path || '',
-            crossOrigin: this.crossOrigin,
-            manager: this.manager,
-        });
-
-        const gltf = await parser.parse();
-        console.timeEnd('GLTFLoader');
-        return gltf;
+        return new Asset(
+            json,
+            path || this.path || '',
+            extensions,
+            this.manager,
+        );
     }
 }
 

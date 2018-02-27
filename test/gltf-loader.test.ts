@@ -113,7 +113,7 @@ describe('gltf-loader', function() {
 
     // TODO!!!: test bufferViewData / buffer caching / fetchAll...
 
-    // TODO!!!: test images
+    // TODO!!: test images
 
     // TODO!!: test loading from FileList (drag and drop)
 });
