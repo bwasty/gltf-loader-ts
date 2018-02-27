@@ -1,7 +1,6 @@
 import { FileLoader } from './fileloader';
 import { GlTf, GlTfId } from './gltf';
 import { EXTENSIONS } from './gltf-loader';
-import { resolveURL } from './gltf-parser';
 import { LoadingManager } from './loadingmanager';
 
 export class Asset {
@@ -106,4 +105,17 @@ class ImageData {
     fetchAll() {
         // TODO!!
     }
+}
+
+export function resolveURL(url: string, path: string) {
+    // Invalid URL
+    if (typeof url !== 'string' || url === '') { return ''; }
+    // Absolute URL http://,https://,//
+    if (/^(https?:)?\/\//i.test(url)) { return url; }
+    // Data URI
+    if (/^data:.*,.*$/i.test(url)) { return url; }
+    // Blob URL
+    if (/^blob:.*$/i.test(url)) { return url; }
+    // Relative URL
+    return path + url;
 }
