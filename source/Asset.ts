@@ -1,16 +1,28 @@
+import { FileLoader } from './fileloader';
 import { GlTf, GlTfId } from './gltf';
 import { LoadingManager } from './loadingmanager';
 
 export class Asset {
-    /** The JSON part of the asset */
+    /** The JSON part of the asset. */
     gltf: GlTf;
     bufferData: BufferData;
     imageData: ImageData;
 
-    constructor(gltf: GlTf, bufferData: any, imageData: any) {
+    fileLoader: FileLoader;
+
+    constructor(gltf: GlTf, bufferData: any, imageData: any, fileLoader: FileLoader) {
         this.gltf = gltf;
         this.bufferData = bufferData;
         this.imageData = imageData;
+        this.fileLoader = fileLoader;
+    }
+
+    async bufferViewData(index: GlTfId) {
+        if (!this.gltf.bufferViews) {
+            throw new Error('No buffer views found.');
+        }
+        // const bufferView = this.gltf.bufferViews[index];
+        // TODO!!
     }
 }
 
@@ -32,7 +44,7 @@ class BufferData {
         return new ArrayBuffer(0);
     }
 
-    /** Pre-fetches all buffer data */
+    /** Pre-fetches all buffer data. */
     fetchAll() {
         // TODO!!
     }
@@ -55,7 +67,7 @@ class ImageData {
         return new Image();
     }
 
-    /** Pre-fetches all buffer data */
+    /** Pre-fetches all buffer data. */
     fetchAll() {
         // TODO!!
     }
