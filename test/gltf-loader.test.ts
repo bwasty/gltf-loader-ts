@@ -26,9 +26,9 @@ describe('gltf-loader', function() {
         expect(asset.gltf.asset.version).to.equal('2.0');
         expect(asset.gltf.materials[0].name).to.equal('Red');
         expect(asset.gltf.buffers[0].uri).to.equal('Box0.bin');
-        // TODO!!: test bin loading + accessor...
         const buffer = await asset.bufferData.get(0);
         expect(buffer.byteLength).to.equal(asset.gltf.buffers[0].byteLength);
+        // TODO!!!: test bufferView...
     });
 
     it('should load GLB files', async function() {
@@ -37,16 +37,16 @@ describe('gltf-loader', function() {
         expect(asset.gltf.asset.version).to.equal('2.0');
         expect(asset.gltf.buffers[0].byteLength).to.equal(648);
         expect(asset.gltf.materials[0].name).to.equal('Red');
-        // TODO!!: test accessor...
         const buffer = await asset.bufferData.get(0);
         expect(buffer.byteLength).to.equal(asset.gltf.buffers[0].byteLength);
+        // TODO!!!: test bufferView...
     });
 
     it('should load files with embedded data', async function() {
         const loader = new GltfLoader();
         const asset = await loader.load(SAMPLE_MODELS_BASE + 'Box/glTF-Embedded/Box.gltf');
         expect(asset.gltf.buffers[0].uri).to.match(/^data:application\/octet-stream;base64,AAA/);
-        // TODO!!: test accessor...
+        // TODO!!: test buffer, bufferView...
     });
 
     it('should report progress via onProgress', async function() {
@@ -110,5 +110,11 @@ describe('gltf-loader', function() {
         } catch { }
         expect(manager.onError).to.have.been.called();
     });
+
+    // TODO!!!: test bufferViewData / buffer caching / fetchAll...
+
+    // TODO!!!: test images
+
+    // TODO!!: test loading from FileList (drag and drop)
 });
 

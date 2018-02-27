@@ -15,6 +15,7 @@
             },
         )
         console.log(gltf)
+        // TODO!!!: add iterating scene -> ... -> primitive data
     } catch (e) {
         console.error(e);
     }
