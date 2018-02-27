@@ -1,8 +1,8 @@
 // Originally derived from THREE.GLTFLoader
 // https://github.com/mrdoob/three.js/blob/master/examples/js/loaders/GLTFLoader.js
 
-import { GlTf } from './gltf';
 
+import { Asset } from './asset';
 import { FileLoader } from './fileloader';
 import { BINARY_EXTENSION_HEADER_MAGIC, GLTFBinaryExtension } from './glb-decoder';
 import { GltfParser } from './gltf-parser';
@@ -17,7 +17,7 @@ export class GltfLoader {
         this.manager = manager || new LoadingManager();
     }
 
-    async load(url: string, onProgress?: (xhr: XMLHttpRequest) => void): Promise<GlTf> {
+    async load(url: string, onProgress?: (xhr: XMLHttpRequest) => void): Promise<Asset> {
         const path = this.path !== undefined ? this.path : LoaderUtils.extractUrlBase(url);
         // TODO!: allow changing loader options(headers etc.)?
         const loader = new FileLoader(this.manager);
@@ -36,7 +36,7 @@ export class GltfLoader {
         return this;
     }
 
-    async parse(data: any, path: any): Promise<GlTf> {
+    async parse(data: any, path: any): Promise<Asset> {
         let content: any;
         const extensions: {[k: string]: any} = {};
 

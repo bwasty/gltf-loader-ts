@@ -1,5 +1,5 @@
+import { Asset } from './asset';
 import { FileLoader } from './fileloader';
-import { GlTf } from './gltf';
 import { EXTENSIONS } from './gltf-loader';
 
 export class GltfParser {
@@ -7,7 +7,6 @@ export class GltfParser {
     extensions: any;
     options: any; // TODO!!!: type the options...
     cache: GLTFRegistry;
-    primitiveCache: Array<any>;
     fileLoader: FileLoader;
     textureLoader: any;
     constructor(json: string, extensions: any, options: any) {
@@ -18,9 +17,6 @@ export class GltfParser {
         // loader object cache
         this.cache = new GLTFRegistry();
 
-        // BufferGeometry caching
-        this.primitiveCache = [];
-
         // TODO!!: image loading...
         // this.textureLoader = new THREE.TextureLoader( this.options.manager);
         // this.textureLoader.setCrossOrigin( this.options.crossOrigin );
@@ -30,79 +26,13 @@ export class GltfParser {
         this.fileLoader.responseType = 'arraybuffer';
     }
 
-    async parse(): Promise<GlTf> {
+    async parse(): Promise<Asset> {
         const json = this.json;
 
         // Clear the loader cache
         this.cache.removeAll();
 
-        // Mark the special nodes/meshes in json for efficient parse
-        this.markDefs();
-
-        // TODO!!!: load scene/animation/camera functions don't exist...
-        // Fire the callback on complete
-        // this.getMultiDependencies( [
-        //     'scene',
-        //     'animation',
-        //     'camera',
-        // ]).then((dependencies: any) => {
-        //     const scenes = dependencies.scenes || [];
-        //     const scene = scenes[ json.scene || 0 ];
-        //     const animations = dependencies.animations || [];
-        //     const asset = json.asset;
-        //     const cameras = dependencies.cameras || [];
-
-        //     onLoad( scene, scenes, cameras, animations, asset );
-
-        // }).catch(onError);
-        return json;
-    }
-
-    /**
-     * Marks the special nodes/meshes in json for efficient parse.
-     */
-    markDefs() {
-        const nodeDefs = this.json.nodes || [];
-        const skinDefs = this.json.skins || [];
-        const meshDefs = this.json.meshes || [];
-
-        const meshReferences: any = {};
-        const meshUses: any = {};
-
-        // Nothing in the node definition indicates whether it is a Bone or an
-        // Object3D. Use the skins' joint references to mark bones.
-        for (const skin of skinDefs) {
-            for (const joint of skin.joints) {
-                nodeDefs[joint].isBone = true;
-            }
-        }
-
-        // TODO!!: remove?
-        // Meshes can (and should) be reused by multiple nodes in a glTF asset. To
-        // avoid having more than one mesh with the same name, count
-        // references and rename instances below.
-        //
-        // Example: CesiumMilkTruck sample model reuses "Wheel" meshes.
-        for (const nodeDef of nodeDefs) {
-            if (nodeDef.mesh !== undefined) {
-                if (meshReferences[nodeDef.mesh] === undefined) {
-                    meshReferences[nodeDef.mesh] = meshUses[nodeDef.mesh] = 0;
-                }
-
-                meshReferences[ nodeDef.mesh ] ++;
-
-                // Nothing in the mesh definition indicates whether it is
-                // a SkinnedMesh or Mesh. Use the node's mesh reference
-                // to mark SkinnedMesh if node has skin.
-                if (nodeDef.skin !== undefined) {
-                    meshDefs[ nodeDef.mesh ].isSkinnedMesh = true;
-                }
-            }
-
-        }
-
-        this.json.meshReferences = meshReferences;
-        this.json.meshUses = meshUses;
+        return new Asset(json, this.options.path, this.extensions, this.options.manager);
     }
 
     /**
@@ -117,73 +47,6 @@ export class GltfParser {
             this.cache.add(cacheKey, dependency);
         }
         return dependency;
-    }
-
-    /**
-     * Requests all dependencies of the specified type asynchronously, with caching.
-     */
-    getDependencies(type: string): Promise<Array<object>> {
-        let dependencies = this.cache.get( type );
-        if (!dependencies) {
-            const parser = this;
-            const defs = this.json[ type + (type === 'mesh' ? 'es' : 's') ] || [];
-
-            dependencies = Promise.all(defs.map((def: any, index: any) => {
-                return parser.getDependency(type, index);
-            }));
-
-            this.cache.add(type, dependencies);
-        }
-
-        return dependencies;
-    }
-
-    /**
-     * Requests all multiple dependencies of the specified types asynchronously, with caching.
-     */
-    getMultiDependencies(types: Array<string>): Promise<object> {
-        const results: any = {};
-        const pendings = [];
-
-        for (const type of types) {
-            let value = this.getDependencies(type);
-
-            // TODO: too much any...
-            value = (value as any).then(((key: any, value: any) => {
-                results[key] = value;
-            }) as any).bind(this, type + (type === 'mesh' ? 'es' : 's'));
-
-            pendings.push(value);
-        }
-
-        return Promise.all(pendings).then(() => {
-            return results;
-        });
-    }
-
-    /**
-     * Spec: https://github.com/KhronosGroup/glTF/blob/master/specification/2.0/README.md#buffers-and-buffer-views
-     */
-    loadBuffer(bufferIndex: number): Promise<ArrayBuffer> {
-        const bufferDef = this.json.buffers[ bufferIndex ];
-        // const loader = this.fileLoader;
-
-        if (bufferDef.type && bufferDef.type !== 'arraybuffer') {
-            throw new Error(bufferDef.type + ' buffer type is not supported.');
-        }
-
-        // If present, GLB container is required to be the first buffer.
-        if (bufferDef.uri === undefined && bufferIndex === 0) {
-            return Promise.resolve(this.extensions[EXTENSIONS.KHR_BINARY_GLTF].body);
-        }
-
-        // const options = this.options;
-        return new Promise((resolve, reject) => {
-            // TODO!!: async...
-            // loader.load(resolveURL(bufferDef.uri, options.path), resolve, undefined, () => {
-            //     reject(new Error('Failed to load buffer "' + bufferDef.uri + '".'));
-            // });
-        });
     }
 
     /**
@@ -395,7 +258,7 @@ const WEBGL_TYPE_SIZES: any = {
 
 /* UTILITY FUNCTIONS */
 
-function resolveURL(url: string, path: string) {
+export function resolveURL(url: string, path: string) {
     // Invalid URL
     if (typeof url !== 'string' || url === '') { return ''; }
     // Absolute URL http://,https://,//

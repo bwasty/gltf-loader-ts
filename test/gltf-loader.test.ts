@@ -22,26 +22,30 @@ const SAMPLE_MODELS_BASE = 'https://raw.githubusercontent.com/KhronosGroup/glTF-
 describe('gltf-loader', function() {
     it('should load normal gltf files', async function() {
         const loader = new GltfLoader();
-        const gltf = await loader.load(SAMPLE_MODELS_BASE + 'Box/glTF/Box.gltf');
-        expect(gltf.asset.version).to.equal('2.0');
-        expect(gltf.buffers[0].uri).to.equal('Box0.bin');
+        const asset = await loader.load(SAMPLE_MODELS_BASE + 'Box/glTF/Box.gltf');
+        expect(asset.gltf.asset.version).to.equal('2.0');
+        expect(asset.gltf.materials[0].name).to.equal('Red');
+        expect(asset.gltf.buffers[0].uri).to.equal('Box0.bin');
         // TODO!!: test bin loading + accessor...
-        expect(gltf.materials[0].name).to.equal('Red');
+        const buffer = await asset.bufferData.get(0);
+        expect(buffer.byteLength).to.equal(asset.gltf.buffers[0].byteLength)
     });
 
     it('should load GLB files', async function() {
         const loader = new GltfLoader();
-        const gltf = await loader.load(SAMPLE_MODELS_BASE + 'Box/glTF-Binary/Box.glb');
-        expect(gltf.asset.version).to.equal('2.0');
-        expect(gltf.buffers[0].byteLength).to.equal(648);
+        const asset = await loader.load(SAMPLE_MODELS_BASE + 'Box/glTF-Binary/Box.glb');
+        expect(asset.gltf.asset.version).to.equal('2.0');
+        expect(asset.gltf.buffers[0].byteLength).to.equal(648);
+        expect(asset.gltf.materials[0].name).to.equal('Red');
         // TODO!!: test accessor...
-        expect(gltf.materials[0].name).to.equal('Red');
+        const buffer = await asset.bufferData.get(0);
+        expect(buffer.byteLength).to.equal(asset.gltf.buffers[0].byteLength)
     });
 
     it('should load files with embedded data', async function() {
         const loader = new GltfLoader();
-        const gltf = await loader.load(SAMPLE_MODELS_BASE + 'Box/glTF-Embedded/Box.gltf');
-        expect(gltf.buffers[0].uri).to.match(/^data:application\/octet-stream;base64,AAA/);
+        const asset = await loader.load(SAMPLE_MODELS_BASE + 'Box/glTF-Embedded/Box.gltf');
+        expect(asset.gltf.buffers[0].uri).to.match(/^data:application\/octet-stream;base64,AAA/);
         // TODO!!: test accessor...
     });
 
@@ -71,17 +75,15 @@ describe('gltf-loader', function() {
         }
     });
 
-    it.only('should handle an external loadingManager correctly', async function() {
+    it('should handle an external loadingManager correctly', async function() {
         const URL = SAMPLE_MODELS_BASE + 'Box/glTF/Box.gltf';
         let manager = new LoadingManager();
         manager.onStart = spy((url, itemsLoaded, itemsTotal) => {
-            console.log('onStart', url, itemsLoaded, itemsTotal);
             expect(url).to.equal(URL);
             expect(itemsLoaded).to.equal(0);
             expect(itemsTotal).to.equal(1);
         });
         manager.onProgress = spy((url, itemsLoaded, itemsTotal) => {
-            console.log('onProgress', url, itemsLoaded, itemsTotal);
             expect(url).to.equal(URL);
             expect(itemsLoaded).to.equal(1);
             expect(itemsTotal).to.equal(1);
@@ -97,9 +99,10 @@ describe('gltf-loader', function() {
         expect(manager.onLoad).to.have.been.called();
         expect(manager.onError).to.have.not.been.called();
 
+        // test onError
         manager = new LoadingManager();
         manager.onError = spy((url) => {
-            expect(url).to.equal(SAMPLE_MODELS_BASE + 'this/should/404')
+            expect(url).to.equal(SAMPLE_MODELS_BASE + 'this/should/404');
         });
         loader = new GltfLoader(manager);
         try {
