@@ -1,13 +1,19 @@
 import * as chai from 'chai';
+import * as spies from 'chai-spies';
+
 const expect = chai.expect;
-import * as sinon from 'sinon';
+chai.use(spies);
+const spy = chai.spy;
 
 import { GltfLoader } from '../source/gltf-loader';
 
 import * as XMLHttpRequest from 'xhr2';
+import { LoadingManager } from '../source/loadingmanager';
 (global as any).XMLHttpRequest = XMLHttpRequest;
 
 const SAMPLE_MODELS_BASE = 'https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/master/2.0/';
+// const SAMPLE_MODELS_BASE = 'https://localhost:8081';
+
 
 // arrow functions are discouraged for mocha
 // -> https://mochajs.org/#arrow-functions
@@ -63,6 +69,43 @@ describe('gltf-loader', function() {
         } catch (error) {
             expect(error).to.eql({ status: 404, statusText: 'Not Found' });
         }
+    });
+
+    it.only('should handle an external loadingManager correctly', async function() {
+        const URL = SAMPLE_MODELS_BASE + 'Box/glTF/Box.gltf';
+        let manager = new LoadingManager();
+        manager.onStart = spy((url, itemsLoaded, itemsTotal) => {
+            console.log('onStart', url, itemsLoaded, itemsTotal);
+            expect(url).to.equal(URL);
+            expect(itemsLoaded).to.equal(0);
+            expect(itemsTotal).to.equal(1);
+        });
+        manager.onProgress = spy((url, itemsLoaded, itemsTotal) => {
+            console.log('onProgress', url, itemsLoaded, itemsTotal);
+            expect(url).to.equal(URL);
+            expect(itemsLoaded).to.equal(1);
+            expect(itemsTotal).to.equal(1);
+        });
+        manager.onLoad = spy(() => {});
+        manager.onError = spy((url) => {});
+
+        let loader = new GltfLoader(manager);
+        const promise = loader.load(URL);
+        expect(manager.onStart).to.have.been.called();
+        const gltf = await promise;
+        expect(manager.onProgress).to.have.been.called();
+        expect(manager.onLoad).to.have.been.called();
+        expect(manager.onError).to.have.not.been.called();
+
+        manager = new LoadingManager();
+        manager.onError = spy((url) => {
+            expect(url).to.equal(SAMPLE_MODELS_BASE + 'this/should/404')
+        });
+        loader = new GltfLoader(manager);
+        try {
+            await loader.load(SAMPLE_MODELS_BASE + 'this/should/404');
+        } catch { }
+        expect(manager.onError).to.have.been.called();
     });
 });
 

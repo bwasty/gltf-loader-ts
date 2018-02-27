@@ -10,13 +10,13 @@ export class LoadingManager {
 
     urlModifier: ((url: string) => string) | undefined = undefined;
     onStart: OnStartOnProgressCallback = undefined;
-    onLoad: (() => void) | undefined = undefined;
     onProgress: OnStartOnProgressCallback = undefined;
+    onLoad: (() => void) | undefined = undefined;
     onError: ((url: string) => void) | undefined = undefined;
 
     itemStart(url: string) {
         this.itemsTotal++;
-        if (this.isLoading && this.onStart) {
+        if (!this.isLoading && this.onStart) {
             this.onStart(url, this.itemsLoaded, this.itemsTotal);
         }
         this.isLoading = true;
