@@ -28,7 +28,7 @@ describe('gltf-loader', function() {
         expect(asset.gltf.buffers[0].uri).to.equal('Box0.bin');
         // TODO!!: test bin loading + accessor...
         const buffer = await asset.bufferData.get(0);
-        expect(buffer.byteLength).to.equal(asset.gltf.buffers[0].byteLength)
+        expect(buffer.byteLength).to.equal(asset.gltf.buffers[0].byteLength);
     });
 
     it('should load GLB files', async function() {
@@ -39,7 +39,7 @@ describe('gltf-loader', function() {
         expect(asset.gltf.materials[0].name).to.equal('Red');
         // TODO!!: test accessor...
         const buffer = await asset.bufferData.get(0);
-        expect(buffer.byteLength).to.equal(asset.gltf.buffers[0].byteLength)
+        expect(buffer.byteLength).to.equal(asset.gltf.buffers[0].byteLength);
     });
 
     it('should load files with embedded data', async function() {
