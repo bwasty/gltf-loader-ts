@@ -1,11 +1,10 @@
 // Originally derived from THREE.GLTFLoader
 // https://github.com/mrdoob/three.js/blob/master/examples/js/loaders/GLTFLoader.js
 
-import { GlTf } from './gltf';
 
 import { FileLoader } from './fileloader';
 import { BINARY_EXTENSION_HEADER_MAGIC, GLTFBinaryExtension } from './glb-decoder';
-import { GltfParser } from './gltf-parser';
+import { GltfAsset } from './gltf-asset';
 import { LoaderUtils } from './loaderutils';
 import { LoadingManager } from './loadingmanager';
 
@@ -17,10 +16,11 @@ export class GltfLoader {
         this.manager = manager || new LoadingManager();
     }
 
-    async load(url: string, onProgress?: (xhr: XMLHttpRequest) => void): Promise<GlTf> {
+    async load(url: string, onProgress?: (xhr: XMLHttpRequest) => void): Promise<GltfAsset> {
         const path = this.path !== undefined ? this.path : LoaderUtils.extractUrlBase(url);
+        // TODO!: allow changing loader options(headers etc.)?
         const loader = new FileLoader(this.manager);
-        loader.setResponseType('arraybuffer');
+        loader.responseType = 'arraybuffer';
         const data = await loader.load(url, onProgress);
         return await this.parse(data, path);
     }
@@ -35,7 +35,7 @@ export class GltfLoader {
         return this;
     }
 
-    async parse(data: any, path: any): Promise<GlTf> {
+    async parse(data: any, path: any): Promise<GltfAsset> {
         let content: any;
         const extensions: {[k: string]: any} = {};
 
@@ -69,18 +69,12 @@ export class GltfLoader {
         //     }
         // }
 
-        // tslint:disable:no-console
-        console.time('GLTFLoader');
-
-        const parser = new GltfParser(json, extensions, {
-            path: path || this.path || '',
-            crossOrigin: this.crossOrigin,
-            manager: this.manager,
-        });
-
-        const gltf = await parser.parse();
-        console.timeEnd('GLTFLoader');
-        return gltf;
+        return new GltfAsset(
+            json,
+            path || this.path || '',
+            extensions,
+            this.manager,
+        );
     }
 }
 

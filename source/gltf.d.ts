@@ -1,3 +1,7 @@
+/* Generated from official JSON schema using `npm run generate-interface`
+ * on 2018-02-24
+ */
+
 export type GlTfId = number;
 /**
  * Indices of those attributes that deviate from their initialization value.

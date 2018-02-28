@@ -3,8 +3,8 @@
 
 import { LoadingManager } from './loadingmanager';
 
-type ProgressCallback = (xhr: XMLHttpRequest) => void;
-type XMLHttpRequestResponse = any;
+export type ProgressCallback = (xhr: XMLHttpRequest) => void;
+export type XMLHttpRequestResponse = any;
 
 export class FileLoader {
     manager: LoadingManager;
@@ -85,26 +85,6 @@ export class FileLoader {
             xhr.send(null);
             this.manager.itemStart(url);
         });
-    }
-
-    setPath(value: string) {
-        this.path = value;
-        return this;
-    }
-
-    setResponseType(value: XMLHttpRequestResponseType) {
-        this.responseType = value;
-        return this;
-    }
-
-    setWithCredentials(value: boolean) {
-        this.withCredentials = value;
-        return this;
-    }
-
-    setMimeType(value: string) {
-        this.mimeType = value;
-        return this;
     }
 
     setRequestHeader(key: string, value: string) {
