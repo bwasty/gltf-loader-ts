@@ -12,7 +12,7 @@ _ALPHA VERSION - NOT ALL MAIN FEATURES IMPLEMENTED YET_
 
 ## Features
 - can load glTF data from any source and provides unified access to binary and image data _[image loading not implemented yet]_:
-    - http and drag-and-drop (`FileList`) _[drag-and-drop not implemented yet]_
+    - source: URL (http) and `FileList` (e.g. drag-and-drop) _[drag-and-drop not implemented yet]_
     - plaintext .gltf with external buffer and image files (.bin and .png/.jpg)
     - plaintext with embedded buffer and image data (data URIs)
     - GLB
@@ -34,4 +34,11 @@ console.log(gltf);
 
 //
 let data = await asset.bufferViewData(0); // fetches Box0.bin
+
+// not implemented yet:
+// let image: Image = await asset.imageData.get(0)
 ```
+
+For a complete example, see [example/](example/).
+
+Documentation: bwasty.github.io/gltf-loader-ts/doc

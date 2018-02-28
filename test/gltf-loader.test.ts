@@ -59,7 +59,7 @@ describe('gltf-loader', function() {
         const loader = new GltfLoader();
         const asset = await loader.load(SAMPLE_MODELS_BASE + 'Box/glTF-Embedded/Box.gltf');
         expect(asset.gltf.buffers[0].uri).to.match(/^data:application\/octet-stream;base64,AAA/);
-        // TODO!!!: fails actually...
+        // TODO!!!: fails actually...but in the browser it works
         // await expect_asset_to_be_standard_box(asset);
     });
 

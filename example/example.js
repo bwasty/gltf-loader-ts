@@ -1,8 +1,10 @@
 (async function() { // wrap in async function to use await
-    const model_url = 'https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/master/2.0/Box/glTF/Box.gltf';
-    // 'https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/master/2.0/Box/glTF-Binary/Box.glb',
-    // 'https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/master/2.0/WaterBottle/glTF-Binary/WaterBottle.glb',
-    // 'https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/master/2.0/2CylinderEngine/glTF-Binary/2CylinderEngine.glb',
+    let sample_models_base = 'https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/master/2.0/'
+    let model_url = sample_models_base + 'Box/glTF/Box.gltf';
+    // model_url = sample_models_base + 'Box/glTF-Embedded/Box.gltf';
+    // model_url = sample_models_base + 'Box/glTF-Binary/Box.glb',
+    // model_url = sample_models_base + 'WaterBottle/glTF-Binary/WaterBottle.glb',
+    // model_url = sample_models_base + '2CylinderEngine/glTF-Binary/2CylinderEngine.glb',
 
     //
     // Load asset
@@ -41,7 +43,7 @@
             //
             let data = await asset.bufferViewData(bufferViewIndex);
             console.log("Buffer containing positions: ", data);
-            // TODO!!: convert to TypedArray based on accessor...or gl commands in comment?
+            // TODO!!: convert to TypedArray based on accessor...or example gl commands in comment?
         }
     } catch (e) {
         console.error(e);
