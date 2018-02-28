@@ -3,8 +3,8 @@
 
 import { LoadingManager } from './loadingmanager';
 
-type ProgressCallback = (xhr: XMLHttpRequest) => void;
-type XMLHttpRequestResponse = any;
+export type ProgressCallback = (xhr: XMLHttpRequest) => void;
+export type XMLHttpRequestResponse = any;
 
 export class FileLoader {
     manager: LoadingManager;

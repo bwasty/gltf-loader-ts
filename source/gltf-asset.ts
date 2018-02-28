@@ -32,7 +32,7 @@ export class GltfAsset {
 }
 
 // tslint:disable:max-classes-per-file
-class BufferData {
+export class BufferData {
     private bufferCache: Array<ArrayBuffer> = [];
 
     asset: GltfAsset;
@@ -84,7 +84,7 @@ class BufferData {
     }
 }
 
-class ImageData {
+export class ImageData {
     baseUri: string;
     manager: LoadingManager;
     constructor(baseUri: string, manager: LoadingManager) {
