@@ -24,7 +24,7 @@
         //
         // Parse asset
         //
-        const gltf = asset.gltf; // TODO!!: link to generated doc...
+        const gltf = asset.gltf; // See https://bwasty.github.io/gltf-loader-ts/interfaces/gltf.html
         let sceneIndex = gltf.scene | 0;
         let scene = gltf.scenes[sceneIndex];
         let rootNodes = scene.nodes;

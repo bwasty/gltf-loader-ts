@@ -125,7 +125,7 @@ describe('gltf-loader', function() {
         expect(manager.onError).to.have.been.called();
     });
 
-    // TODO!!!: test bufferViewData / buffer caching / fetchAll...
+    // TODO!!!: test buffer caching / fetchAll...
 
     // TODO!!: test images
 

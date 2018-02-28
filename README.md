@@ -16,11 +16,9 @@ _ALPHA VERSION - NOT ALL MAIN FEATURES IMPLEMENTED YET_
     - plaintext .gltf with external buffer and image files (.bin and .png/.jpg)
     - plaintext with embedded buffer and image data (data URIs)
     - GLB
-- JSON parts have types generated from the official JSON Schema
-  - TODO!!: link to docs
+- JSON parts have types generated from the official JSON Schema (-> [`GlTf`](https://bwasty.github.io/gltf-loader-ts/interfaces/gltf.html))
 - Lazy loading: external buffer and image files are only loaded when the data is accessed
   - option to pre-fetch everything
-  - TODO!!: link to docs
 - Can report progress during loading via callbacks
 
 
