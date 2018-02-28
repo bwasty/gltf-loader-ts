@@ -46,7 +46,8 @@
         "codecov": "codecov",
         "doc": "typedoc --hideGenerator --readme README.md --target ES6 --module commonjs --includeDeclarations --excludeExternals --mode file --out dist/doc/ source/",
         "generate-interface": "gltf-typescript-generator source/gltf.d.ts https://raw.githubusercontent.com/KhronosGroup/glTF/master/specification/2.0/schema/glTF.schema.json",
-        "upload-docs": "gh-pages -d dist/doc"
+        "upload-docs": "gh-pages -d dist/doc",
+        "prepare": "rm -rf dist && rm -rf lib && npm run build-all && npm run build-lib"
     },
     "keywords": [
         "glTF",
