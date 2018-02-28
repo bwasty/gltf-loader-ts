@@ -79,18 +79,16 @@
 							<li>GLB</li>
 						</ul>
 					</li>
-					<li>JSON parts have types generated from the official JSON Schema<ul>
-							<li>TODO!!: link to docs</li>
-						</ul>
-					</li>
+					<li>JSON parts have types generated from the official JSON Schema (-&gt; <a href="https://bwasty.github.io/gltf-loader-ts/interfaces/gltf.html"><code>GlTf</code></a>)</li>
 					<li>Lazy loading: external buffer and image files are only loaded when the data is accessed<ul>
 							<li>option to pre-fetch everything</li>
-							<li>TODO!!: link to docs</li>
 						</ul>
 					</li>
 					<li>Can report progress during loading via callbacks</li>
 				</ul>
-				<h2 id="example">Example</h2>
+				<h2 id="installation">Installation</h2>
+				<pre><code>npm install --<span class="hljs-built_in">save</span>-<span class="hljs-built_in">dev</span> gltf-loader-ts
+</code></pre><h2 id="example">Example</h2>
 				<pre><code class="lang-typescript"><span class="hljs-keyword">import</span> { GltfLoader } <span class="hljs-keyword">from</span> <span class="hljs-string">'gltf-loader-ts'</span>;
 <span class="hljs-keyword">let</span> loader = <span class="hljs-keyword">new</span> GltfLoader();
 <span class="hljs-keyword">let</span> asset: Asset = <span class="hljs-keyword">await</span> loader.load(<span class="hljs-string">'https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/master/2.0/Box/glTF/Box.gltf'</span>);
@@ -105,7 +103,7 @@
 <span class="hljs-comment">// let image: Image = await asset.imageData.get(0)</span>
 </code></pre>
 				<p>For a complete example, see <a href="example/">example/</a>.</p>
-				<p>Documentation: bwasty.github.io/gltf-loader-ts/doc</p>
+				<p>Documentation: <a href="https://bwasty.github.io/gltf-loader-ts">https://bwasty.github.io/gltf-loader-ts</a></p>
 			</div>
 		</div>
 		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
@@ -118,7 +116,7 @@
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
-					<li class=" tsd-kind-class tsd-is-not-exported">
+					<li class=" tsd-kind-class">
 						<a href="classes/bufferdata.html" class="tsd-kind-icon">Buffer<wbr>Data</a>
 					</li>
 					<li class=" tsd-kind-class">
@@ -133,7 +131,7 @@
 					<li class=" tsd-kind-class">
 						<a href="classes/gltfloader.html" class="tsd-kind-icon">Gltf<wbr>Loader</a>
 					</li>
-					<li class=" tsd-kind-class tsd-is-not-exported">
+					<li class=" tsd-kind-class">
 						<a href="classes/imagedata.html" class="tsd-kind-icon">Image<wbr>Data</a>
 					</li>
 					<li class=" tsd-kind-class">
@@ -232,10 +230,10 @@
 					<li class=" tsd-kind-type-alias">
 						<a href="globals.html#onstartonprogresscallback" class="tsd-kind-icon">On<wbr>Start<wbr>OnProgress<wbr>Callback</a>
 					</li>
-					<li class=" tsd-kind-type-alias tsd-is-not-exported">
+					<li class=" tsd-kind-type-alias">
 						<a href="globals.html#progresscallback" class="tsd-kind-icon">Progress<wbr>Callback</a>
 					</li>
-					<li class=" tsd-kind-type-alias tsd-is-not-exported">
+					<li class=" tsd-kind-type-alias">
 						<a href="globals.html#xmlhttprequestresponse" class="tsd-kind-icon">XMLHttp<wbr>Request<wbr>Response</a>
 					</li>
 					<li class=" tsd-kind-variable tsd-is-not-exported">
