@@ -30,12 +30,12 @@ npm install --save-dev gltf-loader-ts
 ```typescript
 import { GltfLoader } from 'gltf-loader-ts';
 let loader = new GltfLoader();
-let asset: Asset = await loader.load('https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/master/2.0/Box/glTF/Box.gltf');
+let asset: Asset = await loader.load(
+    'https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/master/2.0/Box/glTF/Box.gltf');
 let gltf: GlTf = asset.gltf;
 console.log(gltf);
 // -> {asset: {…}, scene: 0, scenes: Array(1), nodes: Array(2), meshes: Array(1), …}
 
-//
 let data = await asset.bufferViewData(0); // fetches Box0.bin
 
 // not implemented yet:
