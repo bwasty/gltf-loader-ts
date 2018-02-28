@@ -17,6 +17,7 @@
         "chai-spies": "^1.0.0",
         "codecov": "^3.0.0",
         "coveralls": "^3.0.0",
+        "gh-pages": "^1.1.0",
         "gltf-typescript-generator": "0.0.3",
         "mocha": "^5.0.1",
         "mocha-junit-reporter": "1.17.0",
@@ -44,7 +45,8 @@
         "coveralls": "nyc report --reporter=text-lcov | coveralls",
         "codecov": "codecov",
         "doc": "typedoc --hideGenerator --readme README.md --target ES6 --module commonjs --includeDeclarations --excludeExternals --mode file --out dist/doc/ source/",
-        "generate-interface": "gltf-typescript-generator source/gltf.d.ts https://raw.githubusercontent.com/KhronosGroup/glTF/master/specification/2.0/schema/glTF.schema.json"
+        "generate-interface": "gltf-typescript-generator source/gltf.d.ts https://raw.githubusercontent.com/KhronosGroup/glTF/master/specification/2.0/schema/glTF.schema.json",
+        "upload-docs": "gh-pages -d dist/doc"
     },
     "keywords": [
         "glTF",

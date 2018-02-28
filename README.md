@@ -23,6 +23,11 @@ _ALPHA VERSION - NOT ALL MAIN FEATURES IMPLEMENTED YET_
   - TODO!!: link to docs
 - Can report progress during loading via callbacks
 
+
+## Installation
+```
+npm install --save-dev gltf-loader-ts
+```
 ## Example
 ```typescript
 import { GltfLoader } from 'gltf-loader-ts';
@@ -41,4 +46,4 @@ let data = await asset.bufferViewData(0); // fetches Box0.bin
 
 For a complete example, see [example/](example/).
 
-Documentation: bwasty.github.io/gltf-loader-ts/doc
+Documentation: https://bwasty.github.io/gltf-loader-ts
