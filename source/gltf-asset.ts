@@ -3,7 +3,7 @@ import { GlTf, GlTfId } from './gltf';
 import { EXTENSIONS } from './gltf-loader';
 import { LoadingManager } from './loadingmanager';
 
-export class Asset {
+export class GltfAsset {
     /** The JSON part of the asset. */
     gltf: GlTf;
     extensions: any;
@@ -35,12 +35,12 @@ export class Asset {
 class BufferData {
     private bufferCache: Array<ArrayBuffer> = [];
 
-    asset: Asset;
+    asset: GltfAsset;
     baseUri: string;
     manager: LoadingManager;
     loader: FileLoader;
 
-    constructor(asset: Asset, baseUri: string, manager: LoadingManager) {
+    constructor(asset: GltfAsset, baseUri: string, manager: LoadingManager) {
         this.asset = asset;
         this.baseUri = baseUri;
         this.manager = manager;
