@@ -1,0 +1,327 @@
+<!doctype html>
+<html class="default no-js">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>gltf-loader-ts</title>
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="assets/css/main.css">
+</head>
+<body>
+<header>
+	<div class="tsd-page-toolbar">
+		<div class="container">
+			<div class="table-wrap">
+				<div class="table-cell" id="tsd-search" data-index="assets/js/search.js" data-base=".">
+					<div class="field">
+						<label for="tsd-search-field" class="tsd-widget search no-caption">Search</label>
+						<input id="tsd-search-field" type="text" />
+					</div>
+					<ul class="results">
+						<li class="state loading">Preparing search index...</li>
+						<li class="state failure">The search index is not available</li>
+					</ul>
+					<a href="index.html" class="title">gltf-loader-ts</a>
+				</div>
+				<div class="table-cell" id="tsd-widgets">
+					<div id="tsd-filter">
+						<a href="#" class="tsd-widget options no-caption" data-toggle="options">Options</a>
+						<div class="tsd-filter-group">
+							<div class="tsd-select" id="tsd-filter-visibility">
+								<span class="tsd-select-label">All</span>
+								<ul class="tsd-select-list">
+									<li data-value="public">Public</li>
+									<li data-value="protected">Public/Protected</li>
+									<li data-value="private" class="selected">All</li>
+								</ul>
+							</div>
+							<input type="checkbox" id="tsd-filter-inherited" checked />
+							<label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
+							<input type="checkbox" id="tsd-filter-only-exported" />
+							<label class="tsd-widget" for="tsd-filter-only-exported">Only exported</label>
+						</div>
+					</div>
+					<a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="tsd-page-title">
+		<div class="container">
+			<ul class="tsd-breadcrumb">
+				<li>
+					<a href="globals.html">Globals</a>
+				</li>
+			</ul>
+			<h1> gltf-loader-ts</h1>
+		</div>
+	</div>
+</header>
+<div class="container container-main">
+	<div class="row">
+		<div class="col-8 col-content">
+			<div class="tsd-panel tsd-typography">
+				<h1 id="gltf-loader-ts-status">gltf-loader-ts <a href="https://github.com/KhronosGroup/glTF"><img src="https://img.shields.io/badge/glTF-2%2E0-green.svg?style=flat" alt="status"></a></h1>
+				<p><a href="https://www.npmjs.com/package/gltf-loader-ts"><img src="https://img.shields.io/npm/v/gltf-loader-ts.svg?style=flat" alt="npm Version"></a>
+					<a href="https://travis-ci.org/bwasty/gltf-loader-ts"><img src="https://img.shields.io/travis/bwasty/gltf-loader-ts/master.svg?style=flat&amp;logo=travis" alt="Travis"></a>
+					<a href="https://coveralls.io/github/bwasty/gltf-loader-ts"><img src="https://img.shields.io/coveralls/github/bwasty/gltf-loader-ts.svg?style=flat" alt="Coveralls"></a>
+					<a href="https://codecov.io/gh/bwasty/gltf-loader-ts"><img src="https://codecov.io/gh/bwasty/gltf-loader-ts/branch/master/graph/badge.svg" alt="codecov"></a>
+				<a href="https://github.com/Aaronepower/tokei"><img src="https://tokei.rs/b1/github/bwasty/gltf-loader-ts" alt="Tokei"></a></p>
+				<p>Engine-agnostic glTF 2.0 loader in TypeScript.</p>
+				<p><em>ALPHA VERSION - NOT ALL MAIN FEATURES IMPLEMENTED YET</em></p>
+				<h2 id="features">Features</h2>
+				<ul>
+					<li>can load glTF data from any source and provides unified access to binary and image data <em>[image loading not implemented yet]</em>:<ul>
+							<li>source: URL (http) and <code>FileList</code> (e.g. drag-and-drop) <em>[drag-and-drop not implemented yet]</em></li>
+							<li>plaintext .gltf with external buffer and image files (.bin and .png/.jpg)</li>
+							<li>plaintext with embedded buffer and image data (data URIs)</li>
+							<li>GLB</li>
+						</ul>
+					</li>
+					<li>JSON parts have types generated from the official JSON Schema<ul>
+							<li>TODO!!: link to docs</li>
+						</ul>
+					</li>
+					<li>Lazy loading: external buffer and image files are only loaded when the data is accessed<ul>
+							<li>option to pre-fetch everything</li>
+							<li>TODO!!: link to docs</li>
+						</ul>
+					</li>
+					<li>Can report progress during loading via callbacks</li>
+				</ul>
+				<h2 id="example">Example</h2>
+				<pre><code class="lang-typescript"><span class="hljs-keyword">import</span> { GltfLoader } <span class="hljs-keyword">from</span> <span class="hljs-string">'gltf-loader-ts'</span>;
+<span class="hljs-keyword">let</span> loader = <span class="hljs-keyword">new</span> GltfLoader();
+<span class="hljs-keyword">let</span> asset: Asset = <span class="hljs-keyword">await</span> loader.load(<span class="hljs-string">'https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/master/2.0/Box/glTF/Box.gltf'</span>);
+<span class="hljs-keyword">let</span> gltf: GlTf = asset.gltf;
+<span class="hljs-built_in">console</span>.log(gltf);
+<span class="hljs-comment">// -&gt; {asset: {…}, scene: 0, scenes: Array(1), nodes: Array(2), meshes: Array(1), …}</span>
+
+<span class="hljs-comment">//</span>
+<span class="hljs-keyword">let</span> data = <span class="hljs-keyword">await</span> asset.bufferViewData(<span class="hljs-number">0</span>); <span class="hljs-comment">// fetches Box0.bin</span>
+
+<span class="hljs-comment">// not implemented yet:</span>
+<span class="hljs-comment">// let image: Image = await asset.imageData.get(0)</span>
+</code></pre>
+				<p>For a complete example, see <a href="example/">example/</a>.</p>
+				<p>Documentation: bwasty.github.io/gltf-loader-ts/doc</p>
+			</div>
+		</div>
+		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
+			<nav class="tsd-navigation primary">
+				<ul>
+					<li class="globals  ">
+						<a href="globals.html"><em>Globals</em></a>
+					</li>
+				</ul>
+			</nav>
+			<nav class="tsd-navigation secondary menu-sticky">
+				<ul class="before-current">
+					<li class=" tsd-kind-class tsd-is-not-exported">
+						<a href="classes/bufferdata.html" class="tsd-kind-icon">Buffer<wbr>Data</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/fileloader.html" class="tsd-kind-icon">File<wbr>Loader</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/gltfbinaryextension.html" class="tsd-kind-icon">GLTFBinary<wbr>Extension</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/gltfasset.html" class="tsd-kind-icon">Gltf<wbr>Asset</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/gltfloader.html" class="tsd-kind-icon">Gltf<wbr>Loader</a>
+					</li>
+					<li class=" tsd-kind-class tsd-is-not-exported">
+						<a href="classes/imagedata.html" class="tsd-kind-icon">Image<wbr>Data</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/loaderutils.html" class="tsd-kind-icon">Loader<wbr>Utils</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/loadingmanager.html" class="tsd-kind-icon">Loading<wbr>Manager</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/accessor.html" class="tsd-kind-icon">Accessor</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/accessorsparse.html" class="tsd-kind-icon">Accessor<wbr>Sparse</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/accessorsparseindices.html" class="tsd-kind-icon">Accessor<wbr>Sparse<wbr>Indices</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/accessorsparsevalues.html" class="tsd-kind-icon">Accessor<wbr>Sparse<wbr>Values</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/animation.html" class="tsd-kind-icon">Animation</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/animationchannel.html" class="tsd-kind-icon">Animation<wbr>Channel</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/animationchanneltarget.html" class="tsd-kind-icon">Animation<wbr>Channel<wbr>Target</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/animationsampler.html" class="tsd-kind-icon">Animation<wbr>Sampler</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/asset.html" class="tsd-kind-icon">Asset</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/buffer.html" class="tsd-kind-icon">Buffer</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/bufferview.html" class="tsd-kind-icon">Buffer<wbr>View</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/camera.html" class="tsd-kind-icon">Camera</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/cameraorthographic.html" class="tsd-kind-icon">Camera<wbr>Orthographic</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/cameraperspective.html" class="tsd-kind-icon">Camera<wbr>Perspective</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/gltf.html" class="tsd-kind-icon">Gl<wbr>Tf</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/image.html" class="tsd-kind-icon">Image</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/material.html" class="tsd-kind-icon">Material</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/materialnormaltextureinfo.html" class="tsd-kind-icon">Material<wbr>Normal<wbr>Texture<wbr>Info</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/materialocclusiontextureinfo.html" class="tsd-kind-icon">Material<wbr>Occlusion<wbr>Texture<wbr>Info</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/materialpbrmetallicroughness.html" class="tsd-kind-icon">Material<wbr>Pbr<wbr>Metallic<wbr>Roughness</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/mesh.html" class="tsd-kind-icon">Mesh</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/meshprimitive.html" class="tsd-kind-icon">Mesh<wbr>Primitive</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/node.html" class="tsd-kind-icon">Node</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/sampler.html" class="tsd-kind-icon">Sampler</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/scene.html" class="tsd-kind-icon">Scene</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/skin.html" class="tsd-kind-icon">Skin</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/texture.html" class="tsd-kind-icon">Texture</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/textureinfo.html" class="tsd-kind-icon">Texture<wbr>Info</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="globals.html#gltfid" class="tsd-kind-icon">Gl<wbr>TfId</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="globals.html#onstartonprogresscallback" class="tsd-kind-icon">On<wbr>Start<wbr>OnProgress<wbr>Callback</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-is-not-exported">
+						<a href="globals.html#progresscallback" class="tsd-kind-icon">Progress<wbr>Callback</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-is-not-exported">
+						<a href="globals.html#xmlhttprequestresponse" class="tsd-kind-icon">XMLHttp<wbr>Request<wbr>Response</a>
+					</li>
+					<li class=" tsd-kind-variable tsd-is-not-exported">
+						<a href="globals.html#binary_extension_header_length" class="tsd-kind-icon">BINARY_<wbr>EXTENSION_<wbr>HEADER_<wbr>LENGTH</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="globals.html#binary_extension_header_magic" class="tsd-kind-icon">BINARY_<wbr>EXTENSION_<wbr>HEADER_<wbr>MAGIC</a>
+					</li>
+					<li class=" tsd-kind-variable tsd-is-not-exported">
+						<a href="globals.html#textdecoder" class="tsd-kind-icon">Text<wbr>Decoder</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#resolveurl" class="tsd-kind-icon">resolveURL</a>
+					</li>
+					<li class=" tsd-kind-object-literal tsd-is-not-exported">
+						<a href="globals.html#binary_extension_chunk_types" class="tsd-kind-icon">BINARY_<wbr>EXTENSION_<wbr>CHUNK_<wbr>TYPES</a>
+					</li>
+					<li class=" tsd-kind-object-literal">
+						<a href="globals.html#extensions" class="tsd-kind-icon">EXTENSIONS</a>
+					</li>
+				</ul>
+			</nav>
+		</div>
+	</div>
+</div>
+<footer>
+	<div class="container">
+		<h2>Legend</h2>
+		<div class="tsd-legend-group">
+			<ul class="tsd-legend">
+				<li class="tsd-kind-module"><span class="tsd-kind-icon">Module</span></li>
+				<li class="tsd-kind-object-literal"><span class="tsd-kind-icon">Object literal</span></li>
+				<li class="tsd-kind-variable"><span class="tsd-kind-icon">Variable</span></li>
+				<li class="tsd-kind-function"><span class="tsd-kind-icon">Function</span></li>
+				<li class="tsd-kind-function tsd-has-type-parameter"><span class="tsd-kind-icon">Function with type parameter</span></li>
+				<li class="tsd-kind-index-signature"><span class="tsd-kind-icon">Index signature</span></li>
+				<li class="tsd-kind-type-alias"><span class="tsd-kind-icon">Type alias</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-enum"><span class="tsd-kind-icon">Enumeration</span></li>
+				<li class="tsd-kind-enum-member"><span class="tsd-kind-icon">Enumeration member</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-enum"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-enum"><span class="tsd-kind-icon">Method</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-interface"><span class="tsd-kind-icon">Interface</span></li>
+				<li class="tsd-kind-interface tsd-has-type-parameter"><span class="tsd-kind-icon">Interface with type parameter</span></li>
+				<li class="tsd-kind-constructor tsd-parent-kind-interface"><span class="tsd-kind-icon">Constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-interface"><span class="tsd-kind-icon">Method</span></li>
+				<li class="tsd-kind-index-signature tsd-parent-kind-interface"><span class="tsd-kind-icon">Index signature</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-class"><span class="tsd-kind-icon">Class</span></li>
+				<li class="tsd-kind-class tsd-has-type-parameter"><span class="tsd-kind-icon">Class with type parameter</span></li>
+				<li class="tsd-kind-constructor tsd-parent-kind-class"><span class="tsd-kind-icon">Constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-class"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class"><span class="tsd-kind-icon">Method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class"><span class="tsd-kind-icon">Accessor</span></li>
+				<li class="tsd-kind-index-signature tsd-parent-kind-class"><span class="tsd-kind-icon">Index signature</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited accessor</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected accessor</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private accessor</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static property</span></li>
+				<li class="tsd-kind-call-signature tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static method</span></li>
+			</ul>
+		</div>
+	</div>
+</footer>
+<div class="overlay"></div>
+<script src="assets/js/main.js"></script>
+<script>if (location.protocol == 'file:') document.write('<script src="assets/js/search.js"><' + '/script>');</script>
+</body>
+</html>
