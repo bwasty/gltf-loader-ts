@@ -7,13 +7,7 @@ module.exports = {
 
     cache: true,
     devtool: 'source-map',
-    plugins: [
-        new webpack.optimize.UglifyJsPlugin({
-            minimize: true,
-            sourceMap: true,
-            include: /\.min\.js$/,
-        })
-    ],
+    plugins: [],
 
     entry: {
         'gltf-loader': ['gltf-loader.ts']
