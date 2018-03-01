@@ -28,6 +28,7 @@
         "tslint": "5.9.1",
         "typedoc": "0.10.0",
         "webpack": "4.0.1",
+        "webpack-cli": "^2.0.9",
         "xhr2": "^0.1.4"
     },
     "dependencies": {
