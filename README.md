@@ -1,5 +1,7 @@
 # gltf-loader-ts [![status](https://img.shields.io/badge/glTF-2%2E0-green.svg?style=flat)](https://github.com/KhronosGroup/glTF)
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/bwasty/gltf-loader-ts.svg)](https://greenkeeper.io/)
+
 [![npm Version](https://img.shields.io/npm/v/gltf-loader-ts.svg?style=flat)](https://www.npmjs.com/package/gltf-loader-ts)
 [![Travis](https://img.shields.io/travis/bwasty/gltf-loader-ts/master.svg?style=flat&logo=travis)](https://travis-ci.org/bwasty/gltf-loader-ts)
 [![Coveralls](https://img.shields.io/coveralls/github/bwasty/gltf-loader-ts.svg?style=flat)](https://coveralls.io/github/bwasty/gltf-loader-ts)
