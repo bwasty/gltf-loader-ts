@@ -5,6 +5,7 @@
 [![Coveralls](https://img.shields.io/coveralls/github/bwasty/gltf-loader-ts.svg?style=flat)](https://coveralls.io/github/bwasty/gltf-loader-ts)
 [![codecov](https://codecov.io/gh/bwasty/gltf-loader-ts/branch/master/graph/badge.svg)](https://codecov.io/gh/bwasty/gltf-loader-ts)
 [![Tokei](https://tokei.rs/b1/github/bwasty/gltf-loader-ts)](https://github.com/Aaronepower/tokei)
+[![Greenkeeper badge](https://badges.greenkeeper.io/bwasty/gltf-loader-ts.svg)](https://greenkeeper.io/)
 
 Engine-agnostic glTF 2.0 loader in TypeScript.
 
