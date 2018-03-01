@@ -23,11 +23,11 @@
         "mocha-junit-reporter": "1.17.0",
         "mocha-multi-reporters": "^1.1.7",
         "nyc": "^11.4.1",
-        "ts-loader": "3.5.0",
+        "ts-loader": "4.0.0",
         "ts-node": "^5.0.0",
         "tslint": "5.9.1",
         "typedoc": "0.10.0",
-        "webpack": "3.11.0",
+        "webpack": "4.0.1",
         "xhr2": "^0.1.4"
     },
     "dependencies": {
