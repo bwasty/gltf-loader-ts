@@ -11,7 +11,7 @@ import { LoadingManager } from './loadingmanager';
 export class GltfLoader {
     manager: LoadingManager;
     path: string;
-    crossOrigin: boolean;
+    crossOrigin: boolean; // TODO!: use/remove
     constructor(manager?: LoadingManager) {
         this.manager = manager || new LoadingManager();
     }

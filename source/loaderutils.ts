@@ -5,6 +5,7 @@ declare var TextDecoder: any;
 
 export class LoaderUtils {
     static decodeText(array: ArrayLike<number>) {
+        /* istanbul ignore next */
         if (typeof TextDecoder !== 'undefined') {
             return new TextDecoder().decode(array);
         }
@@ -22,9 +23,9 @@ export class LoaderUtils {
     }
 
     static extractUrlBase(url: string) {
-        const parts = url.split( '/' );
-        if ( parts.length === 1 ) { return './'; }
+        const parts = url.split('/');
+        if (parts.length === 1) { return './'; }
         parts.pop();
-        return parts.join( '/' ) + '/';
+        return parts.join('/') + '/';
     }
 }
