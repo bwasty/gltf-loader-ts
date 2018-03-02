@@ -12,7 +12,7 @@ import { GltfAsset } from '../source/gltf-asset';
 import { LoadingManager } from '../source/loadingmanager';
 (global as any).XMLHttpRequest = XMLHttpRequest;
 
-// TODO!!: make configurable
+// TODO!!: make configurable -> process.env
 const SAMPLE_MODELS_BASE = 'https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/master/2.0/';
 // const SAMPLE_MODELS_BASE = 'http://localhost:8081/';
 
@@ -125,7 +125,13 @@ describe('gltf-loader', function() {
         expect(manager.onError).to.have.been.called();
     });
 
-    // TODO!!!: test buffer caching / fetchAll...
+    it.skip('caches buffer data', function() {
+        // TODO!!
+    });
+
+    it.skip('fetches all data with fetchAll', function() {
+        // TODO!!
+    });
 
     // TODO!!: test images
 

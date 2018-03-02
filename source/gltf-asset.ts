@@ -64,6 +64,7 @@ export class BufferData {
         const buffer = gltf.buffers[index];
         // If present, GLB container is required to be the first buffer.
         if (buffer.uri === undefined) {
+            /* istanbul ignore next */
             if (index !== 0) { throw new Error('GLB container is required to be the first buffer'); }
             return this.asset.extensions[EXTENSIONS.KHR_BINARY_GLTF].body;
         }
