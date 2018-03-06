@@ -19,7 +19,7 @@
         "coveralls": "3.0.0",
         "gh-pages": "1.1.0",
         "gltf-typescript-generator": "0.0.3",
-        "mocha": "5.0.1",
+        "mocha": "5.0.2",
         "mocha-junit-reporter": "1.17.0",
         "mocha-multi-reporters": "1.1.7",
         "nyc": "11.4.1",
