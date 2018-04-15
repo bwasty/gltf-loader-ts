@@ -58,6 +58,7 @@ export class FileLoader {
                 }
             };
 
+            /* istanbul ignore next */
             xhr.onerror = function(event: ErrorEvent) {
                 reject({
                     status: this.status,

@@ -2,6 +2,7 @@ import * as chai from 'chai';
 import * as spies from 'chai-spies';
 
 const expect = chai.expect;
+const assert = chai.assert;
 chai.use(spies);
 const spy = chai.spy;
 
@@ -142,12 +143,69 @@ describe('gltf-loader', function() {
         expect((asset.bufferData as any).bufferCache).to.have.lengthOf(1);
     });
 
-    // TODO!!: test images
-    // - standard
-    // - from GLB buffer
-    // - embedded
-    // - non-supported type
-    // - from filelist...
+    it('should load image files and cache them', async function() {
+        const img: any = {};
+        (global as any).Image = function() { return img; }; // mock as there is no Image in NodeJS
+
+        const loader = new GltfLoader();
+        const asset = await loader.load(SAMPLE_MODELS_BASE + 'BoxTextured/glTF/BoxTextured.gltf');
+
+        const promise = asset.imageData.get(0);
+        img.onload();
+        await promise;
+        expect(img.src).to.equal(SAMPLE_MODELS_BASE + 'BoxTextured/glTF/CesiumLogoFlat.png');
+        expect((asset.imageData as any).imageCache).to.have.lengthOf(1);
+
+        await asset.imageData.get(0); // cover getting data from cache
+    });
+
+    it('should handle image loading errors', async function() {
+        const img: any = {};
+        (global as any).Image = function() { return img; }; // mock as there is no Image in NodeJS
+
+        const loader = new GltfLoader();
+        const asset = await loader.load(SAMPLE_MODELS_BASE + 'BoxTextured/glTF/BoxTextured.gltf');
+
+        const promise = asset.imageData.get(0);
+        img.onerror();
+        try {
+            await promise;
+            assert.fail('expected error');
+        } catch (e) {
+        }
+    });
+
+    it('should load images from GLB files', async function() {
+        // mock Browser objects not available in NodeJS
+        const img: any = {};
+        (global as any).Image = function() { return img; };
+        (global as any).Blob = function() { return {}; };
+        (global as any).URL = {
+            createObjectURL: () => 'fakeObjectUrl',
+        };
+
+        const loader = new GltfLoader();
+        const asset = await loader.load(SAMPLE_MODELS_BASE + 'BoxTextured/glTF-Binary/BoxTextured.glb');
+
+        const promise = asset.imageData.get(0);
+        console.log(img);
+        // TODO!!: img.onload is not a function??
+        // img.onload();
+        // await promise;
+    });
+
+    it('should load embedded images', async function() {
+        const img: any = {};
+        (global as any).Image = function() { return img; }; // mock as there is no Image in NodeJS
+
+        const loader = new GltfLoader();
+        const asset = await loader.load(SAMPLE_MODELS_BASE + 'BoxTextured/glTF-Embedded/BoxTextured.gltf');
+
+        const promise = asset.imageData.get(0);
+        img.onload();
+        await promise;
+        expect(img.src).to.match(/^data:image\/png;base64,iVBO/);
+    });
 
     // TODO!!: test loading from FileList (drag and drop)
 });

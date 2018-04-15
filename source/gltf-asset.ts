@@ -134,6 +134,7 @@ export class ImageData {
         } else if (image.uri !== undefined ) {
             sourceURI = resolveURL(image.uri, this.baseUri);
         } else {
+            /* istanbul ignore next */
             throw new Error('Invalid glTF: image must either have a `uri` or a `bufferView`');
         }
 
