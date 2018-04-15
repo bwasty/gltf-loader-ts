@@ -18,7 +18,6 @@ export class GltfAsset {
         // this.imageData = new ImageData(gltf, baseUri, manager);
     }
 
-    // TODO!!: test
     async bufferViewData(index: GlTfId) {
         if (!this.gltf.bufferViews) {
             throw new Error('No buffer views found.');
@@ -49,8 +48,10 @@ export class BufferData {
     }
 
     /**
-     * Get the buffer data. Might trigger a network request if theres is an external .bin file
+     * Get the buffer data. Triggers a network request if this buffer resides
+     * in an external .bin file and is accessed for the first time (cached afterwards).
      * when it's accessed for the first time and `fetchAll` has not been used.
+     * To avoid any delays, use `fetchAll` to pre-fetch everything.
      */
     async get(index: GlTfId): Promise<ArrayBuffer> {
         if (this.bufferCache[index] !== undefined) {
@@ -71,14 +72,12 @@ export class BufferData {
 
         const url = resolveURL(buffer.uri, this.baseUri);
         const bufferData = await this.loader.load(url);
-        // TODO!!: test caching works...
         this.bufferCache[index] = bufferData;
         return bufferData;
     }
 
     /** Pre-fetches all buffer data. */
     async fetchAll(): Promise<any> {
-        // TODO!!: test
         const buffers = this.asset.gltf.buffers;
         if (!buffers) { return; }
         return Promise.all(buffers.map((_, i): any => this.get(i)));
@@ -94,15 +93,16 @@ export class ImageData {
     }
 
     /**
-     * Get the buffer data. Might trigger a network request if data is in an extermal image
-     * file when it's accessed for the first time and `fetchAll` has not been used.
+     * Get the image data. Triggers a network request if image is in an external file
+     * and is accessed for the first time (cached afterwards). To avoid any delays,
+     * use `fetchAll` to pre-fetch everything.
      */
     async get(index: GlTfId): Promise<HTMLImageElement> {
         // TODO!!: implement
         return new Image();
     }
 
-    /** Pre-fetches all buffer data. */
+    /** Pre-fetches all image data. */
     fetchAll() {
         // TODO!!
     }

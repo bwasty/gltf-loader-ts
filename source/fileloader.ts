@@ -21,13 +21,8 @@ export class FileLoader {
         url = this.manager.resolveURL(url);
 
         return new Promise((resolve, reject) => {
-            // TODO? caching
-            // TODO? check if request is duplicate -> multiple reference to same file in gltf?
-
             // TODO!!: Check for data: URI
             // (-> Safari can not handle Data URIs through XMLHttpRequest so process manually)
-
-            // TODO?: Initialise array for duplicate requests
 
             // NOTE: Not using `fetch` because it doesn't support progress reporting
             const xhr = new XMLHttpRequest();

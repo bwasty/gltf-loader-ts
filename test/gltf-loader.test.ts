@@ -12,10 +12,11 @@ import { GltfAsset } from '../source/gltf-asset';
 import { LoadingManager } from '../source/loadingmanager';
 (global as any).XMLHttpRequest = XMLHttpRequest;
 
-// TODO!!: make configurable -> process.env
-const SAMPLE_MODELS_BASE = 'https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/master/2.0/';
-// const SAMPLE_MODELS_BASE = 'http://localhost:8081/';
-
+let SAMPLE_MODELS_BASE = 'https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/master/2.0/';
+if (process.env.SAMPLE_MODELS_BASE) {
+    // for faster tests, clone the sample models repo and start a `https-server` in the 2.0 directory
+    SAMPLE_MODELS_BASE = process.env.SAMPLE_MODELS_BASE;
+}
 
 // arrow functions are discouraged for mocha
 // -> https://mochajs.org/#arrow-functions
@@ -59,7 +60,7 @@ describe('gltf-loader', function() {
         const loader = new GltfLoader();
         const asset = await loader.load(SAMPLE_MODELS_BASE + 'Box/glTF-Embedded/Box.gltf');
         expect(asset.gltf.buffers[0].uri).to.match(/^data:application\/octet-stream;base64,AAA/);
-        // TODO!!!: fails actually...but in the browser it works
+        // TODO!!: fails actually...but in the browser it works (-> issue with `xhr2`?)
         // await expect_asset_to_be_standard_box(asset);
     });
 
@@ -125,12 +126,20 @@ describe('gltf-loader', function() {
         expect(manager.onError).to.have.been.called();
     });
 
-    it.skip('caches buffer data', function() {
-        // TODO!!
+    it('caches buffer data', async function() {
+        const loader = new GltfLoader();
+        const asset = await loader.load(SAMPLE_MODELS_BASE + 'Box/glTF/Box.gltf');
+        expect((asset.bufferData as any).bufferCache).to.have.lengthOf(0);
+        const buffer = await asset.bufferData.get(0);
+        expect((asset.bufferData as any).bufferCache).to.have.lengthOf(1);
+        expect((asset.bufferData as any).bufferCache[0]).to.equal(buffer);
     });
 
-    it.skip('fetches all data with fetchAll', function() {
-        // TODO!!
+    it('fetches all data with fetchAll', async function() {
+        const loader = new GltfLoader();
+        const asset = await loader.load(SAMPLE_MODELS_BASE + 'Box/glTF/Box.gltf');
+        await asset.bufferData.fetchAll();
+        expect((asset.bufferData as any).bufferCache).to.have.lengthOf(1);
     });
 
     // TODO!!: test images

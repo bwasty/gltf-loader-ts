@@ -31,8 +31,7 @@
         "webpack-cli": "~2.0.10",
         "xhr2": "~0.1.4"
     },
-    "dependencies": {
-    },
+    "dependencies": {},
     "peerDependencies": {},
     "scripts": {
         "build": "webpack --mode development",
