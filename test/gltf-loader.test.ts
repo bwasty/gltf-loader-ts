@@ -143,6 +143,11 @@ describe('gltf-loader', function() {
     });
 
     // TODO!!: test images
+    // - standard
+    // - from GLB buffer
+    // - embedded
+    // - non-supported type
+    // - from filelist...
 
     // TODO!!: test loading from FileList (drag and drop)
 });

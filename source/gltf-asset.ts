@@ -85,9 +85,14 @@ export class BufferData {
 }
 
 export class ImageData {
+    private imageCache: Array<HTMLImageElement> = [];
+
+    asset: GltfAsset;
     baseUri: string;
     manager: LoadingManager;
-    constructor(baseUri: string, manager: LoadingManager) {
+
+    constructor(asset: GltfAsset, baseUri: string, manager: LoadingManager) {
+        this.asset = asset;
         this.baseUri = baseUri;
         this.manager = manager;
     }
@@ -98,13 +103,59 @@ export class ImageData {
      * use `fetchAll` to pre-fetch everything.
      */
     async get(index: GlTfId): Promise<HTMLImageElement> {
-        // TODO!!: implement
-        return new Image();
+        if (this.imageCache[index] !== undefined) {
+            return this.imageCache[index];
+        }
+
+        const gltf = this.asset.gltf;
+        if (!gltf.images) {
+            throw new Error('No images found.');
+        }
+        const image = gltf.images[index];
+
+        let sourceURI: string;
+        let isObjectURL = false;
+        if (image.bufferView !== undefined) {
+            // Load binary image data from bufferView, if provided.
+            const bufferView = await this.asset.bufferViewData(image.bufferView);
+            isObjectURL = true;
+            const blob = new Blob([bufferView], { type: image.mimeType });
+            sourceURI = URL.createObjectURL(blob);
+        } else if (image.uri !== undefined ) {
+            sourceURI = image.uri;
+        } else {
+            throw new Error('Invalid glTF: image must either have a `uri` or a `bufferView`');
+        }
+
+        const img = new Image();
+
+        const promise: Promise<HTMLImageElement> = new Promise((resolve, reject) => {
+            image.onerror = () => {
+                reject(); // TODO!!!: pass event status...?
+                this.manager.itemEnd(sourceURI);
+                this.manager.itemError(sourceURI);
+            };
+            image.onload = () => {
+                if (isObjectURL) {
+                    URL.revokeObjectURL(sourceURI);
+                }
+                resolve(img);
+                this.manager.itemEnd(sourceURI);
+            };
+            // TODO!!: cross-origin?
+            // TODO!: onprogress?
+            img.src = sourceURI;
+            this.manager.itemStart(sourceURI);
+        });
+
+        return promise;
     }
 
     /** Pre-fetches all image data. */
-    fetchAll() {
-        // TODO!!
+    async fetchAll(): Promise<any> {
+        const images = this.asset.gltf.images;
+        if (!images) { return; }
+        return Promise.all(images.map((_, i): any => this.get(i)));
     }
 }
 

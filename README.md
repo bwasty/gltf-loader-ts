@@ -45,3 +45,6 @@ let data = await asset.bufferViewData(0); // fetches Box0.bin
 For a complete example, see [example/](example/).
 
 Documentation: https://bwasty.github.io/gltf-loader-ts
+
+## Acknowledgements
+The code was initially derived from [`THREE.GLTFLoader`](https://threejs.org/docs/#examples/loaders/GLTFLoader).
