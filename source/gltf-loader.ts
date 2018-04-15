@@ -9,15 +9,15 @@ import { LoaderUtils } from './loaderutils';
 import { LoadingManager } from './loadingmanager';
 
 export class GltfLoader {
-    manager: LoadingManager;
-    path: string;
-    crossOrigin: boolean; // TODO!: use/remove
+    private manager: LoadingManager;
+    // private crossOrigin: boolean; // TODO!: use/remove
+
     constructor(manager?: LoadingManager) {
         this.manager = manager || new LoadingManager();
     }
 
     async load(url: string, onProgress?: (xhr: XMLHttpRequest) => void): Promise<GltfAsset> {
-        const path = this.path !== undefined ? this.path : LoaderUtils.extractUrlBase(url);
+        const path = LoaderUtils.extractUrlBase(url);
         // TODO!: allow changing loader options(headers etc.)?
         const loader = new FileLoader(this.manager);
         loader.responseType = 'arraybuffer';
@@ -25,17 +25,7 @@ export class GltfLoader {
         return await this.parse(data, path);
     }
 
-    setCrossOrigin(value: boolean) {
-        this.crossOrigin = value;
-        return this;
-    }
-
-    setPath(value: string) {
-        this.path = value;
-        return this;
-    }
-
-    async parse(data: any, path: any): Promise<GltfAsset> {
+    private async parse(data: any, path: any): Promise<GltfAsset> {
         let content: any;
         const extensions: {[k: string]: any} = {};
 
@@ -57,33 +47,15 @@ export class GltfLoader {
             throw new Error('Unsupported asset. glTF versions >=2.0 are supported.');
         }
 
-        // TODO!: extensions (lights, specular glossiness)
-        // if ( json.extensionsUsed ) {
-        //     if ( json.extensionsUsed.indexOf( EXTENSIONS.KHR_LIGHTS ) >= 0 ) {
-        //         extensions[ EXTENSIONS.KHR_LIGHTS ] = new GLTFLightsExtension( json );
-        //     }
-
-        //     if ( json.extensionsUsed.indexOf( EXTENSIONS.KHR_MATERIALS_PBR_SPECULAR_GLOSSINESS ) >= 0 ) {
-        //         extensions[ EXTENSIONS.KHR_MATERIALS_PBR_SPECULAR_GLOSSINESS ] =
-        //             new GLTFMaterialsPbrSpecularGlossinessExtension();
-        //     }
-        // }
-
         return new GltfAsset(
             json,
-            path || this.path || '',
+            path || '',
             extensions,
             this.manager,
         );
     }
 }
 
-/*********************************/
-/********** EXTENSIONS ***********/
-/*********************************/
-
 export const EXTENSIONS = {
     KHR_BINARY_GLTF: 'KHR_binary_glTF',
-    KHR_LIGHTS: 'KHR_lights',
-    KHR_MATERIALS_PBR_SPECULAR_GLOSSINESS: 'KHR_materials_pbrSpecularGlossiness',
 };

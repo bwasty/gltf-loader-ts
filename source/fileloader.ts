@@ -31,13 +31,14 @@ export class FileLoader {
             xhr.onload = function(event: ProgressEvent) {
                 const response = this.response;
 
-                if (this.status === 200) {
-                    resolve(response);
-                    self.manager.itemEnd(url);
-                } else if (this.status === 0) {
+                /* istanbul ignore if */
+                if (this.status === 0) {
                     // Some browsers return HTTP Status 0 when using non-http protocol
                     // e.g. 'file://' or 'data://'. Handle as success.
                     console.warn('FileLoader: HTTP Status 0 received.');
+                    resolve(response);
+                    self.manager.itemEnd(url);
+                } else if (this.status === 200) {
                     resolve(response);
                     self.manager.itemEnd(url);
                 } else {

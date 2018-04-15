@@ -19,6 +19,7 @@ export class GltfAsset {
 
     async bufferViewData(index: GlTfId) {
         if (!this.gltf.bufferViews) {
+            /* istanbul ignore next */
             throw new Error('No buffer views found.');
         }
         const bufferView = this.gltf.bufferViews[index];
@@ -27,16 +28,24 @@ export class GltfAsset {
         const byteOffset = bufferView.byteOffset || 0;
         return bufferData.slice(byteOffset, byteOffset + byteLength);
     }
+
+    /** Pre-fetches all buffer and image data. */
+    async fetchAll(): Promise<any> {
+        return Promise.all([
+            this.bufferData.fetchAll(),
+            this.imageData.fetchAll(),
+        ]);
+    }
 }
 
 // tslint:disable:max-classes-per-file
 export class BufferData {
-    private bufferCache: Array<ArrayBuffer> = [];
-
     asset: GltfAsset;
     baseUri: string;
     manager: LoadingManager;
     loader: FileLoader;
+
+    private bufferCache: Array<ArrayBuffer> = [];
 
     constructor(asset: GltfAsset, baseUri: string, manager: LoadingManager) {
         this.asset = asset;
@@ -59,6 +68,7 @@ export class BufferData {
 
         const gltf = this.asset.gltf;
         if (!gltf.buffers) {
+            /* istanbul ignore next */
             throw new Error('No buffers found.');
         }
         const buffer = gltf.buffers[index];
@@ -84,11 +94,11 @@ export class BufferData {
 }
 
 export class ImageData {
-    private imageCache: Array<HTMLImageElement> = [];
-
     asset: GltfAsset;
     baseUri: string;
     manager: LoadingManager;
+
+    private imageCache: Array<HTMLImageElement> = [];
 
     constructor(asset: GltfAsset, baseUri: string, manager: LoadingManager) {
         this.asset = asset;
@@ -108,6 +118,7 @@ export class ImageData {
 
         const gltf = this.asset.gltf;
         if (!gltf.images) {
+            /* istanbul ignore next */
             throw new Error('No images found.');
         }
         const image = gltf.images[index];

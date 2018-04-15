@@ -4,15 +4,15 @@
 export type OnStartOnProgressCallback = ((url: string, itemsLoaded: number, itemsTotal: number) => void) | undefined;
 
 export class LoadingManager {
-    private isLoading = false;
-    private itemsLoaded = 0;
-    private itemsTotal = 0;
-
     urlModifier: ((url: string) => string) | undefined = undefined;
     onStart: OnStartOnProgressCallback = undefined;
     onProgress: OnStartOnProgressCallback = undefined;
     onLoad: (() => void) | undefined = undefined;
     onError: ((url: string) => void) | undefined = undefined;
+
+    private isLoading = false;
+    private itemsLoaded = 0;
+    private itemsTotal = 0;
 
     itemStart(url: string) {
         this.itemsTotal++;

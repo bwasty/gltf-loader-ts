@@ -138,7 +138,7 @@ describe('gltf-loader', function() {
     it('fetches all data with fetchAll', async function() {
         const loader = new GltfLoader();
         const asset = await loader.load(SAMPLE_MODELS_BASE + 'Box/glTF/Box.gltf');
-        await asset.bufferData.fetchAll();
+        await asset.fetchAll();
         expect((asset.bufferData as any).bufferCache).to.have.lengthOf(1);
     });
 
