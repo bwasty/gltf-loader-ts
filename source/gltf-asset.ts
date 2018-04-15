@@ -14,8 +14,7 @@ export class GltfAsset {
         this.gltf = gltf;
         this.extensions = extensions;
         this.bufferData = new BufferData(this, baseUri, manager);
-        // TODO!!
-        // this.imageData = new ImageData(gltf, baseUri, manager);
+        this.imageData = new ImageData(this, baseUri, manager);
     }
 
     async bufferViewData(index: GlTfId) {
@@ -122,7 +121,7 @@ export class ImageData {
             const blob = new Blob([bufferView], { type: image.mimeType });
             sourceURI = URL.createObjectURL(blob);
         } else if (image.uri !== undefined ) {
-            sourceURI = image.uri;
+            sourceURI = resolveURL(image.uri, this.baseUri);
         } else {
             throw new Error('Invalid glTF: image must either have a `uri` or a `bufferView`');
         }
@@ -130,15 +129,16 @@ export class ImageData {
         const img = new Image();
 
         const promise: Promise<HTMLImageElement> = new Promise((resolve, reject) => {
-            image.onerror = () => {
-                reject(); // TODO!!!: pass event status...?
+            img.onerror = () => {
+                reject(`Failed to load ${sourceURI}`);
                 this.manager.itemEnd(sourceURI);
                 this.manager.itemError(sourceURI);
             };
-            image.onload = () => {
+            img.onload = () => {
                 if (isObjectURL) {
                     URL.revokeObjectURL(sourceURI);
                 }
+                this.imageCache[index] = img;
                 resolve(img);
                 this.manager.itemEnd(sourceURI);
             };
