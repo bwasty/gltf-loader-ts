@@ -8,19 +8,15 @@
 
 Engine-agnostic glTF 2.0 loader in TypeScript.
 
-_ALPHA VERSION - NOT ALL MAIN FEATURES IMPLEMENTED YET_
-
 ## Features
-- can load glTF data from any source and provides unified access to binary and image data _[image loading not implemented yet]_:
-    - source: URL (http) and `FileList` (e.g. drag-and-drop) _[drag-and-drop not implemented yet]_
+- can load every variant of glTF and provides unified access to buffer and image data:
     - plaintext .gltf with external buffer and image files (.bin and .png/.jpg)
     - plaintext with embedded buffer and image data (data URIs)
-    - GLB
-- JSON parts have types generated from the official JSON Schema (-> [`GlTf`](https://bwasty.github.io/gltf-loader-ts/interfaces/gltf.html))
+    - GLB (Binary glTF)
+- Types generated from the official JSON Schema (-> [`GlTf`](https://bwasty.github.io/gltf-loader-ts/interfaces/gltf.html))
 - Lazy loading: external buffer and image files are only loaded when the data is accessed
   - option to pre-fetch everything
 - Can report progress during loading via callbacks
-
 
 ## Installation
 ```
@@ -30,16 +26,14 @@ npm install --save-dev gltf-loader-ts
 ```typescript
 import { GltfLoader } from 'gltf-loader-ts';
 let loader = new GltfLoader();
-let asset: Asset = await loader.load(
-    'https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/master/2.0/Box/glTF/Box.gltf');
+let uri = 'https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/master/2.0/BoxTextured/glTF/BoxTextured.gltf';
+let asset: Asset = await loader.load(uri);
 let gltf: GlTf = asset.gltf;
 console.log(gltf);
 // -> {asset: {…}, scene: 0, scenes: Array(1), nodes: Array(2), meshes: Array(1), …}
 
-let data = await asset.bufferViewData(0); // fetches Box0.bin
-
-// not implemented yet:
-// let image: Image = await asset.imageData.get(0)
+let data = await asset.bufferViewData(0); // fetches BoxTextured0.bin
+let image: Image = await asset.imageData.get(0) // fetches CesiumLogoFlat.png
 ```
 
 For a complete example, see [example/](example/).
