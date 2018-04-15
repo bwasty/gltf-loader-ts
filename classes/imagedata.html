@@ -85,7 +85,9 @@
 						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="imagedata.html#asset" class="tsd-kind-icon">asset</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="imagedata.html#baseuri" class="tsd-kind-icon">base<wbr>Uri</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="imagedata.html#imagecache" class="tsd-kind-icon">image<wbr>Cache</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="imagedata.html#manager" class="tsd-kind-icon">manager</a></li>
 							</ul>
 						</section>
@@ -105,17 +107,20 @@
 					<a name="constructor" class="tsd-anchor"></a>
 					<h3>constructor</h3>
 					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">new <wbr>Image<wbr>Data<span class="tsd-signature-symbol">(</span>baseUri<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, manager<span class="tsd-signature-symbol">: </span><a href="loadingmanager.html" class="tsd-signature-type">LoadingManager</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="imagedata.html" class="tsd-signature-type">ImageData</a></li>
+						<li class="tsd-signature tsd-kind-icon">new <wbr>Image<wbr>Data<span class="tsd-signature-symbol">(</span>asset<span class="tsd-signature-symbol">: </span><a href="gltfasset.html" class="tsd-signature-type">GltfAsset</a>, baseUri<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, manager<span class="tsd-signature-symbol">: </span><a href="loadingmanager.html" class="tsd-signature-type">LoadingManager</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="imagedata.html" class="tsd-signature-type">ImageData</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/bwasty/gltf-loader-ts/blob/3680105/source/gltf-asset.ts#L89">gltf-asset.ts:89</a></li>
+									<li>Defined in <a href="https://github.com/bwasty/gltf-loader-ts/blob/d7e7ca0/source/gltf-asset.ts#L101">gltf-asset.ts:101</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
+								<li>
+									<h5>asset: <a href="gltfasset.html" class="tsd-signature-type">GltfAsset</a></h5>
+								</li>
 								<li>
 									<h5>baseUri: <span class="tsd-signature-type">string</span></h5>
 								</li>
@@ -131,12 +136,32 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="asset" class="tsd-anchor"></a>
+					<h3>asset</h3>
+					<div class="tsd-signature tsd-kind-icon">asset<span class="tsd-signature-symbol">:</span> <a href="gltfasset.html" class="tsd-signature-type">GltfAsset</a></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/bwasty/gltf-loader-ts/blob/d7e7ca0/source/gltf-asset.ts#L97">gltf-asset.ts:97</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
 					<a name="baseuri" class="tsd-anchor"></a>
 					<h3>base<wbr>Uri</h3>
 					<div class="tsd-signature tsd-kind-icon">base<wbr>Uri<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/bwasty/gltf-loader-ts/blob/3680105/source/gltf-asset.ts#L88">gltf-asset.ts:88</a></li>
+							<li>Defined in <a href="https://github.com/bwasty/gltf-loader-ts/blob/d7e7ca0/source/gltf-asset.ts#L98">gltf-asset.ts:98</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
+					<a name="imagecache" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagPrivate">Private</span> image<wbr>Cache</h3>
+					<div class="tsd-signature tsd-kind-icon">image<wbr>Cache<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">HTMLImageElement</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> =&nbsp;[]</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/bwasty/gltf-loader-ts/blob/d7e7ca0/source/gltf-asset.ts#L101">gltf-asset.ts:101</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -146,7 +171,7 @@
 					<div class="tsd-signature tsd-kind-icon">manager<span class="tsd-signature-symbol">:</span> <a href="loadingmanager.html" class="tsd-signature-type">LoadingManager</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/bwasty/gltf-loader-ts/blob/3680105/source/gltf-asset.ts#L89">gltf-asset.ts:89</a></li>
+							<li>Defined in <a href="https://github.com/bwasty/gltf-loader-ts/blob/d7e7ca0/source/gltf-asset.ts#L99">gltf-asset.ts:99</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -157,21 +182,21 @@
 					<a name="fetchall" class="tsd-anchor"></a>
 					<h3>fetch<wbr>All</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">fetch<wbr>All<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+						<li class="tsd-signature tsd-kind-icon">fetch<wbr>All<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/bwasty/gltf-loader-ts/blob/3680105/source/gltf-asset.ts#L105">gltf-asset.ts:105</a></li>
+									<li>Defined in <a href="https://github.com/bwasty/gltf-loader-ts/blob/d7e7ca0/source/gltf-asset.ts#L167">gltf-asset.ts:167</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Pre-fetches all buffer data.</p>
+									<p>Pre-fetches all image data.</p>
 								</div>
 							</div>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -185,13 +210,14 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/bwasty/gltf-loader-ts/blob/3680105/source/gltf-asset.ts#L99">gltf-asset.ts:99</a></li>
+									<li>Defined in <a href="https://github.com/bwasty/gltf-loader-ts/blob/d7e7ca0/source/gltf-asset.ts#L114">gltf-asset.ts:114</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Get the buffer data. Might trigger a network request if data is in an extermal image
-									file when it&#39;s accessed for the first time and <code>fetchAll</code> has not been used.</p>
+									<p>Get the image data. Triggers a network request if image is in an external file
+										and is accessed for the first time (cached afterwards). To avoid any delays,
+									use <code>fetchAll</code> to pre-fetch everything.</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -225,7 +251,13 @@
 								<a href="imagedata.html#constructor" class="tsd-kind-icon">constructor</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="imagedata.html#asset" class="tsd-kind-icon">asset</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
 								<a href="imagedata.html#baseuri" class="tsd-kind-icon">base<wbr>Uri</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
+								<a href="imagedata.html#imagecache" class="tsd-kind-icon">image<wbr>Cache</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class">
 								<a href="imagedata.html#manager" class="tsd-kind-icon">manager</a>
@@ -307,14 +339,5 @@
 <div class="overlay"></div>
 <script src="../assets/js/main.js"></script>
 <script>if (location.protocol == 'file:') document.write('<script src="../assets/js/search.js"><' + '/script>');</script>
-<script>
-        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-                m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-        ga('create', 'UA-58175920-2', '');
-        ga('send', 'pageview');
-    </script>
 </body>
 </html>

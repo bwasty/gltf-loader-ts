@@ -65,21 +65,19 @@
 				<h1 id="gltf-loader-ts-status">gltf-loader-ts <a href="https://github.com/KhronosGroup/glTF"><img src="https://img.shields.io/badge/glTF-2%2E0-green.svg?style=flat" alt="status"></a></h1>
 				<p><a href="https://www.npmjs.com/package/gltf-loader-ts"><img src="https://img.shields.io/npm/v/gltf-loader-ts.svg?style=flat" alt="npm Version"></a>
 					<a href="https://travis-ci.org/bwasty/gltf-loader-ts"><img src="https://img.shields.io/travis/bwasty/gltf-loader-ts/master.svg?style=flat&amp;logo=travis" alt="Travis"></a>
-					<a href="https://coveralls.io/github/bwasty/gltf-loader-ts"><img src="https://img.shields.io/coveralls/github/bwasty/gltf-loader-ts.svg?style=flat" alt="Coveralls"></a>
 					<a href="https://codecov.io/gh/bwasty/gltf-loader-ts"><img src="https://codecov.io/gh/bwasty/gltf-loader-ts/branch/master/graph/badge.svg" alt="codecov"></a>
-				<a href="https://github.com/Aaronepower/tokei"><img src="https://tokei.rs/b1/github/bwasty/gltf-loader-ts" alt="Tokei"></a></p>
+					<a href="https://github.com/Aaronepower/tokei"><img src="https://tokei.rs/b1/github/bwasty/gltf-loader-ts" alt="Tokei"></a>
+				<a href="https://greenkeeper.io/"><img src="https://badges.greenkeeper.io/bwasty/gltf-loader-ts.svg" alt="Greenkeeper badge"></a></p>
 				<p>Engine-agnostic glTF 2.0 loader in TypeScript.</p>
-				<p><em>ALPHA VERSION - NOT ALL MAIN FEATURES IMPLEMENTED YET</em></p>
 				<h2 id="features">Features</h2>
 				<ul>
-					<li>can load glTF data from any source and provides unified access to binary and image data <em>[image loading not implemented yet]</em>:<ul>
-							<li>source: URL (http) and <code>FileList</code> (e.g. drag-and-drop) <em>[drag-and-drop not implemented yet]</em></li>
+					<li>can load every variant of glTF and provides unified access to buffer and image data:<ul>
 							<li>plaintext .gltf with external buffer and image files (.bin and .png/.jpg)</li>
 							<li>plaintext with embedded buffer and image data (data URIs)</li>
-							<li>GLB</li>
+							<li>GLB (Binary glTF)</li>
 						</ul>
 					</li>
-					<li>JSON parts have types generated from the official JSON Schema (-&gt; <a href="https://bwasty.github.io/gltf-loader-ts/interfaces/gltf.html"><code>GlTf</code></a>)</li>
+					<li>Types generated from the official JSON Schema (-&gt; <a href="https://bwasty.github.io/gltf-loader-ts/interfaces/gltf.html"><code>GlTf</code></a>)</li>
 					<li>Lazy loading: external buffer and image files are only loaded when the data is accessed<ul>
 							<li>option to pre-fetch everything</li>
 						</ul>
@@ -91,19 +89,19 @@
 </code></pre><h2 id="example">Example</h2>
 				<pre><code class="lang-typescript"><span class="hljs-keyword">import</span> { GltfLoader } <span class="hljs-keyword">from</span> <span class="hljs-string">'gltf-loader-ts'</span>;
 <span class="hljs-keyword">let</span> loader = <span class="hljs-keyword">new</span> GltfLoader();
-<span class="hljs-keyword">let</span> asset: Asset = <span class="hljs-keyword">await</span> loader.load(<span class="hljs-string">'https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/master/2.0/Box/glTF/Box.gltf'</span>);
+<span class="hljs-keyword">let</span> uri = <span class="hljs-string">'https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/master/2.0/BoxTextured/glTF/BoxTextured.gltf'</span>;
+<span class="hljs-keyword">let</span> asset: Asset = <span class="hljs-keyword">await</span> loader.load(uri);
 <span class="hljs-keyword">let</span> gltf: GlTf = asset.gltf;
 <span class="hljs-built_in">console</span>.log(gltf);
 <span class="hljs-comment">// -&gt; {asset: {…}, scene: 0, scenes: Array(1), nodes: Array(2), meshes: Array(1), …}</span>
 
-<span class="hljs-comment">//</span>
-<span class="hljs-keyword">let</span> data = <span class="hljs-keyword">await</span> asset.bufferViewData(<span class="hljs-number">0</span>); <span class="hljs-comment">// fetches Box0.bin</span>
-
-<span class="hljs-comment">// not implemented yet:</span>
-<span class="hljs-comment">// let image: Image = await asset.imageData.get(0)</span>
+<span class="hljs-keyword">let</span> data = <span class="hljs-keyword">await</span> asset.bufferViewData(<span class="hljs-number">0</span>); <span class="hljs-comment">// fetches BoxTextured0.bin</span>
+<span class="hljs-keyword">let</span> image: Image = <span class="hljs-keyword">await</span> asset.imageData.get(<span class="hljs-number">0</span>) <span class="hljs-comment">// fetches CesiumLogoFlat.png</span>
 </code></pre>
 				<p>For a complete example, see <a href="example/">example/</a>.</p>
 				<p>Documentation: <a href="https://bwasty.github.io/gltf-loader-ts">https://bwasty.github.io/gltf-loader-ts</a></p>
+				<h2 id="acknowledgements">Acknowledgements</h2>
+				<p>The code was initially derived from <a href="https://threejs.org/docs/#examples/loaders/GLTFLoader"><code>THREE.GLTFLoader</code></a>.</p>
 			</div>
 		</div>
 		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
@@ -321,14 +319,5 @@
 <div class="overlay"></div>
 <script src="assets/js/main.js"></script>
 <script>if (location.protocol == 'file:') document.write('<script src="assets/js/search.js"><' + '/script>');</script>
-<script>
-        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-                m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-        ga('create', 'UA-58175920-2', '');
-        ga('send', 'pageview');
-    </script>
 </body>
 </html>
