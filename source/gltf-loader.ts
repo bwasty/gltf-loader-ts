@@ -1,7 +1,6 @@
 // Originally derived from THREE.GLTFLoader
 // https://github.com/mrdoob/three.js/blob/master/examples/js/loaders/GLTFLoader.js
 
-
 import { FileLoader } from './fileloader';
 import { BINARY_EXTENSION_HEADER_MAGIC, GLTFBinaryExtension } from './glb-decoder';
 import { GltfAsset } from './gltf-asset';
@@ -23,6 +22,56 @@ export class GltfLoader {
         loader.responseType = 'arraybuffer';
         const data = await loader.load(url, onProgress);
         return await this.parse(data, path);
+    }
+
+    /// Inspired by three-gltf-viewer
+    /// `fileMap` is expected to map from a full file path (including directories if present)
+    /// This matches the format provided by [simple-dropzone](https://www.npmjs.com/package/simple-dropzone)
+    /// Note that `fetchAll` is called on the result GltfAsset before returning it so that
+    /// the uploaded files can be garbage-collected immediately.
+    async loadFromFiles(fileMap: Map<string, File>): Promise<GltfAsset> {
+        let rootFile;
+        let rootPath: string;
+        for (const [path, file] of fileMap) {
+            if (file.name.match(/\.(gltf|glb)$/)) {
+                rootFile = file;
+                rootPath = path.replace(file.name, '');
+            }
+        }
+
+        if (!rootFile) {
+          throw new Error('No .gltf or .glb asset found.');
+        }
+
+        const fileURL = typeof rootFile === 'string'
+            ? rootFile
+            : URL.createObjectURL(rootFile);
+
+        // Intercept and override relative URLs.
+        const baseURL = LoaderUtils.extractUrlBase(fileURL); // TODO!!: does this make sense here?
+        const blobURLs: string[] = [];
+        this.manager.urlModifier = (url: string) => {
+            const normalizedURL = rootPath + url
+            .replace(baseURL, '')
+            .replace(/^(\.?\/)/, '');
+
+            if (fileMap.has(normalizedURL)) {
+                const blob = fileMap.get(normalizedURL);
+                const blobURL = URL.createObjectURL(blob);
+                blobURLs.push(blobURL);
+                return blobURL;
+            }
+
+            return url;
+        };
+
+        const asset = await this.load(fileURL);
+        await asset.fetchAll(); // fetch all so the object urls can be released below
+
+        URL.revokeObjectURL(fileURL);
+        blobURLs.forEach(URL.revokeObjectURL);
+
+        return asset;
     }
 
     private async parse(data: any, path: any): Promise<GltfAsset> {

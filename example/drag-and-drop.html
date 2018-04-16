@@ -1,0 +1,19 @@
+<html>
+    <head>
+        <script src="../dist/gltf-loader.js"></script>
+        <script src="drag-and-drop.js"></script>
+        <style>
+        #drop_zone {
+            border: 5px solid blue;
+            width:  200px;
+            height: 100px;
+        }
+        </style>
+    </head>
+    <body>
+        <input type="file" name="file-input[]" id="file-input" multiple="">
+        <div id="drop_zone" ondrop="dropHandler(event);" ondragover="dragOverHandler(event);">
+            <p>Drag one or more files to this Drop Zone ...</p>
+        </div>
+    </body>
+</html>

@@ -41,4 +41,4 @@ For a complete example, see [example/](example/).
 Documentation: https://bwasty.github.io/gltf-loader-ts
 
 ## Acknowledgements
-The code was initially derived from [`THREE.GLTFLoader`](https://threejs.org/docs/#examples/loaders/GLTFLoader).
+Much of the code was initially derived from [`THREE.GLTFLoader`](https://threejs.org/docs/#examples/loaders/GLTFLoader) and [three-gltf-viewer](https://github.com/donmccurdy/three-gltf-viewer).
