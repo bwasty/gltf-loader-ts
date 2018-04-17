@@ -23,7 +23,7 @@
         "mocha-multi-reporters": "~1.1.7",
         "nyc": "~11.6.0",
         "ts-loader": "~4.0.1",
-        "ts-node": "~5.0.1",
+        "ts-node": "~6.0.0",
         "tslint": "~5.9.1",
         "typedoc": "~0.11.1",
         "webpack": "~4.5.0",
