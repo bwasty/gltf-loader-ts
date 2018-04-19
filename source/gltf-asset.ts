@@ -35,7 +35,7 @@ export class GltfAsset {
         return bufferData.slice(byteOffset, byteOffset + byteLength);
     }
 
-    /** Pre-fetches all buffer and image data. */
+    /** Pre-fetches all buffer and image data. Useful to avoid stalls due to lazy loading. */
     async fetchAll(): Promise<void[][]> {
         return Promise.all([
             this.bufferData.fetchAll(),
@@ -95,10 +95,7 @@ export class BufferData {
     async fetchAll(): Promise<void[]> {
         const buffers = this.asset.gltf.buffers;
         if (!buffers) { return []; }
-        return Promise.all(buffers.map((_, i): void => {
-            this.get(i);
-            return;
-        }));
+        return Promise.all(buffers.map((_, i): any => this.get(i))) as Promise<void[]>;
     }
 }
 
@@ -176,10 +173,7 @@ export class ImageData {
     async fetchAll(): Promise<void[]> {
         const images = this.asset.gltf.images;
         if (!images) { return []; }
-        return Promise.all(images.map((_, i): void => {
-            this.get(i);
-            return;
-        }));
+        return Promise.all(images.map((_, i): any => this.get(i))) as Promise<void[]>;
     }
 }
 

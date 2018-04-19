@@ -188,7 +188,6 @@ describe('gltf-loader', function() {
         const asset = await loader.load(SAMPLE_MODELS_BASE + 'BoxTextured/glTF-Binary/BoxTextured.glb');
 
         const promise = asset.imageData.get(0);
-        console.log(img);
         // TODO!!: img.onload is not a function??
         // img.onload();
         // await promise;
