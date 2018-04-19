@@ -132,7 +132,7 @@ export class ImageData {
             const blob = new Blob([bufferView], { type: image.mimeType });
             sourceURI = URL.createObjectURL(blob);
         } else if (image.uri !== undefined ) {
-            sourceURI = resolveURL(image.uri, this.baseUri);
+            sourceURI = this.manager.resolveURL(resolveURL(image.uri, this.baseUri));
         } else {
             /* istanbul ignore next */
             throw new Error('Invalid glTF: image must either have a `uri` or a `bufferView`');
@@ -171,6 +171,7 @@ export class ImageData {
     }
 }
 
+// TODO!!: function required in this form?
 export function resolveURL(url: string, path: string) {
     // Invalid URL
     if (typeof url !== 'string' || url === '') { return ''; }

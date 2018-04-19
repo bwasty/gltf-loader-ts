@@ -11,11 +11,19 @@ export class GltfLoader {
     private manager: LoadingManager;
     // private crossOrigin: boolean; // TODO!: use/remove
 
+    /**
+     * Pass in a custom `LoadingManager` for progress reporting.
+     */
     constructor(manager?: LoadingManager) {
         this.manager = manager || new LoadingManager();
     }
 
+    /**
+     * Load glTF from a URL. Only the main file is loaded - external buffer and image files
+     * are loaded lazily when needed. To load all, you can use `GltfAsset.fetchAll()`
+     */
     async load(url: string, onProgress?: (xhr: XMLHttpRequest) => void): Promise<GltfAsset> {
+        // TODO!!!: test data URI here
         const path = LoaderUtils.extractUrlBase(url);
         // TODO!: allow changing loader options(headers etc.)?
         const loader = new FileLoader(this.manager);
@@ -24,12 +32,18 @@ export class GltfLoader {
         return await this.parse(data, path);
     }
 
-    /// Inspired by three-gltf-viewer
-    /// `fileMap` is expected to map from a full file path (including directories if present)
-    /// This matches the format provided by [simple-dropzone](https://www.npmjs.com/package/simple-dropzone)
-    /// Note that `fetchAll` is called on the result GltfAsset before returning it so that
-    /// the uploaded files can be garbage-collected immediately.
+    /**
+     * Load from `File`s you might get from a file input or via drag-and-drop.
+     * `fileMap` is expected to map from a full file path (including directories if present).
+     * This matches the format provided by [simple-dropzone](https://www.npmjs.com/package/simple-dropzone).
+     * If you don't need support for directories/zip files, you can use `File.name` as the key.
+     *
+     * Note that `fetchAll` is called on the result GltfAsset before returning it so that
+     * the uploaded files can be garbage-collected immediately.
+     */
+    /* istanbul ignore next: relies too much on browser APIs; covered by drag-and-drop example */
     async loadFromFiles(fileMap: Map<string, File>): Promise<GltfAsset> {
+        // code derived from three-gltf-viewer
         let rootFile;
         let rootPath: string;
         for (const [path, file] of fileMap) {

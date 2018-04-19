@@ -1,19 +1,29 @@
 <html>
     <head>
-        <script src="../dist/gltf-loader.js"></script>
-        <script src="drag-and-drop.js"></script>
         <style>
-        #drop_zone {
-            border: 5px solid blue;
-            width:  200px;
-            height: 100px;
-        }
+            .dropzone {
+                background: #f0f0f0;
+                border-radius: 4px;
+                padding: 2em;
+                display: flex;
+                justify-content: center;
+                max-width: 600px;
+                margin: 0 auto;
+            }
         </style>
     </head>
     <body>
-        <input type="file" name="file-input[]" id="file-input" multiple="">
-        <div id="drop_zone" ondrop="dropHandler(event);" ondragover="dragOverHandler(event);">
-            <p>Drag one or more files to this Drop Zone ...</p>
+        <div class="dropzone">
+                <span class="label">Drag in or select some files.</span>
+                <input type="file" multiple class="input">
         </div>
+        <ul class="list"></ul>
+
+        <!-- TODO!!: currently depends on custom build of simple-dropzone.
+            See  https://github.com/donmccurdy/simple-dropzone/pull/2 -->
+        <!-- <script src="../node_modules/simple-dropzone/dist/simple-dropzone.min.js></script> -->
+        <script src="simple-dropzone.min.js"></script>
+        <script src="../dist/gltf-loader.js"></script>
+        <script src="drag-and-drop.js"></script>
     </body>
 </html>

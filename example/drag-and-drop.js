@@ -1,26 +1,28 @@
-function dropHandler(event) {
-    event.preventDefault(); // Prevent file from being opened
+const dropEl = document.querySelector('.dropzone');
+const inputEl = document.querySelector('.input');
+const listEl = document.querySelector('.list');
 
-    // for (var i = 0; i < ev.dataTransfer.files.length; i++) {
-    // console.log('... file[' + i + '].name = ' + ev.dataTransfer.files[i].name);
-    // }
-    let files = event.dataTransfer.files;
+const dropzone = new SimpleDropzone(dropEl, inputEl);
 
-    removeDragData(event) // Pass event to removeDragData for cleanup
-}
+dropzone.on('drop', async ({files}) => {
+    let loader = new GltfLoader.GltfLoader();
+    let asset = await loader.loadFromFiles(files);
 
-function dragOverHandler(event) {
-    event.preventDefault(); // prevent file from being opened
-}
-
-function removeDragData(ev) {
-    console.log('Removing drag data')
-
-    if (ev.dataTransfer.items) {
-      // Use DataTransferItemList interface to remove the drag data
-      ev.dataTransfer.items.clear();
-    } else {
-      // Use DataTransfer interface to remove the drag data
-      ev.dataTransfer.clearData();
+    for(let i=0; i < asset.gltf.buffers.length; i++) {
+        let bufferData = await asset.bufferData.get(i);
+        console.log(asset.gltf.buffers[i].uri, bufferData)
     }
-}
+    for(let i=0; i < asset.gltf.images.length; i++) {
+        let imageData = await asset.imageData.get(i);
+        console.log(asset.gltf.images[i].uri, imageData);
+    }
+
+    files = Array.from(files);
+    listEl.innerHTML = files
+      .map(([filename, file]) => `<li>${filename} : ${file.size} bytes</li>`)
+      .join('');
+});
+
+dropzone.on('droperror', ({message}) => {
+  alert(`Error: ${message}`);
+});
