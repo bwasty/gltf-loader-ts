@@ -45,12 +45,12 @@ For complete examples, see [example/](example/).
   - [`GltfLoader`](https://bwasty.github.io/gltf-loader-ts/classes/gltfloader.html)
     - [`constructor(manager?: LoadingManager)`](https://bwasty.github.io/gltf-loader-ts/classes/gltfloader.html#constructor)
     - [`load(url, onProgress?): Promise<GltfAsset>`](https://bwasty.github.io/gltf-loader-ts/classes/gltfloader.html#load)
-    - [`loadFromFiles(fileMap: Map<string, File>): Promise<GltfAsset>`](https://bwasty.github.io/gltf-loader-ts/classes/gltfloader.html#loadFromFiles)
+    - [`loadFromFiles(fileMap: Map<string, File>): Promise<GltfAsset>`](https://bwasty.github.io/gltf-loader-ts/classes/gltfloader.html#loadfromfiles)
   - [`GltfAsset`](https://bwasty.github.io/gltf-loader-ts/classes/gltfasset.html)
     - [`gltf`](https://bwasty.github.io/gltf-loader-ts/classes/gltfasset.html#gltf)
     - [`bufferViewData(index): Promise<ArrayBuffer>`](https://bwasty.github.io/gltf-loader-ts/classes/gltfasset.html#bufferviewdata)
-    - [`imageData.get(index): Promise<HTMLImageElement>`](https://bwasty.github.io/gltf-loader-ts/classes/imagedata.html#fetchall)
-    - [`fetchAll(): Promise<void[][]>`](https://bwasty.github.io/gltf-loader-ts/classes/classes/imagedata.html#get)
+    - [`imageData.get(index): Promise<HTMLImageElement>`](https://bwasty.github.io/gltf-loader-ts/classes/imagedata.html#get)
+    - [`fetchAll(): Promise<void[][]>`](https://bwasty.github.io/gltf-loader-ts/classes/gltfasset.html#fetchall)
 
 ## Acknowledgements
 Much of the code was initially derived from [`THREE.GLTFLoader`](https://threejs.org/docs/#examples/loaders/GLTFLoader) and [three-gltf-viewer](https://github.com/donmccurdy/three-gltf-viewer).
