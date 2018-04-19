@@ -21,7 +21,7 @@ export class GltfAsset {
 
     /**
      * Fetch the data for a buffer view. Pass in the `bufferView` property of an
-     * `Accessor`
+     * `Accessor`.
      */
     async bufferViewData(index: GlTfId): Promise<ArrayBuffer> {
         if (!this.gltf.bufferViews) {
