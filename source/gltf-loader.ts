@@ -7,6 +7,7 @@ import { GltfAsset } from './gltf-asset';
 import { LoaderUtils } from './loaderutils';
 import { LoadingManager } from './loadingmanager';
 
+/** Main class of the library */
 export class GltfLoader {
     private manager: LoadingManager;
     // private crossOrigin: boolean; // TODO!: use/remove
