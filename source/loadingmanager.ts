@@ -4,6 +4,7 @@
 export type OnStartOnProgressCallback = ((url: string, itemsLoaded: number, itemsTotal: number) => void) | undefined;
 
 export class LoadingManager {
+    /** URL modifier function for special I/O cases like GLB and `File` (drag-and-drop) */
     urlModifier: ((url: string) => string) | undefined = undefined;
     onStart: OnStartOnProgressCallback = undefined;
     onProgress: OnStartOnProgressCallback = undefined;

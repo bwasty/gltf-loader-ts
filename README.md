@@ -9,10 +9,11 @@
 Engine-agnostic glTF 2.0 loader in TypeScript.
 
 ## Features
-- can load every variant of glTF and provides unified access to buffer and image data:
+- Can load every variant of glTF and provides unified access to buffer and image data:
     - plaintext .gltf with external buffer and image files (.bin and .png/.jpg)
     - plaintext with embedded buffer and image data (data URIs)
     - GLB (Binary glTF)
+    - load from URL or `File`s (-> drag and drop)
 - Types generated from the official JSON Schema (-> [`GlTf`](https://bwasty.github.io/gltf-loader-ts/interfaces/gltf.html))
 - Lazy loading: external buffer and image files are only loaded when the data is accessed
   - option to pre-fetch everything
@@ -36,9 +37,20 @@ let data = await asset.bufferViewData(0); // fetches BoxTextured0.bin
 let image: Image = await asset.imageData.get(0) // fetches CesiumLogoFlat.png
 ```
 
-For a complete example, see [example/](example/).
+For complete examples, see [example/](example/).
 
-Documentation: https://bwasty.github.io/gltf-loader-ts
+## Documentation
+- Full API: https://bwasty.github.io/gltf-loader-ts
+- Main functions and classes:
+  - [`GltfLoader`](https://bwasty.github.io/gltf-loader-ts/classes/gltfloader.html)
+    - [`constructor(manager?: LoadingManager)`](https://bwasty.github.io/gltf-loader-ts/classes/gltfloader.html#constructor)
+    - [`load(url, onProgress?): Promise<GltfAsset>`](https://bwasty.github.io/gltf-loader-ts/classes/gltfloader.html#load)
+    - [`loadFromFiles(fileMap: Map<string, File>): Promise<GltfAsset>`](https://bwasty.github.io/gltf-loader-ts/classes/gltfloader.html#loadFromFiles)
+  - [`GltfAsset`](https://bwasty.github.io/gltf-loader-ts/classes/gltfasset.html)
+    - [`gltf`](https://bwasty.github.io/gltf-loader-ts/classes/gltfasset.html#gltf)
+    - [`bufferViewData(index): Promise<ArrayBuffer>`](https://bwasty.github.io/gltf-loader-ts/classes/gltfasset.html#bufferviewdata)
+    - [`imageData.get(index): Promise<HTMLImageElement>`](https://bwasty.github.io/gltf-loader-ts/classes/imagedata.html#fetchall)
+    - [`fetchAll(): Promise<void[][]>`](https://bwasty.github.io/gltf-loader-ts/classes/classes/imagedata.html#get)
 
 ## Acknowledgements
-The code was initially derived from [`THREE.GLTFLoader`](https://threejs.org/docs/#examples/loaders/GLTFLoader).
+Much of the code was initially derived from [`THREE.GLTFLoader`](https://threejs.org/docs/#examples/loaders/GLTFLoader) and [three-gltf-viewer](https://github.com/donmccurdy/three-gltf-viewer).

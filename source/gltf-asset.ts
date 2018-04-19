@@ -7,7 +7,9 @@ export class GltfAsset {
     /** The JSON part of the asset. */
     gltf: GlTf;
     extensions: any;
+    /** Helper for accessing buffer data */
     bufferData: BufferData;
+    /** Helper for accessing image data */
     imageData: ImageData;
 
     constructor(gltf: GlTf, baseUri: string, extensions: any, manager: LoadingManager = new LoadingManager()) {
@@ -17,7 +19,11 @@ export class GltfAsset {
         this.imageData = new ImageData(this, baseUri, manager);
     }
 
-    async bufferViewData(index: GlTfId) {
+    /**
+     * Fetch the data for a buffer view. Pass in the `bufferView` property of an
+     * `Accessor`
+     */
+    async bufferViewData(index: GlTfId): Promise<ArrayBuffer> {
         if (!this.gltf.bufferViews) {
             /* istanbul ignore next */
             throw new Error('No buffer views found.');
@@ -29,8 +35,8 @@ export class GltfAsset {
         return bufferData.slice(byteOffset, byteOffset + byteLength);
     }
 
-    /** Pre-fetches all buffer and image data. */
-    async fetchAll(): Promise<any> {
+    /** Pre-fetches all buffer and image data. Useful to avoid stalls due to lazy loading. */
+    async fetchAll(): Promise<void[][]> {
         return Promise.all([
             this.bufferData.fetchAll(),
             this.imageData.fetchAll(),
@@ -86,10 +92,10 @@ export class BufferData {
     }
 
     /** Pre-fetches all buffer data. */
-    async fetchAll(): Promise<any> {
+    async fetchAll(): Promise<void[]> {
         const buffers = this.asset.gltf.buffers;
-        if (!buffers) { return; }
-        return Promise.all(buffers.map((_, i): any => this.get(i)));
+        if (!buffers) { return []; }
+        return Promise.all(buffers.map((_, i): any => this.get(i))) as Promise<void[]>;
     }
 }
 
@@ -132,7 +138,7 @@ export class ImageData {
             const blob = new Blob([bufferView], { type: image.mimeType });
             sourceURI = URL.createObjectURL(blob);
         } else if (image.uri !== undefined ) {
-            sourceURI = resolveURL(image.uri, this.baseUri);
+            sourceURI = this.manager.resolveURL(resolveURL(image.uri, this.baseUri));
         } else {
             /* istanbul ignore next */
             throw new Error('Invalid glTF: image must either have a `uri` or a `bufferView`');
@@ -164,13 +170,14 @@ export class ImageData {
     }
 
     /** Pre-fetches all image data. */
-    async fetchAll(): Promise<any> {
+    async fetchAll(): Promise<void[]> {
         const images = this.asset.gltf.images;
-        if (!images) { return; }
-        return Promise.all(images.map((_, i): any => this.get(i)));
+        if (!images) { return []; }
+        return Promise.all(images.map((_, i): any => this.get(i))) as Promise<void[]>;
     }
 }
 
+// TODO!!: function required in this form?
 export function resolveURL(url: string, path: string) {
     // Invalid URL
     if (typeof url !== 'string' || url === '') { return ''; }
