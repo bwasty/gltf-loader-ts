@@ -71,10 +71,11 @@
 				<p>Engine-agnostic glTF 2.0 loader in TypeScript.</p>
 				<h2 id="features">Features</h2>
 				<ul>
-					<li>can load every variant of glTF and provides unified access to buffer and image data:<ul>
+					<li>Can load every variant of glTF and provides unified access to buffer and image data:<ul>
 							<li>plaintext .gltf with external buffer and image files (.bin and .png/.jpg)</li>
 							<li>plaintext with embedded buffer and image data (data URIs)</li>
 							<li>GLB (Binary glTF)</li>
+							<li>load from URL or <code>File</code>s (-&gt; drag and drop)</li>
 						</ul>
 					</li>
 					<li>Types generated from the official JSON Schema (-&gt; <a href="https://bwasty.github.io/gltf-loader-ts/interfaces/gltf.html"><code>GlTf</code></a>)</li>
@@ -98,10 +99,29 @@
 <span class="hljs-keyword">let</span> data = <span class="hljs-keyword">await</span> asset.bufferViewData(<span class="hljs-number">0</span>); <span class="hljs-comment">// fetches BoxTextured0.bin</span>
 <span class="hljs-keyword">let</span> image: Image = <span class="hljs-keyword">await</span> asset.imageData.get(<span class="hljs-number">0</span>) <span class="hljs-comment">// fetches CesiumLogoFlat.png</span>
 </code></pre>
-				<p>For a complete example, see <a href="example/">example/</a>.</p>
-				<p>Documentation: <a href="https://bwasty.github.io/gltf-loader-ts">https://bwasty.github.io/gltf-loader-ts</a></p>
+				<p>For complete examples, see <a href="example/">example/</a>.</p>
+				<h2 id="documentation">Documentation</h2>
+				<ul>
+					<li>Full API: <a href="https://bwasty.github.io/gltf-loader-ts">https://bwasty.github.io/gltf-loader-ts</a></li>
+					<li>Main functions and classes:<ul>
+							<li><a href="https://bwasty.github.io/gltf-loader-ts/classes/gltfloader.html"><code>GltfLoader</code></a><ul>
+									<li><a href="https://bwasty.github.io/gltf-loader-ts/classes/gltfloader.html#constructor"><code>constructor(manager?: LoadingManager)</code></a></li>
+									<li><a href="https://bwasty.github.io/gltf-loader-ts/classes/gltfloader.html#load"><code>load(url, onProgress?): Promise&lt;GltfAsset&gt;</code></a></li>
+									<li><a href="https://bwasty.github.io/gltf-loader-ts/classes/gltfloader.html#loadFromFiles"><code>loadFromFiles(fileMap: Map&lt;string, File&gt;): Promise&lt;GltfAsset&gt;</code></a></li>
+								</ul>
+							</li>
+							<li><a href="https://bwasty.github.io/gltf-loader-ts/classes/gltfasset.html"><code>GltfAsset</code></a><ul>
+									<li><a href="https://bwasty.github.io/gltf-loader-ts/classes/gltfasset.html#gltf"><code>gltf</code></a></li>
+									<li><a href="https://bwasty.github.io/gltf-loader-ts/classes/gltfasset.html#bufferviewdata"><code>bufferViewData(index): Promise&lt;ArrayBuffer&gt;</code></a></li>
+									<li><a href="https://bwasty.github.io/gltf-loader-ts/classes/imagedata.html#fetchall"><code>imageData.get(index): Promise&lt;HTMLImageElement&gt;</code></a></li>
+									<li><a href="https://bwasty.github.io/gltf-loader-ts/classes/classes/imagedata.html#get"><code>fetchAll(): Promise&lt;void[][]&gt;</code></a></li>
+								</ul>
+							</li>
+						</ul>
+					</li>
+				</ul>
 				<h2 id="acknowledgements">Acknowledgements</h2>
-				<p>The code was initially derived from <a href="https://threejs.org/docs/#examples/loaders/GLTFLoader"><code>THREE.GLTFLoader</code></a>.</p>
+				<p>Much of the code was initially derived from <a href="https://threejs.org/docs/#examples/loaders/GLTFLoader"><code>THREE.GLTFLoader</code></a> and <a href="https://github.com/donmccurdy/three-gltf-viewer">three-gltf-viewer</a>.</p>
 			</div>
 		</div>
 		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">

@@ -64,6 +64,13 @@
 <div class="container container-main">
 	<div class="row">
 		<div class="col-8 col-content">
+			<section class="tsd-panel tsd-comment">
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>Main class of the library</p>
+					</div>
+				</div>
+			</section>
 			<section class="tsd-panel tsd-hierarchy">
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
@@ -92,6 +99,7 @@
 							<h3>Methods</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="gltfloader.html#load" class="tsd-kind-icon">load</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="gltfloader.html#loadfromfiles" class="tsd-kind-icon">load<wbr>From<wbr>Files</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><a href="gltfloader.html#parse" class="tsd-kind-icon">parse</a></li>
 							</ul>
 						</section>
@@ -110,9 +118,14 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/bwasty/gltf-loader-ts/blob/d7e7ca0/source/gltf-loader.ts#L12">gltf-loader.ts:12</a></li>
+									<li>Defined in <a href="https://github.com/bwasty/gltf-loader-ts/blob/09126d6/source/gltf-loader.ts#L12">gltf-loader.ts:12</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Pass in a custom <code>LoadingManager</code> for progress reporting.</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
@@ -132,7 +145,7 @@
 					<div class="tsd-signature tsd-kind-icon">manager<span class="tsd-signature-symbol">:</span> <a href="loadingmanager.html" class="tsd-signature-type">LoadingManager</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/bwasty/gltf-loader-ts/blob/d7e7ca0/source/gltf-loader.ts#L12">gltf-loader.ts:12</a></li>
+							<li>Defined in <a href="https://github.com/bwasty/gltf-loader-ts/blob/09126d6/source/gltf-loader.ts#L12">gltf-loader.ts:12</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -149,9 +162,15 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/bwasty/gltf-loader-ts/blob/d7e7ca0/source/gltf-loader.ts#L19">gltf-loader.ts:19</a></li>
+									<li>Defined in <a href="https://github.com/bwasty/gltf-loader-ts/blob/09126d6/source/gltf-loader.ts#L26">gltf-loader.ts:26</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Load glTF from a URL. Only the main file is loaded - external buffer and image files
+									are loaded lazily when needed. To load all, you can use <code>GltfAsset.fetchAll()</code></p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
@@ -159,6 +178,39 @@
 								</li>
 								<li>
 									<h5><span class="tsd-flag ts-flagOptional">Optional</span> onProgress: <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">function</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="gltfasset.html" class="tsd-signature-type">GltfAsset</a><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="loadfromfiles" class="tsd-anchor"></a>
+					<h3>load<wbr>From<wbr>Files</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">load<wbr>From<wbr>Files<span class="tsd-signature-symbol">(</span>fileMap<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Map</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">File</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="gltfasset.html" class="tsd-signature-type">GltfAsset</a><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/bwasty/gltf-loader-ts/blob/09126d6/source/gltf-loader.ts#L46">gltf-loader.ts:46</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Load from <code>File</code>s you might get from a file input or via drag-and-drop.
+										<code>fileMap</code> is expected to map from a full file path (including directories if present).
+										This matches the format provided by <a href="https://www.npmjs.com/package/simple-dropzone">simple-dropzone</a>.
+									If you don&#39;t need support for directories/zip files, you can use <code>File.name</code> as the key.</p>
+								</div>
+								<p>Note that <code>fetchAll</code> is called on the result GltfAsset before returning it so that
+								the uploaded files can be garbage-collected immediately.</p>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>fileMap: <span class="tsd-signature-type">Map</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">File</span><span class="tsd-signature-symbol">&gt;</span></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="gltfasset.html" class="tsd-signature-type">GltfAsset</a><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -175,7 +227,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/bwasty/gltf-loader-ts/blob/d7e7ca0/source/gltf-loader.ts#L28">gltf-loader.ts:28</a></li>
+									<li>Defined in <a href="https://github.com/bwasty/gltf-loader-ts/blob/09126d6/source/gltf-loader.ts#L92">gltf-loader.ts:92</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -216,6 +268,9 @@
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="gltfloader.html#load" class="tsd-kind-icon">load</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="gltfloader.html#loadfromfiles" class="tsd-kind-icon">load<wbr>From<wbr>Files</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-private">
 								<a href="gltfloader.html#parse" class="tsd-kind-icon">parse</a>
