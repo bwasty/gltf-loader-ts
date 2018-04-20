@@ -49,7 +49,8 @@
         "generate-interface": "gltf-typescript-generator source/gltf.d.ts https://raw.githubusercontent.com/KhronosGroup/glTF/master/specification/2.0/schema/glTF.schema.json",
         "upload-docs": "gh-pages -d dist/doc",
         "prepack": "rm -rf dist && rm -rf lib && npm run build-all && npm run build-lib",
-        "release": "npm run publish && npm run doc && npm run upload-docs"
+        "version": "npm version $VERSION && git push && git push --tags",
+        "release": "npm publish && npm run doc && npm run upload-docs"
     },
     "keywords": [
         "glTF",
