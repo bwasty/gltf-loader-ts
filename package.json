@@ -9,6 +9,8 @@
         "type": "git",
         "url": "https://github.com/bwasty/gltf-loader-ts.git"
     },
+    "main": "./lib/gltf-loader.js",
+    "types": "./lib/gltf-loader.d.ts",
     "devDependencies": {
         "@types/chai": "~4.1.2",
         "@types/chai-spies": "~0.0.0",
