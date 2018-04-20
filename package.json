@@ -48,7 +48,8 @@
         "doc": "typedoc --hideGenerator --readme README.md --target ES6 --module commonjs --includeDeclarations --excludeExternals --mode file --out dist/doc/ source/",
         "generate-interface": "gltf-typescript-generator source/gltf.d.ts https://raw.githubusercontent.com/KhronosGroup/glTF/master/specification/2.0/schema/glTF.schema.json",
         "upload-docs": "gh-pages -d dist/doc",
-        "prepack": "rm -rf dist && rm -rf lib && npm run build-all && npm run build-lib"
+        "prepack": "rm -rf dist && rm -rf lib && npm run build-all && npm run build-lib",
+        "release": "npm run publish && npm run doc && npm run upload-docs"
     },
     "keywords": [
         "glTF",
