@@ -2,6 +2,9 @@
  * on 2018-02-24
  */
 
+// tslint:disable:quotemark
+// tslint:disable:max-line-length
+
 export type GlTfId = number;
 /**
  * Indices of those attributes that deviate from their initialization value.
@@ -328,9 +331,9 @@ export interface Image {
    * The index of the bufferView that contains the image. Use this instead of the image's uri property.
    */
   "bufferView"?: GlTfId;
-  "name"?: any;
-  "extensions"?: any;
-  "extras"?: any;
+  'name'?: any;
+  'extensions'?: any;
+  'extras'?: any;
   [k: string]: any;
 }
 /**
@@ -340,13 +343,13 @@ export interface TextureInfo {
   /**
    * The index of the texture.
    */
-  "index": GlTfId;
+  'index': GlTfId;
   /**
    * The set index of texture's TEXCOORD attribute used for texture coordinate mapping.
    */
-  "texCoord"?: number;
-  "extensions"?: any;
-  "extras"?: any;
+  'texCoord'?: number;
+  'extensions'?: any;
+  'extras'?: any;
   [k: string]: any;
 }
 /**
@@ -356,88 +359,88 @@ export interface MaterialPbrMetallicRoughness {
   /**
    * The material's base color factor.
    */
-  "baseColorFactor"?: number[];
+  'baseColorFactor'?: number[];
   /**
    * The base color texture.
    */
-  "baseColorTexture"?: TextureInfo;
+  'baseColorTexture'?: TextureInfo;
   /**
    * The metalness of the material.
    */
-  "metallicFactor"?: number;
+  'metallicFactor'?: number;
   /**
    * The roughness of the material.
    */
-  "roughnessFactor"?: number;
+  'roughnessFactor'?: number;
   /**
    * The metallic-roughness texture.
    */
-  "metallicRoughnessTexture"?: TextureInfo;
-  "extensions"?: any;
-  "extras"?: any;
+  'metallicRoughnessTexture'?: TextureInfo;
+  'extensions'?: any;
+  'extras'?: any;
   [k: string]: any;
 }
 export interface MaterialNormalTextureInfo {
-  "index"?: any;
-  "texCoord"?: any;
+  'index'?: any;
+  'texCoord'?: any;
   /**
    * The scalar multiplier applied to each normal vector of the normal texture.
    */
-  "scale"?: number;
-  "extensions"?: any;
-  "extras"?: any;
+  'scale'?: number;
+  'extensions'?: any;
+  'extras'?: any;
   [k: string]: any;
 }
 export interface MaterialOcclusionTextureInfo {
-  "index"?: any;
-  "texCoord"?: any;
+  'index'?: any;
+  'texCoord'?: any;
   /**
    * A scalar multiplier controlling the amount of occlusion applied.
    */
-  "strength"?: number;
-  "extensions"?: any;
-  "extras"?: any;
+  'strength'?: number;
+  'extensions'?: any;
+  'extras'?: any;
   [k: string]: any;
 }
 /**
  * The material appearance of a primitive.
  */
 export interface Material {
-  "name"?: any;
-  "extensions"?: any;
-  "extras"?: any;
+  'name'?: any;
+  'extensions'?: any;
+  'extras'?: any;
   /**
    * A set of parameter values that are used to define the metallic-roughness material model from Physically-Based Rendering (PBR) methodology. When not specified, all the default values of `pbrMetallicRoughness` apply.
    */
-  "pbrMetallicRoughness"?: MaterialPbrMetallicRoughness;
+  'pbrMetallicRoughness'?: MaterialPbrMetallicRoughness;
   /**
    * The normal map texture.
    */
-  "normalTexture"?: MaterialNormalTextureInfo;
+  'normalTexture'?: MaterialNormalTextureInfo;
   /**
    * The occlusion map texture.
    */
-  "occlusionTexture"?: MaterialOcclusionTextureInfo;
+  'occlusionTexture'?: MaterialOcclusionTextureInfo;
   /**
    * The emissive map texture.
    */
-  "emissiveTexture"?: TextureInfo;
+  'emissiveTexture'?: TextureInfo;
   /**
    * The emissive color of the material.
    */
-  "emissiveFactor"?: number[];
+  'emissiveFactor'?: number[];
   /**
    * The alpha rendering mode of the material.
    */
-  "alphaMode"?: "OPAQUE" | "MASK" | "BLEND" | string;
+  'alphaMode'?: 'OPAQUE' | 'MASK' | 'BLEND' | string;
   /**
    * The alpha cutoff value of the material.
    */
-  "alphaCutoff"?: number;
+  'alphaCutoff'?: number;
   /**
    * Specifies whether the material is double sided.
    */
-  "doubleSided"?: boolean;
+  'doubleSided'?: boolean;
   [k: string]: any;
 }
 /**
@@ -447,29 +450,29 @@ export interface MeshPrimitive {
   /**
    * A dictionary object, where each key corresponds to mesh attribute semantic and each value is the index of the accessor containing attribute's data.
    */
-  "attributes": {
+  'attributes': {
     [k: string]: GlTfId;
   };
   /**
    * The index of the accessor that contains the indices.
    */
-  "indices"?: GlTfId;
+  'indices'?: GlTfId;
   /**
    * The index of the material to apply to this primitive when rendering.
    */
-  "material"?: GlTfId;
+  'material'?: GlTfId;
   /**
    * The type of primitives to render.
    */
-  "mode"?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | number;
+  'mode'?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | number;
   /**
    * An array of Morph Targets, each  Morph Target is a dictionary mapping attributes (only `POSITION`, `NORMAL`, and `TANGENT` supported) to their deviations in the Morph Target.
    */
-  "targets"?: {
+  'targets'?: {
     [k: string]: GlTfId;
   }[];
-  "extensions"?: any;
-  "extras"?: any;
+  'extensions'?: any;
+  'extras'?: any;
   [k: string]: any;
 }
 /**
@@ -479,14 +482,14 @@ export interface Mesh {
   /**
    * An array of primitives, each defining geometry to be rendered with a material.
    */
-  "primitives": MeshPrimitive[];
+  'primitives': MeshPrimitive[];
   /**
    * Array of weights to be applied to the Morph Targets.
    */
-  "weights"?: number[];
-  "name"?: any;
-  "extensions"?: any;
-  "extras"?: any;
+  'weights'?: number[];
+  'name'?: any;
+  'extensions'?: any;
+  'extras'?: any;
   [k: string]: any;
 }
 /**
@@ -496,42 +499,42 @@ export interface Node {
   /**
    * The index of the camera referenced by this node.
    */
-  "camera"?: GlTfId;
+  'camera'?: GlTfId;
   /**
    * The indices of this node's children.
    */
-  "children"?: GlTfId[];
+  'children'?: GlTfId[];
   /**
    * The index of the skin referenced by this node.
    */
-  "skin"?: GlTfId;
+  'skin'?: GlTfId;
   /**
    * A floating-point 4x4 transformation matrix stored in column-major order.
    */
-  "matrix"?: number[];
+  'matrix'?: number[];
   /**
    * The index of the mesh in this node.
    */
-  "mesh"?: GlTfId;
+  'mesh'?: GlTfId;
   /**
    * The node's unit quaternion rotation in the order (x, y, z, w), where w is the scalar.
    */
-  "rotation"?: number[];
+  'rotation'?: number[];
   /**
    * The node's non-uniform scale, given as the scaling factors along the x, y, and z axes.
    */
-  "scale"?: number[];
+  'scale'?: number[];
   /**
    * The node's translation along the x, y, and z axes.
    */
-  "translation"?: number[];
+  'translation'?: number[];
   /**
    * The weights of the instantiated Morph Target. Number of elements must match number of Morph Targets of used mesh.
    */
-  "weights"?: number[];
-  "name"?: any;
-  "extensions"?: any;
-  "extras"?: any;
+  'weights'?: number[];
+  'name'?: any;
+  'extensions'?: any;
+  'extras'?: any;
   [k: string]: any;
 }
 /**
@@ -541,22 +544,22 @@ export interface Sampler {
   /**
    * Magnification filter.
    */
-  "magFilter"?: 9728 | 9729 | number;
+  'magFilter'?: 9728 | 9729 | number;
   /**
    * Minification filter.
    */
-  "minFilter"?: 9728 | 9729 | 9984 | 9985 | 9986 | 9987 | number;
+  'minFilter'?: 9728 | 9729 | 9984 | 9985 | 9986 | 9987 | number;
   /**
    * s wrapping mode.
    */
-  "wrapS"?: 33071 | 33648 | 10497 | number;
+  'wrapS'?: 33071 | 33648 | 10497 | number;
   /**
    * t wrapping mode.
    */
-  "wrapT"?: 33071 | 33648 | 10497 | number;
-  "name"?: any;
-  "extensions"?: any;
-  "extras"?: any;
+  'wrapT'?: 33071 | 33648 | 10497 | number;
+  'name'?: any;
+  'extensions'?: any;
+  'extras'?: any;
   [k: string]: any;
 }
 /**
@@ -566,10 +569,10 @@ export interface Scene {
   /**
    * The indices of each root node.
    */
-  "nodes"?: GlTfId[];
-  "name"?: any;
-  "extensions"?: any;
-  "extras"?: any;
+  'nodes'?: GlTfId[];
+  'name'?: any;
+  'extensions'?: any;
+  'extras'?: any;
   [k: string]: any;
 }
 /**
@@ -579,18 +582,18 @@ export interface Skin {
   /**
    * The index of the accessor containing the floating-point 4x4 inverse-bind matrices.  The default is that each matrix is a 4x4 identity matrix, which implies that inverse-bind matrices were pre-applied.
    */
-  "inverseBindMatrices"?: GlTfId;
+  'inverseBindMatrices'?: GlTfId;
   /**
    * The index of the node used as a skeleton root. When undefined, joints transforms resolve to scene root.
    */
-  "skeleton"?: GlTfId;
+  'skeleton'?: GlTfId;
   /**
    * Indices of skeleton nodes, used as joints in this skin.
    */
-  "joints": GlTfId[];
-  "name"?: any;
-  "extensions"?: any;
-  "extras"?: any;
+  'joints': GlTfId[];
+  'name'?: any;
+  'extensions'?: any;
+  'extras'?: any;
   [k: string]: any;
 }
 /**
@@ -600,14 +603,14 @@ export interface Texture {
   /**
    * The index of the sampler used by this texture. When undefined, a sampler with repeat wrapping and auto filtering should be used.
    */
-  "sampler"?: GlTfId;
+  'sampler'?: GlTfId;
   /**
    * The index of the image used by this texture.
    */
-  "source"?: GlTfId;
-  "name"?: any;
-  "extensions"?: any;
-  "extras"?: any;
+  'source'?: GlTfId;
+  'name'?: any;
+  'extensions'?: any;
+  'extras'?: any;
   [k: string]: any;
 }
 /**
@@ -617,72 +620,72 @@ export interface GlTf {
   /**
    * Names of glTF extensions used somewhere in this asset.
    */
-  "extensionsUsed"?: string[];
+  'extensionsUsed'?: string[];
   /**
    * Names of glTF extensions required to properly load this asset.
    */
-  "extensionsRequired"?: string[];
+  'extensionsRequired'?: string[];
   /**
    * An array of accessors.
    */
-  "accessors"?: Accessor[];
+  'accessors'?: Accessor[];
   /**
    * An array of keyframe animations.
    */
-  "animations"?: Animation[];
+  'animations'?: Animation[];
   /**
    * Metadata about the glTF asset.
    */
-  "asset": Asset;
+  'asset': Asset;
   /**
    * An array of buffers.
    */
-  "buffers"?: Buffer[];
+  'buffers'?: Buffer[];
   /**
    * An array of bufferViews.
    */
-  "bufferViews"?: BufferView[];
+  'bufferViews'?: BufferView[];
   /**
    * An array of cameras.
    */
-  "cameras"?: Camera[];
+  'cameras'?: Camera[];
   /**
    * An array of images.
    */
-  "images"?: Image[];
+  'images'?: Image[];
   /**
    * An array of materials.
    */
-  "materials"?: Material[];
+  'materials'?: Material[];
   /**
    * An array of meshes.
    */
-  "meshes"?: Mesh[];
+  'meshes'?: Mesh[];
   /**
    * An array of nodes.
    */
-  "nodes"?: Node[];
+  'nodes'?: Node[];
   /**
    * An array of samplers.
    */
-  "samplers"?: Sampler[];
+  'samplers'?: Sampler[];
   /**
    * The index of the default scene.
    */
-  "scene"?: GlTfId;
+  'scene'?: GlTfId;
   /**
    * An array of scenes.
    */
-  "scenes"?: Scene[];
+  'scenes'?: Scene[];
   /**
    * An array of skins.
    */
-  "skins"?: Skin[];
+  'skins'?: Skin[];
   /**
    * An array of textures.
    */
-  "textures"?: Texture[];
-  "extensions"?: any;
-  "extras"?: any;
+  'textures'?: Texture[];
+  'extensions'?: any;
+  'extras'?: any;
   [k: string]: any;
 }

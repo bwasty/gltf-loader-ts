@@ -46,7 +46,7 @@
         "test-watch": "mocha --watch",
         "codecov": "codecov",
         "doc": "typedoc --hideGenerator --readme README.md --target ES6 --module commonjs --includeDeclarations --excludeExternals --mode file --out dist/doc/ source/",
-        "generate-interface": "gltf-typescript-generator source/gltf.d.ts https://raw.githubusercontent.com/KhronosGroup/glTF/master/specification/2.0/schema/glTF.schema.json",
+        "generate-interface": "gltf-typescript-generator source/gltf.ts https://raw.githubusercontent.com/KhronosGroup/glTF/master/specification/2.0/schema/glTF.schema.json",
         "upload-docs": "gh-pages -d dist/doc",
         "prepack": "rm -rf dist && rm -rf lib && npm run build-all && npm run build-lib",
         "version": "npm version $VERSION && git push && git push --tags",

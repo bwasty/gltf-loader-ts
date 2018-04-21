@@ -7,6 +7,12 @@ import { GltfAsset } from './gltf-asset';
 import { LoaderUtils } from './loaderutils';
 import { LoadingManager } from './loadingmanager';
 
+// main library exports
+import * as gltf from './gltf';
+export {gltf };
+export * from './gltf-asset';
+export * from './loadingmanager';
+
 /** Main class of the library */
 export class GltfLoader {
     private manager: LoadingManager;
