@@ -23,7 +23,7 @@ export class GltfAsset {
      * Fetch the data for a buffer view. Pass in the `bufferView` property of an
      * `Accessor`.
      */
-    async bufferViewData(index: GlTfId): Promise<ArrayBuffer> {
+    async bufferViewData(index: GlTfId): Promise<Uint8Array> {
         if (!this.gltf.bufferViews) {
             /* istanbul ignore next */
             throw new Error('No buffer views found.');
@@ -32,7 +32,7 @@ export class GltfAsset {
         const bufferData = await this.bufferData.get(bufferView.buffer);
         const byteLength = bufferView.byteLength || 0;
         const byteOffset = bufferView.byteOffset || 0;
-        return bufferData.slice(byteOffset, byteOffset + byteLength);
+        return new Uint8Array(bufferData, byteOffset, byteLength);
     }
 
     /** Pre-fetches all buffer and image data. Useful to avoid stalls due to lazy loading. */

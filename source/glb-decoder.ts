@@ -16,7 +16,7 @@ export class GLTFBinaryExtension {
         const headerView = new DataView(data, 0, BINARY_EXTENSION_HEADER_LENGTH);
 
         this.header = {
-            magic: LoaderUtils.decodeText(new Uint8Array(data.slice(0, 4))),
+            magic: LoaderUtils.decodeText(new Uint8Array(data, 0, 4)),
             version: headerView.getUint32(4, true),
             length: headerView.getUint32(8, true),
         };

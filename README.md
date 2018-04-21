@@ -48,7 +48,7 @@ For complete examples, see [examples/](examples/).
     - [`loadFromFiles(fileMap: Map<string, File>): Promise<GltfAsset>`](https://bwasty.github.io/gltf-loader-ts/classes/gltfloader.html#loadfromfiles)
   - [`GltfAsset`](https://bwasty.github.io/gltf-loader-ts/classes/gltfasset.html)
     - [`gltf`](https://bwasty.github.io/gltf-loader-ts/classes/gltfasset.html#gltf)
-    - [`bufferViewData(index): Promise<ArrayBuffer>`](https://bwasty.github.io/gltf-loader-ts/classes/gltfasset.html#bufferviewdata)
+    - [`bufferViewData(index): Promise<Uint8Array>`](https://bwasty.github.io/gltf-loader-ts/classes/gltfasset.html#bufferviewdata)
     - [`imageData.get(index): Promise<HTMLImageElement>`](https://bwasty.github.io/gltf-loader-ts/classes/imagedata.html#get)
     - [`preFetchAll(): Promise<void[][]>`](https://bwasty.github.io/gltf-loader-ts/classes/gltfasset.html#prefetchall)
 
