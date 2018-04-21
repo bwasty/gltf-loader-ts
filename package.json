@@ -39,7 +39,7 @@
     "scripts": {
         "build": "webpack --mode development",
         "build-watch": "webpack --watch --mode development",
-        "build-all": "webpack --config webpack.config.dist.js --mode production",
+        "build-dist": "webpack --config webpack.config.dist.js --mode production",
         "build-lib": "webpack --config webpack.config.lib.js --mode production",
         "check": "tslint --project tsconfig.json --force --format stylish --config tslint.json",
         "test": "nyc mocha",
@@ -48,7 +48,7 @@
         "doc": "typedoc --hideGenerator --readme README.md --target ES6 --module commonjs --includeDeclarations --excludeExternals --mode file --out dist/doc/ source/",
         "generate-interface": "gltf-typescript-generator source/gltf.ts https://raw.githubusercontent.com/KhronosGroup/glTF/master/specification/2.0/schema/glTF.schema.json",
         "upload-docs": "gh-pages -d dist/doc",
-        "prepack": "rm -rf dist && rm -rf lib && npm run build-all && npm run build-lib",
+        "prepack": "rm -rf dist && rm -rf lib && npm install && npm run build-dist && npm run build-lib",
         "version": "npm version $VERSION && git push && git push --tags",
         "release": "npm publish && npm run doc && npm run upload-docs"
     },

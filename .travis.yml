@@ -4,8 +4,9 @@ node_js:
 install:
   - npm install
 script:
-  - npm run build-all
   - npm run check
+  - npm run build-dist
+  - npm run build-lib
   - npm run test
 after_success:
   - npm run codecov
