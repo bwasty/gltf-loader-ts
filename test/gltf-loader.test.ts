@@ -136,10 +136,10 @@ describe('gltf-loader', function() {
         expect((asset.bufferData as any).bufferCache[0]).to.equal(buffer);
     });
 
-    it('fetches all data with fetchAll', async function() {
+    it('fetches all data with preFetchAll', async function() {
         const loader = new GltfLoader();
         const asset = await loader.load(SAMPLE_MODELS_BASE + 'Box/glTF/Box.gltf');
-        await asset.fetchAll();
+        await asset.preFetchAll();
         expect((asset.bufferData as any).bufferCache).to.have.lengthOf(1);
     });
 

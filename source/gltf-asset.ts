@@ -36,10 +36,10 @@ export class GltfAsset {
     }
 
     /** Pre-fetches all buffer and image data. Useful to avoid stalls due to lazy loading. */
-    async fetchAll(): Promise<void[][]> {
+    async preFetchAll(): Promise<void[][]> {
         return Promise.all([
-            this.bufferData.fetchAll(),
-            this.imageData.fetchAll(),
+            this.bufferData.preFetchAll(),
+            this.imageData.preFetchAll(),
         ]);
     }
 }
@@ -64,8 +64,8 @@ export class BufferData {
     /**
      * Get the buffer data. Triggers a network request if this buffer resides
      * in an external .bin file and is accessed for the first time (cached afterwards).
-     * when it's accessed for the first time and `fetchAll` has not been used.
-     * To avoid any delays, use `fetchAll` to pre-fetch everything.
+     * when it's accessed for the first time and `preFetchAll` has not been used.
+     * To avoid any delays, use `preFetchAll` to pre-fetch everything.
      */
     async get(index: GlTfId): Promise<ArrayBuffer> {
         if (this.bufferCache[index] !== undefined) {
@@ -92,7 +92,7 @@ export class BufferData {
     }
 
     /** Pre-fetches all buffer data. */
-    async fetchAll(): Promise<void[]> {
+    async preFetchAll(): Promise<void[]> {
         const buffers = this.asset.gltf.buffers;
         if (!buffers) { return []; }
         return Promise.all(buffers.map((_, i): any => this.get(i))) as Promise<void[]>;
@@ -115,7 +115,7 @@ export class ImageData {
     /**
      * Get the image data. Triggers a network request if image is in an external file
      * and is accessed for the first time (cached afterwards). To avoid any delays,
-     * use `fetchAll` to pre-fetch everything.
+     * use `preFetchAll` to pre-fetch everything.
      */
     async get(index: GlTfId): Promise<HTMLImageElement> {
         if (this.imageCache[index] !== undefined) {
@@ -170,7 +170,7 @@ export class ImageData {
     }
 
     /** Pre-fetches all image data. */
-    async fetchAll(): Promise<void[]> {
+    async preFetchAll(): Promise<void[]> {
         const images = this.asset.gltf.images;
         if (!images) { return []; }
         return Promise.all(images.map((_, i): any => this.get(i))) as Promise<void[]>;

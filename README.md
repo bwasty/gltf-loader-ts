@@ -50,7 +50,7 @@ For complete examples, see [examples/](examples/).
     - [`gltf`](https://bwasty.github.io/gltf-loader-ts/classes/gltfasset.html#gltf)
     - [`bufferViewData(index): Promise<ArrayBuffer>`](https://bwasty.github.io/gltf-loader-ts/classes/gltfasset.html#bufferviewdata)
     - [`imageData.get(index): Promise<HTMLImageElement>`](https://bwasty.github.io/gltf-loader-ts/classes/imagedata.html#get)
-    - [`fetchAll(): Promise<void[][]>`](https://bwasty.github.io/gltf-loader-ts/classes/gltfasset.html#fetchall)
+    - [`preFetchAll(): Promise<void[][]>`](https://bwasty.github.io/gltf-loader-ts/classes/gltfasset.html#prefetchall)
 
 ## Acknowledgements
 Much of the code was initially derived from [`THREE.GLTFLoader`](https://threejs.org/docs/#examples/loaders/GLTFLoader) and [three-gltf-viewer](https://github.com/donmccurdy/three-gltf-viewer).

@@ -27,7 +27,7 @@ export class GltfLoader {
 
     /**
      * Load glTF from a URL. Only the main file is loaded - external buffer and image files
-     * are loaded lazily when needed. To load all, you can use `GltfAsset.fetchAll()`
+     * are loaded lazily when needed. To load all, you can use `GltfAsset.preFetchAll()`
      */
     async load(url: string, onProgress?: (xhr: XMLHttpRequest) => void): Promise<GltfAsset> {
         // TODO!!!: test data URI here
@@ -45,7 +45,7 @@ export class GltfLoader {
      * This matches the format provided by [simple-dropzone](https://www.npmjs.com/package/simple-dropzone).
      * If you don't need support for directories/zip files, you can use `File.name` as the key.
      *
-     * Note that `fetchAll` is called on the result GltfAsset before returning it so that
+     * Note that `preFetchAll` is called on the result GltfAsset before returning it so that
      * the uploaded files can be garbage-collected immediately.
      */
     /* istanbul ignore next: relies too much on browser APIs; covered by drag-and-drop example */
@@ -87,7 +87,7 @@ export class GltfLoader {
         };
 
         const asset = await this.load(fileURL);
-        await asset.fetchAll(); // fetch all so the object urls can be released below
+        await asset.preFetchAll(); // fetch all so the object urls can be released below
 
         URL.revokeObjectURL(fileURL);
         blobURLs.forEach(URL.revokeObjectURL);
