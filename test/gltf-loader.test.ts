@@ -61,7 +61,7 @@ describe('gltf-loader', function() {
         const loader = new GltfLoader();
         const asset = await loader.load(SAMPLE_MODELS_BASE + 'Box/glTF-Embedded/Box.gltf');
         expect(asset.gltf.buffers[0].uri).to.match(/^data:application\/octet-stream;base64,AAA/);
-        // TODO!!: fails actually...but in the browser it works (-> issue with `xhr2`?)
+        // NOTE: fails actually...but in the browser it works (-> issue with `xhr2`?)
         // await expect_asset_to_be_standard_box(asset);
     });
 
@@ -205,7 +205,5 @@ describe('gltf-loader', function() {
         await promise;
         expect(img.src).to.match(/^data:image\/png;base64,iVBO/);
     });
-
-    // TODO!!: test loading from FileList (drag and drop)
 });
 

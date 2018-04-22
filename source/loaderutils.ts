@@ -4,7 +4,7 @@
 declare var TextDecoder: any;
 
 export class LoaderUtils {
-    static decodeText(array: ArrayLike<number>) {
+    static decodeText(array: ArrayLike<number>): string {
         /* istanbul ignore next */
         if (typeof TextDecoder !== 'undefined') {
             return new TextDecoder().decode(array);

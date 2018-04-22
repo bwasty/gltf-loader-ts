@@ -1,20 +1,22 @@
 import { FileLoader } from './fileloader';
+import { GLTFBinaryData } from './glb-decoder';
 import { GlTf, GlTfId } from './gltf';
-import { EXTENSIONS } from './gltf-loader';
 import { LoadingManager } from './loadingmanager';
 
 export class GltfAsset {
     /** The JSON part of the asset. */
     gltf: GlTf;
-    extensions: any;
+    glbData: GLTFBinaryData | undefined;
     /** Helper for accessing buffer data */
     bufferData: BufferData;
     /** Helper for accessing image data */
     imageData: ImageData;
 
-    constructor(gltf: GlTf, baseUri: string, extensions: any, manager: LoadingManager = new LoadingManager()) {
+    constructor(gltf: GlTf, baseUri: string, glbData: GLTFBinaryData | undefined,
+        manager: LoadingManager = new LoadingManager()) {
+
         this.gltf = gltf;
-        this.extensions = extensions;
+        this.glbData = glbData;
         this.bufferData = new BufferData(this, baseUri, manager);
         this.imageData = new ImageData(this, baseUri, manager);
     }
@@ -22,6 +24,7 @@ export class GltfAsset {
     /**
      * Fetch the data for a buffer view. Pass in the `bufferView` property of an
      * `Accessor`.
+     * NOTE: To avoid any unnessary copies, the data is returned as a `Uint8Array` instead of an `ArrayBuffer`.
      */
     async bufferViewData(index: GlTfId): Promise<Uint8Array> {
         if (!this.gltf.bufferViews) {
@@ -32,7 +35,14 @@ export class GltfAsset {
         const bufferData = await this.bufferData.get(bufferView.buffer);
         const byteLength = bufferView.byteLength || 0;
         const byteOffset = bufferView.byteOffset || 0;
-        return new Uint8Array(bufferData, byteOffset, byteLength);
+
+        // For GLB files, the 'base buffer' is the whole GLB file, including the json part.
+        // Therefore we have to consider bufferData's offset within its buffer it as well.
+        // For non-GLB files it will be 0.
+        const baseBuffer = bufferData.buffer;
+        const baseBufferByteOffset = bufferData.byteOffset;
+
+        return new Uint8Array(baseBuffer, baseBufferByteOffset + byteOffset, byteLength);
     }
 
     /** Pre-fetches all buffer and image data. Useful to avoid stalls due to lazy loading. */
@@ -51,7 +61,7 @@ export class BufferData {
     manager: LoadingManager;
     loader: FileLoader;
 
-    private bufferCache: Array<ArrayBuffer> = [];
+    private bufferCache: Array<Uint8Array> = [];
 
     constructor(asset: GltfAsset, baseUri: string, manager: LoadingManager) {
         this.asset = asset;
@@ -66,8 +76,9 @@ export class BufferData {
      * in an external .bin file and is accessed for the first time (cached afterwards).
      * when it's accessed for the first time and `preFetchAll` has not been used.
      * To avoid any delays, use `preFetchAll` to pre-fetch everything.
+     * NOTE: To avoid any unnessary copies, the data is returned as a `Uint8Array` instead of an `ArrayBuffer`.
      */
-    async get(index: GlTfId): Promise<ArrayBuffer> {
+    async get(index: GlTfId): Promise<Uint8Array> {
         if (this.bufferCache[index] !== undefined) {
             return this.bufferCache[index];
         }
@@ -82,13 +93,17 @@ export class BufferData {
         if (buffer.uri === undefined) {
             /* istanbul ignore next */
             if (index !== 0) { throw new Error('GLB container is required to be the first buffer'); }
-            return this.asset.extensions[EXTENSIONS.KHR_BINARY_GLTF].body;
+            if (this.asset.glbData === undefined) {
+                throw new Error('invalid gltf: buffer has no uri nor is there a GLB buffer');
+            }
+            return this.asset.glbData.binaryChunk;
         }
 
         const url = resolveURL(buffer.uri, this.baseUri);
-        const bufferData = await this.loader.load(url);
-        this.bufferCache[index] = bufferData;
-        return bufferData;
+        const bufferData: ArrayBuffer = await this.loader.load(url);
+        const bufferDataView = new Uint8Array(bufferData);
+        this.bufferCache[index] = bufferDataView;
+        return bufferDataView;
     }
 
     /** Pre-fetches all buffer data. */

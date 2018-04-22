@@ -2,7 +2,7 @@
 // https://github.com/mrdoob/three.js/blob/master/examples/js/loaders/GLTFLoader.js
 
 import { FileLoader } from './fileloader';
-import { BINARY_EXTENSION_HEADER_MAGIC, GLTFBinaryExtension } from './glb-decoder';
+import { BINARY_HEADER_MAGIC, GLTFBinaryData } from './glb-decoder';
 import { GltfAsset } from './gltf-asset';
 import { LoaderUtils } from './loaderutils';
 import { LoadingManager } from './loadingmanager';
@@ -30,7 +30,7 @@ export class GltfLoader {
      * are loaded lazily when needed. To load all, you can use `GltfAsset.preFetchAll()`
      */
     async load(url: string, onProgress?: (xhr: XMLHttpRequest) => void): Promise<GltfAsset> {
-        // TODO!!!: test data URI here
+        // TODO!!: test data URI here
         const path = LoaderUtils.extractUrlBase(url);
         // TODO!: allow changing loader options(headers etc.)?
         const loader = new FileLoader(this.manager);
@@ -95,17 +95,17 @@ export class GltfLoader {
         return asset;
     }
 
-    private async parse(data: any, path: any): Promise<GltfAsset> {
-        let content: any;
-        const extensions: {[k: string]: any} = {};
-
+    private async parse(data: ArrayBuffer, path: string): Promise<GltfAsset> {
+        let content: string;
+        // tslint:disable-next-line:no-unnecessary-initializer
+        let glbData: GLTFBinaryData | undefined = undefined;
         if (typeof data === 'string') {
             content = data;
         } else {
             const magic = LoaderUtils.decodeText(new Uint8Array(data, 0, 4));
-            if (magic === BINARY_EXTENSION_HEADER_MAGIC) {
-                extensions[EXTENSIONS.KHR_BINARY_GLTF] = new GLTFBinaryExtension(data);
-                content = extensions[EXTENSIONS.KHR_BINARY_GLTF].content;
+            if (magic === BINARY_HEADER_MAGIC) {
+                glbData = new GLTFBinaryData(data);
+                content = glbData.json;
             } else {
                 content = LoaderUtils.decodeText(new Uint8Array(data));
             }
@@ -117,15 +117,6 @@ export class GltfLoader {
             throw new Error('Unsupported asset. glTF versions >=2.0 are supported.');
         }
 
-        return new GltfAsset(
-            json,
-            path || '',
-            extensions,
-            this.manager,
-        );
+        return new GltfAsset(json, path, glbData, this.manager);
     }
 }
-
-export const EXTENSIONS = {
-    KHR_BINARY_GLTF: 'KHR_binary_glTF',
-};
