@@ -16,7 +16,6 @@ export * from './loadingmanager';
 /** Main class of the library */
 export class GltfLoader {
     private manager: LoadingManager;
-    // private crossOrigin: boolean; // TODO!: use/remove
 
     /**
      * Pass in a custom `LoadingManager` for progress reporting.

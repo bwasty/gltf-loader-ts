@@ -118,6 +118,8 @@ export class ImageData {
     asset: GltfAsset;
     baseUri: string;
     manager: LoadingManager;
+    /** crossorigin value for file and image requests */
+    crossOrigin = 'anonymous';
 
     private imageCache: Array<HTMLImageElement> = [];
 
@@ -160,6 +162,7 @@ export class ImageData {
         }
 
         const img = new Image();
+        img.crossOrigin = this.crossOrigin;
 
         const promise: Promise<HTMLImageElement> = new Promise((resolve, reject) => {
             img.onerror = () => {
@@ -175,7 +178,6 @@ export class ImageData {
                 resolve(img);
                 this.manager.itemEnd(sourceURI);
             };
-            // TODO!!: cross-origin?
             // TODO!: onprogress?
             img.src = sourceURI;
             this.manager.itemStart(sourceURI);
