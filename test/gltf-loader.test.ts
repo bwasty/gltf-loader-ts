@@ -15,7 +15,7 @@ import { LoadingManager } from '../source/loadingmanager';
 
 let SAMPLE_MODELS_BASE = 'https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/master/2.0/';
 if (process.env.SAMPLE_MODELS_BASE) {
-    // for faster tests, clone the sample models repo and start a `https-server` in the 2.0 directory
+    // for faster tests, clone the sample models repo and start a `http-server` in the 2.0 directory
     SAMPLE_MODELS_BASE = process.env.SAMPLE_MODELS_BASE;
 }
 
@@ -204,6 +204,14 @@ describe('gltf-loader', function() {
         img.onload();
         await promise;
         expect(img.src).to.match(/^data:image\/png;base64,iVBO/);
+    });
+
+    it('should handle duplicate requests gracefully', async function() {
+        const loader = new GltfLoader();
+        const asset = await loader.load(SAMPLE_MODELS_BASE + 'BoxTextured/glTF/BoxTextured.gltf');
+        const p1 = asset.bufferData.get(0);
+        const p2 = asset.bufferData.get(0);
+        expect(await p1).to.deep.equal(await p2);
     });
 });
 

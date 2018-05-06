@@ -13,6 +13,9 @@ export class FileLoader {
     withCredentials: boolean;
     mimeType: string;
     requestHeaders: { [k: string]: string } ;
+
+    private runningRequests: { [url: string]: Promise<XMLHttpRequestResponse>} = {};
+
     constructor(manager: LoadingManager) {
         this.manager = manager;
     }
@@ -20,7 +23,11 @@ export class FileLoader {
         if (this.path !== undefined) { url = this.path + url; }
         url = this.manager.resolveURL(url);
 
-        return new Promise((resolve, reject) => {
+        if (this.runningRequests[url]) {
+            return this.runningRequests[url];
+        }
+
+        const promise = new Promise((resolve, reject) => {
             // TODO!!: Check for data: URI
             // (-> Safari can not handle Data URIs through XMLHttpRequest so process manually)
 
@@ -50,6 +57,8 @@ export class FileLoader {
                     self.manager.itemEnd(url);
                     self.manager.itemError(url);
                 }
+
+                delete self.runningRequests[url];
             };
 
             xhr.onprogress = (xhr: any) => {
@@ -66,6 +75,8 @@ export class FileLoader {
                 });
                 self.manager.itemEnd(url);
                 self.manager.itemError(url);
+
+                delete self.runningRequests[url];
             };
 
             if (this.responseType) { xhr.responseType = this.responseType; }
@@ -82,6 +93,10 @@ export class FileLoader {
             xhr.send(null);
             this.manager.itemStart(url);
         });
+
+        this.runningRequests[url] = promise;
+
+        return promise;
     }
 
     setRequestHeader(key: string, value: string) {
