@@ -3,6 +3,27 @@ import { GLTFBinaryData } from './glb-decoder';
 import { GlTf, GlTfId } from './gltf';
 import { LoadingManager } from './loadingmanager';
 
+/** Spec: https://github.com/KhronosGroup/glTF/tree/master/specification/2.0#accessor-element-size */
+export const GLTF_COMPONENT_TYPE_ARRAYS: { [index: number]: any } = {
+    5120: Int8Array,
+    5121: Uint8Array,
+    5122: Int16Array,
+    5123: Uint16Array,
+    5125: Uint32Array,
+    5126: Float32Array,
+};
+
+/** Spec: https://github.com/KhronosGroup/glTF/tree/master/specification/2.0#accessor-element-size */
+export const GLTF_ELEMENTS_PER_TYPE: { [index: string]: number } = {
+    SCALAR: 1,
+    VEC2:   2,
+    VEC3:   3,
+    VEC4:   4,
+    MAT2:   4,
+    MAT3:   9,
+    MAT4:  16,
+};
+
 export class GltfAsset {
     /** The JSON part of the asset. */
     gltf: GlTf;
@@ -43,6 +64,57 @@ export class GltfAsset {
         const baseBufferByteOffset = bufferData.byteOffset;
 
         return new Uint8Array(baseBuffer, baseBufferByteOffset + byteOffset, byteLength);
+    }
+
+    /**
+     * Fetch the data associated with the accessor. Equivalent to `bufferViewData` for most accessors; special cases:
+     * - `accessor.bufferView` is undefined: create a buffer initialized with zeroes.
+     * - `accessor.sparse` is defined: Copy underlying buffer view and apply values from `sparse`.
+     */
+    async accessorData(index: GlTfId): Promise<Uint8Array> {
+        if (!this.gltf.accessors) {
+            /* istanbul ignore next */
+            throw new Error('No accessors views found.');
+        }
+        const acc = this.gltf.accessors[index];
+        const elementsPerType = GLTF_ELEMENTS_PER_TYPE[acc.type];
+        let data;
+        if (acc.bufferView !== undefined) {
+            data = await this.bufferViewData(acc.bufferView);
+        } else {
+            const byteSize = GLTF_COMPONENT_TYPE_ARRAYS[acc.componentType].BYTES_PER_ELEMENT *
+                elementsPerType *
+                acc.count;
+            data = new Uint8Array(byteSize);
+        }
+
+        if (acc.sparse) {
+            // parse sparse data
+            const {count, indices, values} = acc.sparse;
+            let typedArray = GLTF_COMPONENT_TYPE_ARRAYS[indices.componentType];
+            let bufferViewData = await this.bufferViewData(indices.bufferView);
+            const indexData = new typedArray(bufferViewData.buffer,
+                bufferViewData.byteOffset + (indices.byteOffset || 0), count);
+
+            typedArray = GLTF_COMPONENT_TYPE_ARRAYS[acc.componentType];
+            bufferViewData = await this.bufferViewData(values.bufferView);
+            const valueData = new typedArray((await this.bufferViewData(values.bufferView)).buffer,
+                bufferViewData.byteOffset + (values.byteOffset || 0), count * elementsPerType);
+
+            // copy base data and change it
+            if (acc.bufferView) { // no copy necessary if no bufferView since data was created above
+                data = new Uint8Array(data);
+            }
+
+            const typedData = new GLTF_COMPONENT_TYPE_ARRAYS[acc.componentType](data.buffer);
+            for (let i = 0; i < count; i++) {
+                for (let j = 0; j < elementsPerType; j++) {
+                    typedData[elementsPerType * indexData[i] + j] = valueData[elementsPerType * i + j];
+                }
+            }
+        }
+
+        return data;
     }
 
     /** Pre-fetches all buffer and image data. Useful to avoid stalls due to lazy loading. */

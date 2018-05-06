@@ -35,15 +35,13 @@
 
             // get the vertex data for the primitive
             let positionAccessorIndex = primitive.attributes.POSITION;
-            let positionAccessor = gltf.accessors[positionAccessorIndex]
-            let bufferViewIndex = positionAccessor.bufferView;
 
             //
             // Get the binary data, which might be in a .bin file that still has to be loaded,
             // in another part of the source GLB file, or embedded as a data URI.
             //
-            let data = await asset.bufferViewData(bufferViewIndex);
-            console.log("BufferView containing positions: ", data);
+            let data = await asset.accessorData(positionAccessorIndex);
+            console.log("Accessor containing positions: ", data);
             // For rendering, `data` can be bound via `gl.BindBuffer`,
             // and the accessor properties can be used with `gl.VertexAttribPointer`
 

@@ -33,7 +33,7 @@ let gltf: GlTf = asset.gltf;
 console.log(gltf);
 // -> {asset: {…}, scene: 0, scenes: Array(1), nodes: Array(2), meshes: Array(1), …}
 
-let data = await asset.bufferViewData(0); // fetches BoxTextured0.bin
+let data = await asset.accessorData(0); // fetches BoxTextured0.bin
 let image: Image = await asset.imageData.get(0) // fetches CesiumLogoFlat.png
 ```
 
@@ -49,6 +49,7 @@ For complete examples, see [examples/](examples/).
   - [`GltfAsset`](https://bwasty.github.io/gltf-loader-ts/classes/gltfasset.html)
     - [`gltf`](https://bwasty.github.io/gltf-loader-ts/classes/gltfasset.html#gltf)
     - [`bufferViewData(index): Promise<Uint8Array>`](https://bwasty.github.io/gltf-loader-ts/classes/gltfasset.html#bufferviewdata)
+    - [`accessorData(index): Promise<Uint8Array>`](https://bwasty.github.io/gltf-loader-ts/classes/gltfasset.html#accessordata)
     - [`imageData.get(index): Promise<HTMLImageElement>`](https://bwasty.github.io/gltf-loader-ts/classes/imagedata.html#get)
     - [`preFetchAll(): Promise<void[][]>`](https://bwasty.github.io/gltf-loader-ts/classes/gltfasset.html#prefetchall)
 

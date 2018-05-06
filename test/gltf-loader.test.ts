@@ -213,5 +213,31 @@ describe('gltf-loader', function() {
         const p2 = asset.bufferData.get(0);
         expect(await p1).to.deep.equal(await p2);
     });
+
+    it('should handle sparse accessors', async function() {
+        const loader = new GltfLoader();
+        const asset = await loader.load(SAMPLE_MODELS_BASE + 'SimpleSparseAccessor/glTF/SimpleSparseAccessor.gltf');
+        const data = await asset.accessorData(1); // = POSITION
+        // Source of correct values:
+        // https://github.com/KhronosGroup/glTF-Sample-Models/blob/master/2.0/SimpleSparseAccessor/README.md
+        const typed = new Float32Array(data.buffer, data.byteOffset);
+        // vertex 8 / 10 / 12
+        expect(typed[8 * 3 + 0]).to.equal(1);
+        expect(typed[8 * 3 + 1]).to.equal(2);
+        expect(typed[8 * 3 + 2]).to.equal(0);
+
+        expect(typed[10 * 3 + 0]).to.equal(3);
+        expect(typed[10 * 3 + 1]).to.equal(3);
+        expect(typed[10 * 3 + 2]).to.equal(0);
+
+        expect(typed[12 * 3 + 0]).to.equal(5);
+        expect(typed[12 * 3 + 1]).to.equal(4);
+        expect(typed[12 * 3 + 2]).to.equal(0);
+
+        // check an unchanged vertex
+        expect(typed[1 * 3 + 0]).to.equal(1);
+        expect(typed[1 * 3 + 1]).to.equal(0);
+        expect(typed[1 * 3 + 2]).to.equal(0);
+    });
 });
 
