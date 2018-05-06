@@ -26,7 +26,7 @@
         "simple-dropzone": "^0.5.2",
         "nyc": "~11.7.1",
         "ts-loader": "~4.0.1",
-        "ts-node": "~5.0.1",
+        "ts-node": "~6.0.0",
         "tslint": "~5.9.1",
         "typedoc": "~0.11.1",
         "webpack": "~4.6.0",
