@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>GLTFBinaryExtension | gltf-loader-ts</title>
+	<title>GLTFBinaryData | gltf-loader-ts</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -54,10 +54,10 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="gltfbinaryextension.html">GLTFBinaryExtension</a>
+					<a href="gltfbinarydata.html">GLTFBinaryData</a>
 				</li>
 			</ul>
-			<h1>Class GLTFBinaryExtension</h1>
+			<h1>Class GLTFBinaryData</h1>
 		</div>
 	</div>
 </header>
@@ -68,7 +68,7 @@
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="target">GLTFBinaryExtension</span>
+						<span class="target">GLTFBinaryData</span>
 					</li>
 				</ul>
 			</section>
@@ -79,16 +79,14 @@
 						<section class="tsd-index-section ">
 							<h3>Constructors</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-constructor tsd-parent-kind-class"><a href="gltfbinaryextension.html#constructor" class="tsd-kind-icon">constructor</a></li>
+								<li class="tsd-kind-constructor tsd-parent-kind-class"><a href="gltfbinarydata.html#constructor" class="tsd-kind-icon">constructor</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-class"><a href="gltfbinaryextension.html#body" class="tsd-kind-icon">body</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class"><a href="gltfbinaryextension.html#content" class="tsd-kind-icon">content</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class"><a href="gltfbinaryextension.html#header" class="tsd-kind-icon">header</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class"><a href="gltfbinaryextension.html#name" class="tsd-kind-icon">name</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="gltfbinarydata.html#binarychunk" class="tsd-kind-icon">binary<wbr>Chunk</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="gltfbinarydata.html#json" class="tsd-kind-icon">json</a></li>
 							</ul>
 						</section>
 					</div>
@@ -100,13 +98,13 @@
 					<a name="constructor" class="tsd-anchor"></a>
 					<h3>constructor</h3>
 					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">new GLTFBinary<wbr>Extension<span class="tsd-signature-symbol">(</span>data<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">ArrayBuffer</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="gltfbinaryextension.html" class="tsd-signature-type">GLTFBinaryExtension</a></li>
+						<li class="tsd-signature tsd-kind-icon">new GLTFBinary<wbr>Data<span class="tsd-signature-symbol">(</span>data<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">ArrayBuffer</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="gltfbinarydata.html" class="tsd-signature-type">GLTFBinaryData</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/bwasty/gltf-loader-ts/blob/7ae797f/source/glb-decoder.ts#L14">glb-decoder.ts:14</a></li>
+									<li>Defined in <a href="https://github.com/bwasty/gltf-loader-ts/blob/c76b995/source/glb-decoder.ts#L9">glb-decoder.ts:9</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -115,7 +113,7 @@
 									<h5>data: <span class="tsd-signature-type">ArrayBuffer</span></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="gltfbinaryextension.html" class="tsd-signature-type">GLTFBinaryExtension</a></h4>
+							<h4 class="tsd-returns-title">Returns <a href="gltfbinarydata.html" class="tsd-signature-type">GLTFBinaryData</a></h4>
 						</li>
 					</ul>
 				</section>
@@ -123,42 +121,22 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
-					<a name="body" class="tsd-anchor"></a>
-					<h3>body</h3>
-					<div class="tsd-signature tsd-kind-icon">body<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span></div>
+					<a name="binarychunk" class="tsd-anchor"></a>
+					<h3>binary<wbr>Chunk</h3>
+					<div class="tsd-signature tsd-kind-icon">binary<wbr>Chunk<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Uint8Array</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/bwasty/gltf-loader-ts/blob/7ae797f/source/glb-decoder.ts#L14">glb-decoder.ts:14</a></li>
+							<li>Defined in <a href="https://github.com/bwasty/gltf-loader-ts/blob/c76b995/source/glb-decoder.ts#L9">glb-decoder.ts:9</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
-					<a name="content" class="tsd-anchor"></a>
-					<h3>content</h3>
-					<div class="tsd-signature tsd-kind-icon">content<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span></div>
+					<a name="json" class="tsd-anchor"></a>
+					<h3>json</h3>
+					<div class="tsd-signature tsd-kind-icon">json<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/bwasty/gltf-loader-ts/blob/7ae797f/source/glb-decoder.ts#L12">glb-decoder.ts:12</a></li>
-						</ul>
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
-					<a name="header" class="tsd-anchor"></a>
-					<h3>header</h3>
-					<div class="tsd-signature tsd-kind-icon">header<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/bwasty/gltf-loader-ts/blob/7ae797f/source/glb-decoder.ts#L13">glb-decoder.ts:13</a></li>
-						</ul>
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
-					<a name="name" class="tsd-anchor"></a>
-					<h3>name</h3>
-					<div class="tsd-signature tsd-kind-icon">name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> =&nbsp;EXTENSIONS.KHR_BINARY_GLTF</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/bwasty/gltf-loader-ts/blob/7ae797f/source/glb-decoder.ts#L11">glb-decoder.ts:11</a></li>
+							<li>Defined in <a href="https://github.com/bwasty/gltf-loader-ts/blob/c76b995/source/glb-decoder.ts#L8">glb-decoder.ts:8</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -177,22 +155,16 @@
 				</ul>
 				<ul class="current">
 					<li class="current tsd-kind-class">
-						<a href="gltfbinaryextension.html" class="tsd-kind-icon">GLTFBinary<wbr>Extension</a>
+						<a href="gltfbinarydata.html" class="tsd-kind-icon">GLTFBinary<wbr>Data</a>
 						<ul>
 							<li class=" tsd-kind-constructor tsd-parent-kind-class">
-								<a href="gltfbinaryextension.html#constructor" class="tsd-kind-icon">constructor</a>
+								<a href="gltfbinarydata.html#constructor" class="tsd-kind-icon">constructor</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class">
-								<a href="gltfbinaryextension.html#body" class="tsd-kind-icon">body</a>
+								<a href="gltfbinarydata.html#binarychunk" class="tsd-kind-icon">binary<wbr>Chunk</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class">
-								<a href="gltfbinaryextension.html#content" class="tsd-kind-icon">content</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class">
-								<a href="gltfbinaryextension.html#header" class="tsd-kind-icon">header</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class">
-								<a href="gltfbinaryextension.html#name" class="tsd-kind-icon">name</a>
+								<a href="gltfbinarydata.html#json" class="tsd-kind-icon">json</a>
 							</li>
 						</ul>
 					</li>

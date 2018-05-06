@@ -95,8 +95,8 @@
 						<section class="tsd-index-section ">
 							<h3>Methods</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="bufferdata.html#fetchall" class="tsd-kind-icon">fetch<wbr>All</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="bufferdata.html#get" class="tsd-kind-icon">get</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="bufferdata.html#prefetchall" class="tsd-kind-icon">pre<wbr>Fetch<wbr>All</a></li>
 							</ul>
 						</section>
 					</div>
@@ -114,7 +114,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/bwasty/gltf-loader-ts/blob/7ae797f/source/gltf-asset.ts#L54">gltf-asset.ts:54</a></li>
+									<li>Defined in <a href="https://github.com/bwasty/gltf-loader-ts/blob/c76b995/source/gltf-asset.ts#L136">gltf-asset.ts:136</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -142,7 +142,7 @@
 					<div class="tsd-signature tsd-kind-icon">asset<span class="tsd-signature-symbol">:</span> <a href="gltfasset.html" class="tsd-signature-type">GltfAsset</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/bwasty/gltf-loader-ts/blob/7ae797f/source/gltf-asset.ts#L49">gltf-asset.ts:49</a></li>
+							<li>Defined in <a href="https://github.com/bwasty/gltf-loader-ts/blob/c76b995/source/gltf-asset.ts#L131">gltf-asset.ts:131</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -152,17 +152,17 @@
 					<div class="tsd-signature tsd-kind-icon">base<wbr>Uri<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/bwasty/gltf-loader-ts/blob/7ae797f/source/gltf-asset.ts#L50">gltf-asset.ts:50</a></li>
+							<li>Defined in <a href="https://github.com/bwasty/gltf-loader-ts/blob/c76b995/source/gltf-asset.ts#L132">gltf-asset.ts:132</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
 					<a name="buffercache" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagPrivate">Private</span> buffer<wbr>Cache</h3>
-					<div class="tsd-signature tsd-kind-icon">buffer<wbr>Cache<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">ArrayBuffer</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> =&nbsp;[]</span></div>
+					<div class="tsd-signature tsd-kind-icon">buffer<wbr>Cache<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Uint8Array</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> =&nbsp;[]</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/bwasty/gltf-loader-ts/blob/7ae797f/source/gltf-asset.ts#L54">gltf-asset.ts:54</a></li>
+							<li>Defined in <a href="https://github.com/bwasty/gltf-loader-ts/blob/c76b995/source/gltf-asset.ts#L136">gltf-asset.ts:136</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -172,7 +172,7 @@
 					<div class="tsd-signature tsd-kind-icon">loader<span class="tsd-signature-symbol">:</span> <a href="fileloader.html" class="tsd-signature-type">FileLoader</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/bwasty/gltf-loader-ts/blob/7ae797f/source/gltf-asset.ts#L52">gltf-asset.ts:52</a></li>
+							<li>Defined in <a href="https://github.com/bwasty/gltf-loader-ts/blob/c76b995/source/gltf-asset.ts#L134">gltf-asset.ts:134</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -182,7 +182,7 @@
 					<div class="tsd-signature tsd-kind-icon">manager<span class="tsd-signature-symbol">:</span> <a href="loadingmanager.html" class="tsd-signature-type">LoadingManager</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/bwasty/gltf-loader-ts/blob/7ae797f/source/gltf-asset.ts#L51">gltf-asset.ts:51</a></li>
+							<li>Defined in <a href="https://github.com/bwasty/gltf-loader-ts/blob/c76b995/source/gltf-asset.ts#L133">gltf-asset.ts:133</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -190,46 +190,25 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Methods</h2>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
-					<a name="fetchall" class="tsd-anchor"></a>
-					<h3>fetch<wbr>All</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">fetch<wbr>All<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/bwasty/gltf-loader-ts/blob/7ae797f/source/gltf-asset.ts#L95">gltf-asset.ts:95</a></li>
-								</ul>
-							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Pre-fetches all buffer data.</p>
-								</div>
-							</div>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></h4>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
 					<a name="get" class="tsd-anchor"></a>
 					<h3>get</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">get<span class="tsd-signature-symbol">(</span>index<span class="tsd-signature-symbol">: </span><a href="../globals.html#gltfid" class="tsd-signature-type">GlTfId</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">ArrayBuffer</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">get<span class="tsd-signature-symbol">(</span>index<span class="tsd-signature-symbol">: </span><a href="../globals.html#gltfid" class="tsd-signature-type">GlTfId</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Uint8Array</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/bwasty/gltf-loader-ts/blob/7ae797f/source/gltf-asset.ts#L70">gltf-asset.ts:70</a></li>
+									<li>Defined in <a href="https://github.com/bwasty/gltf-loader-ts/blob/c76b995/source/gltf-asset.ts#L153">gltf-asset.ts:153</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
 									<p>Get the buffer data. Triggers a network request if this buffer resides
 										in an external .bin file and is accessed for the first time (cached afterwards).
-										when it&#39;s accessed for the first time and <code>fetchAll</code> has not been used.
-									To avoid any delays, use <code>fetchAll</code> to pre-fetch everything.</p>
+										when it&#39;s accessed for the first time and <code>preFetchAll</code> has not been used.
+										To avoid any delays, use <code>preFetchAll</code> to pre-fetch everything.
+									NOTE: To avoid any unnessary copies, the data is returned as a <code>Uint8Array</code> instead of an <code>ArrayBuffer</code>.</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -238,7 +217,29 @@
 									<h5>index: <a href="../globals.html#gltfid" class="tsd-signature-type">GlTfId</a></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">ArrayBuffer</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Uint8Array</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="prefetchall" class="tsd-anchor"></a>
+					<h3>pre<wbr>Fetch<wbr>All</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">pre<wbr>Fetch<wbr>All<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/bwasty/gltf-loader-ts/blob/c76b995/source/gltf-asset.ts#L182">gltf-asset.ts:182</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Pre-fetches all buffer data.</p>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -278,10 +279,10 @@
 								<a href="bufferdata.html#manager" class="tsd-kind-icon">manager</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="bufferdata.html#fetchall" class="tsd-kind-icon">fetch<wbr>All</a>
+								<a href="bufferdata.html#get" class="tsd-kind-icon">get</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="bufferdata.html#get" class="tsd-kind-icon">get</a>
+								<a href="bufferdata.html#prefetchall" class="tsd-kind-icon">pre<wbr>Fetch<wbr>All</a>
 							</li>
 						</ul>
 					</li>

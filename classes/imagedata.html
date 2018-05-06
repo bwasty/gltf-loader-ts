@@ -87,6 +87,7 @@
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="imagedata.html#asset" class="tsd-kind-icon">asset</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="imagedata.html#baseuri" class="tsd-kind-icon">base<wbr>Uri</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="imagedata.html#crossorigin" class="tsd-kind-icon">cross<wbr>Origin</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="imagedata.html#imagecache" class="tsd-kind-icon">image<wbr>Cache</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="imagedata.html#manager" class="tsd-kind-icon">manager</a></li>
 							</ul>
@@ -94,8 +95,8 @@
 						<section class="tsd-index-section ">
 							<h3>Methods</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="imagedata.html#fetchall" class="tsd-kind-icon">fetch<wbr>All</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="imagedata.html#get" class="tsd-kind-icon">get</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="imagedata.html#prefetchall" class="tsd-kind-icon">pre<wbr>Fetch<wbr>All</a></li>
 							</ul>
 						</section>
 					</div>
@@ -113,7 +114,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/bwasty/gltf-loader-ts/blob/7ae797f/source/gltf-asset.ts#L107">gltf-asset.ts:107</a></li>
+									<li>Defined in <a href="https://github.com/bwasty/gltf-loader-ts/blob/c76b995/source/gltf-asset.ts#L196">gltf-asset.ts:196</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -141,7 +142,7 @@
 					<div class="tsd-signature tsd-kind-icon">asset<span class="tsd-signature-symbol">:</span> <a href="gltfasset.html" class="tsd-signature-type">GltfAsset</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/bwasty/gltf-loader-ts/blob/7ae797f/source/gltf-asset.ts#L103">gltf-asset.ts:103</a></li>
+							<li>Defined in <a href="https://github.com/bwasty/gltf-loader-ts/blob/c76b995/source/gltf-asset.ts#L190">gltf-asset.ts:190</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -151,9 +152,24 @@
 					<div class="tsd-signature tsd-kind-icon">base<wbr>Uri<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/bwasty/gltf-loader-ts/blob/7ae797f/source/gltf-asset.ts#L104">gltf-asset.ts:104</a></li>
+							<li>Defined in <a href="https://github.com/bwasty/gltf-loader-ts/blob/c76b995/source/gltf-asset.ts#L191">gltf-asset.ts:191</a></li>
 						</ul>
 					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="crossorigin" class="tsd-anchor"></a>
+					<h3>cross<wbr>Origin</h3>
+					<div class="tsd-signature tsd-kind-icon">cross<wbr>Origin<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> =&nbsp;&quot;anonymous&quot;</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/bwasty/gltf-loader-ts/blob/c76b995/source/gltf-asset.ts#L194">gltf-asset.ts:194</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>crossorigin value for file and image requests</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
 					<a name="imagecache" class="tsd-anchor"></a>
@@ -161,7 +177,7 @@
 					<div class="tsd-signature tsd-kind-icon">image<wbr>Cache<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">HTMLImageElement</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> =&nbsp;[]</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/bwasty/gltf-loader-ts/blob/7ae797f/source/gltf-asset.ts#L107">gltf-asset.ts:107</a></li>
+							<li>Defined in <a href="https://github.com/bwasty/gltf-loader-ts/blob/c76b995/source/gltf-asset.ts#L196">gltf-asset.ts:196</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -171,35 +187,13 @@
 					<div class="tsd-signature tsd-kind-icon">manager<span class="tsd-signature-symbol">:</span> <a href="loadingmanager.html" class="tsd-signature-type">LoadingManager</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/bwasty/gltf-loader-ts/blob/7ae797f/source/gltf-asset.ts#L105">gltf-asset.ts:105</a></li>
+							<li>Defined in <a href="https://github.com/bwasty/gltf-loader-ts/blob/c76b995/source/gltf-asset.ts#L192">gltf-asset.ts:192</a></li>
 						</ul>
 					</aside>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Methods</h2>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
-					<a name="fetchall" class="tsd-anchor"></a>
-					<h3>fetch<wbr>All</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">fetch<wbr>All<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/bwasty/gltf-loader-ts/blob/7ae797f/source/gltf-asset.ts#L173">gltf-asset.ts:173</a></li>
-								</ul>
-							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Pre-fetches all image data.</p>
-								</div>
-							</div>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></h4>
-						</li>
-					</ul>
-				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
 					<a name="get" class="tsd-anchor"></a>
 					<h3>get</h3>
@@ -210,14 +204,14 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/bwasty/gltf-loader-ts/blob/7ae797f/source/gltf-asset.ts#L120">gltf-asset.ts:120</a></li>
+									<li>Defined in <a href="https://github.com/bwasty/gltf-loader-ts/blob/c76b995/source/gltf-asset.ts#L209">gltf-asset.ts:209</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
 									<p>Get the image data. Triggers a network request if image is in an external file
 										and is accessed for the first time (cached afterwards). To avoid any delays,
-									use <code>fetchAll</code> to pre-fetch everything.</p>
+									use <code>preFetchAll</code> to pre-fetch everything.</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -227,6 +221,28 @@
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">HTMLImageElement</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="prefetchall" class="tsd-anchor"></a>
+					<h3>pre<wbr>Fetch<wbr>All</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">pre<wbr>Fetch<wbr>All<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/bwasty/gltf-loader-ts/blob/c76b995/source/gltf-asset.ts#L262">gltf-asset.ts:262</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Pre-fetches all image data.</p>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -256,6 +272,9 @@
 							<li class=" tsd-kind-property tsd-parent-kind-class">
 								<a href="imagedata.html#baseuri" class="tsd-kind-icon">base<wbr>Uri</a>
 							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="imagedata.html#crossorigin" class="tsd-kind-icon">cross<wbr>Origin</a>
+							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
 								<a href="imagedata.html#imagecache" class="tsd-kind-icon">image<wbr>Cache</a>
 							</li>
@@ -263,10 +282,10 @@
 								<a href="imagedata.html#manager" class="tsd-kind-icon">manager</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="imagedata.html#fetchall" class="tsd-kind-icon">fetch<wbr>All</a>
+								<a href="imagedata.html#get" class="tsd-kind-icon">get</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="imagedata.html#get" class="tsd-kind-icon">get</a>
+								<a href="imagedata.html#prefetchall" class="tsd-kind-icon">pre<wbr>Fetch<wbr>All</a>
 							</li>
 						</ul>
 					</li>

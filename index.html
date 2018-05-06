@@ -96,7 +96,7 @@
 <span class="hljs-built_in">console</span>.log(gltf);
 <span class="hljs-comment">// -&gt; {asset: {…}, scene: 0, scenes: Array(1), nodes: Array(2), meshes: Array(1), …}</span>
 
-<span class="hljs-keyword">let</span> data = <span class="hljs-keyword">await</span> asset.bufferViewData(<span class="hljs-number">0</span>); <span class="hljs-comment">// fetches BoxTextured0.bin</span>
+<span class="hljs-keyword">let</span> data = <span class="hljs-keyword">await</span> asset.accessorData(<span class="hljs-number">0</span>); <span class="hljs-comment">// fetches BoxTextured0.bin</span>
 <span class="hljs-keyword">let</span> image: Image = <span class="hljs-keyword">await</span> asset.imageData.get(<span class="hljs-number">0</span>) <span class="hljs-comment">// fetches CesiumLogoFlat.png</span>
 </code></pre>
 				<p>For complete examples, see <a href="examples/">examples/</a>.</p>
@@ -112,9 +112,10 @@
 							</li>
 							<li><a href="https://bwasty.github.io/gltf-loader-ts/classes/gltfasset.html"><code>GltfAsset</code></a><ul>
 									<li><a href="https://bwasty.github.io/gltf-loader-ts/classes/gltfasset.html#gltf"><code>gltf</code></a></li>
-									<li><a href="https://bwasty.github.io/gltf-loader-ts/classes/gltfasset.html#bufferviewdata"><code>bufferViewData(index): Promise&lt;ArrayBuffer&gt;</code></a></li>
+									<li><a href="https://bwasty.github.io/gltf-loader-ts/classes/gltfasset.html#bufferviewdata"><code>bufferViewData(index): Promise&lt;Uint8Array&gt;</code></a></li>
+									<li><a href="https://bwasty.github.io/gltf-loader-ts/classes/gltfasset.html#accessordata"><code>accessorData(index): Promise&lt;Uint8Array&gt;</code></a></li>
 									<li><a href="https://bwasty.github.io/gltf-loader-ts/classes/imagedata.html#get"><code>imageData.get(index): Promise&lt;HTMLImageElement&gt;</code></a></li>
-									<li><a href="https://bwasty.github.io/gltf-loader-ts/classes/gltfasset.html#fetchall"><code>fetchAll(): Promise&lt;void[][]&gt;</code></a></li>
+									<li><a href="https://bwasty.github.io/gltf-loader-ts/classes/gltfasset.html#prefetchall"><code>preFetchAll(): Promise&lt;void[][]&gt;</code></a></li>
 								</ul>
 							</li>
 						</ul>
@@ -141,7 +142,7 @@
 						<a href="classes/fileloader.html" class="tsd-kind-icon">File<wbr>Loader</a>
 					</li>
 					<li class=" tsd-kind-class">
-						<a href="classes/gltfbinaryextension.html" class="tsd-kind-icon">GLTFBinary<wbr>Extension</a>
+						<a href="classes/gltfbinarydata.html" class="tsd-kind-icon">GLTFBinary<wbr>Data</a>
 					</li>
 					<li class=" tsd-kind-class">
 						<a href="classes/gltfasset.html" class="tsd-kind-icon">Gltf<wbr>Asset</a>
@@ -255,10 +256,10 @@
 						<a href="globals.html#xmlhttprequestresponse" class="tsd-kind-icon">XMLHttp<wbr>Request<wbr>Response</a>
 					</li>
 					<li class=" tsd-kind-variable tsd-is-not-exported">
-						<a href="globals.html#binary_extension_header_length" class="tsd-kind-icon">BINARY_<wbr>EXTENSION_<wbr>HEADER_<wbr>LENGTH</a>
+						<a href="globals.html#binary_header_length" class="tsd-kind-icon">BINARY_<wbr>HEADER_<wbr>LENGTH</a>
 					</li>
 					<li class=" tsd-kind-variable">
-						<a href="globals.html#binary_extension_header_magic" class="tsd-kind-icon">BINARY_<wbr>EXTENSION_<wbr>HEADER_<wbr>MAGIC</a>
+						<a href="globals.html#binary_header_magic" class="tsd-kind-icon">BINARY_<wbr>HEADER_<wbr>MAGIC</a>
 					</li>
 					<li class=" tsd-kind-variable tsd-is-not-exported">
 						<a href="globals.html#textdecoder" class="tsd-kind-icon">Text<wbr>Decoder</a>
@@ -267,10 +268,13 @@
 						<a href="globals.html#resolveurl" class="tsd-kind-icon">resolveURL</a>
 					</li>
 					<li class=" tsd-kind-object-literal tsd-is-not-exported">
-						<a href="globals.html#binary_extension_chunk_types" class="tsd-kind-icon">BINARY_<wbr>EXTENSION_<wbr>CHUNK_<wbr>TYPES</a>
+						<a href="globals.html#binary_chunk_types" class="tsd-kind-icon">BINARY_<wbr>CHUNK_<wbr>TYPES</a>
 					</li>
 					<li class=" tsd-kind-object-literal">
-						<a href="globals.html#extensions" class="tsd-kind-icon">EXTENSIONS</a>
+						<a href="globals.html#gltf_component_type_arrays" class="tsd-kind-icon">GLTF_<wbr>COMPONENT_<wbr>TYPE_<wbr>ARRAYS</a>
+					</li>
+					<li class=" tsd-kind-object-literal">
+						<a href="globals.html#gltf_elements_per_type" class="tsd-kind-icon">GLTF_<wbr>ELEMENTS_<wbr>PER_<wbr>TYPE</a>
 					</li>
 				</ul>
 			</nav>
