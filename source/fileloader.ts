@@ -50,6 +50,7 @@ export class FileLoader {
                     self.manager.itemEnd(url);
                 } else {
                     reject({
+                        url,
                         status: this.status,
                         statusText: xhr.statusText,
                     });
@@ -70,6 +71,7 @@ export class FileLoader {
             /* istanbul ignore next */
             xhr.onerror = function(event: ErrorEvent) {
                 reject({
+                    url,
                     status: this.status,
                     statusText: xhr.statusText,
                 });
