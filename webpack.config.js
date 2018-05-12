@@ -42,3 +42,8 @@ module.exports = {
         ]
     }
 };
+
+if (process.env.ANALYZE) {
+    const analyzer = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+    module.exports.plugins.push(new analyzer());
+}
