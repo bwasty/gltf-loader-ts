@@ -24,7 +24,7 @@
         "mocha-junit-reporter": "~1.17.0",
         "mocha-multi-reporters": "~1.1.7",
         "simple-dropzone": "^0.5.3",
-        "nyc": "~11.7.1",
+        "nyc": "~11.8.0",
         "ts-loader": "~4.2.0",
         "ts-node": "~5.0.1",
         "tslint": "~5.10.0",
