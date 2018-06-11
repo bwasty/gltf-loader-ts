@@ -87,7 +87,11 @@ describe('gltf-loader', function() {
             await loader.load(SAMPLE_MODELS_BASE + 'this/should/404');
             throw new Error('this should have failed.');
         } catch (error) {
-            expect(error).to.eql({ status: 404, statusText: 'Not Found' });
+            expect(error).to.eql({
+                status: 404,
+                statusText: 'Not Found',
+                url: SAMPLE_MODELS_BASE + 'this/should/404',
+            });
         }
     });
 
