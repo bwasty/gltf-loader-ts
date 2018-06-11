@@ -1,6 +1,7 @@
 // Originally derived from THREE.GLTFLoader
 // https://github.com/mrdoob/three.js/blob/master/examples/js/loaders/GLTFLoader.js
 
+import * as Validator from 'gltf-validator';
 import { FileLoader } from './fileloader';
 import { BINARY_HEADER_MAGIC, GLTFBinaryData } from './glb-decoder';
 import { GltfAsset } from './gltf-asset';
@@ -16,6 +17,7 @@ export * from './loadingmanager';
 /** Main class of the library */
 export class GltfLoader {
     private manager: LoadingManager;
+    private validate = false;
 
     /**
      * Pass in a custom `LoadingManager` for progress reporting.
@@ -24,6 +26,9 @@ export class GltfLoader {
         this.manager = manager || new LoadingManager();
     }
 
+    enableValidation() {
+        this.validate = true;
+    }
     /**
      * Load glTF from a URL. Only the main file is loaded - external buffer and image files
      * are loaded lazily when needed. To load all, you can use `GltfAsset.preFetchAll()`
@@ -34,7 +39,15 @@ export class GltfLoader {
         // TODO!: allow changing loader options(headers etc.)?
         const loader = new FileLoader(this.manager);
         loader.responseType = 'arraybuffer';
-        const data = await loader.load(url, onProgress);
+        const data: ArrayBuffer = await loader.load(url, onProgress);
+        if (this.validate) {
+            try {
+                const report = await Validator.validateBytes(new Uint8Array(data));
+                console.log('Validation succeeded: ', report);
+            } catch (e) {
+                console.error('Validation failed: ', e);
+            }
+        }
         return await this.parse(data, path);
     }
 

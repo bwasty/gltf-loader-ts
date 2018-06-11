@@ -21,6 +21,7 @@
         "cross-env": "~5.1.5",
         "gh-pages": "~1.1.0",
         "gltf-typescript-generator": "~0.0.3",
+        "gltf-validator": "^2.0.0-dev.2.1",
         "mocha": "~5.1.1",
         "mocha-junit-reporter": "~1.17.0",
         "mocha-multi-reporters": "~1.1.7",

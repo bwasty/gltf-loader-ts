@@ -7,7 +7,8 @@
     //
     // Load asset
     //
-    let loader = new GltfLoader.GltfLoader()
+    let loader = new GltfLoader.GltfLoader();
+    loader.enableValidation();
     try {
         let asset = await loader.load(
             model_url,
