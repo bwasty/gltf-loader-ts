@@ -33,7 +33,7 @@
         "typescript": "~2.9.1",
         "webpack": "~4.12.0",
         "webpack-bundle-analyzer": "~2.13.1",
-        "webpack-cli": "~3.0.3",
+        "webpack-cli": "~3.1.0",
         "xhr2": "~0.1.4"
     },
     "dependencies": {},
