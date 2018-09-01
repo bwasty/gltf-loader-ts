@@ -22,7 +22,7 @@
         "gh-pages": "~1.2.0",
         "gltf-typescript-generator": "~0.0.3",
         "mocha": "~5.2.0",
-        "mocha-junit-reporter": "~1.17.0",
+        "mocha-junit-reporter": "~1.18.0",
         "mocha-multi-reporters": "~1.1.7",
         "nyc": "~12.0.2",
         "simple-dropzone": "~0.5.3",
